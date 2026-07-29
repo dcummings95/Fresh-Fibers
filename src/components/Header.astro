@@ -214,9 +214,16 @@ function isActive(href: string, path: string) {
     font-weight: var(--ff-weight-bold);
   }
 
+  .nav-links a.btn {
+    color: var(--ff-on-navy);
+  }
+
   .nav-links > a:not(.phone):not(.btn),
   .nav-item > a {
     position: relative;
+    display: inline-flex;
+    align-items: center;
+    height: 100%;
     padding-bottom: 3px;
   }
 

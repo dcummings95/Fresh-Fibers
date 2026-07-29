@@ -28,3 +28,4 @@ CLAUDE.md
 README.md
 Claude-Design-Dump/*
 .claude/*
+.claude/settings.local.json
