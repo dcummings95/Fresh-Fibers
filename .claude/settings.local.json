@@ -41,7 +41,10 @@
       "Bash(curl -s -o /tmp/hero.webp -w \"status:%{http_code} size:%{size_download}\\\\n\" \"http://localhost:4321/_image?href=%2F%40fs%2FC%3A%2FUsers%2Fdomin%2Ffresh-fibers%2Fsrc%2Fassets%2Fimages%2Fff-hero.jpg%3ForigWidth%3D5000%26origHeight%3D4000%26origFormat%3Djpg&w=1000&h=800&f=webp\")",
       "Bash(astro dev *)",
       "Bash(grep -o \"location-carousel.\\\\{0,400\\\\}\")",
-      "Bash(grep -o \"location-carousel.\\\\{0,600\\\\}\")"
+      "Bash(grep -o \"location-carousel.\\\\{0,600\\\\}\")",
+      "Bash(npm ls *)",
+      "Bash(command -v chromium-cli)",
+      "Bash(chromium-cli --help)"
     ]
   }
 }
