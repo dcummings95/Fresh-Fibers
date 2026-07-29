@@ -1,0 +1,31 @@
+{
+  "slug": "auto-boat",
+  "route": "auto-boat",
+  "pricingFile": "auto-boat",
+  "navLabel": "Auto & boat interiors",
+  "eyebrow": "Auto & boat interiors",
+  "h1Plain": "A cabin that feels ",
+  "h1Accent": "showroom-clean.",
+  "lead": "Shampooed seats and carpets, spot-treated stains, and a genuinely fresh-smelling interior — mobile service that comes to your driveway or the landing, for cars, trucks, SUVs, and boats.",
+  "startingAtLabel": "Starting at",
+  "startingAtUnit": "per car",
+  "photoLabel": "AUTO INTERIOR PHOTO",
+  "cardPriceLabel": "from",
+  "cardUnit": "/ car",
+  "cardDescription": "Shampooed seats and carpets, spot-treated stains — mobile service that comes to your driveway or the landing.",
+  "homeDescription": "Seats and carpets in the car or the boat, cleaned up right.",
+  "whatsIncluded": [
+    { "label": "Vacuum & prep", "description": "A thorough vacuum of seats, carpets, mats, and all the crevices comes first." },
+    { "label": "Seat & carpet shampoo", "description": "Upholstery and carpets are shampooed and extracted to pull out stains and grime." },
+    { "label": "Stain & odor treatment", "description": "Spills, spots, and lingering smells get treated so the interior smells clean again." },
+    { "label": "I come to you", "description": "Mobile service — I clean it in your driveway or at the landing, on your schedule." }
+  ],
+  "faq": [
+    { "q": "Do I need to bring it somewhere?", "a": "No — I'm mobile. I come to your home or the boat landing, as long as there's room to work and a water source nearby." },
+    { "q": "How long does it take?", "a": "A car interior runs about 2 to 3 hours. Larger vehicles and boats take longer." },
+    { "q": "Can you get out set-in stains and smells?", "a": "Most of them, yes — including pet and food odors. Deep stains I'll be honest about up front." },
+    { "q": "How long until it's dry?", "a": "A few hours with the windows cracked or a fan going. I extract as much moisture as I can so it's not left soaking." }
+  ],
+  "ctaHeadline": "Ready for a cleaner ride?",
+  "beforeAfterCopy": "Real interior jobs from around Winona — photos coming soon."
+}

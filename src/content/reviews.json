@@ -1,0 +1,10 @@
+{
+  "placeholder": true,
+  "note": "Sample reviews — replace with real Google reviews once the Business Profile is live. See googleReviewUrl in site.json.",
+  "aggregateRating": 5.0,
+  "reviews": [
+    { "name": "Sarah M.", "when": "2 weeks ago", "rating": 5, "text": "Augie got out a stain I was sure we'd live with forever. On time, friendly, and the carpets look great." },
+    { "name": "Dave R.", "when": "1 month ago", "rating": 5, "text": "Booked online at night and he confirmed the next morning. Easy to work with and my couch looks new." },
+    { "name": "Linda K.", "when": "1 month ago", "rating": 5, "text": "Fair price and no upselling. He explained what he was doing and left the rooms looking brand new." }
+  ]
+}

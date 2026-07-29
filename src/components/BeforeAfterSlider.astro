@@ -1,0 +1,123 @@
+---
+interface Props {
+  beforeLabel?: string;
+  afterLabel?: string;
+}
+
+const {
+  beforeLabel = 'BEFORE · real photo coming soon',
+  afterLabel = 'AFTER · real photo coming soon',
+} = Astro.props;
+---
+
+<div
+  class="ba-slider"
+  data-ba-slider
+  tabindex="0"
+  role="slider"
+  aria-label="Drag to compare before and after"
+  aria-valuemin="0"
+  aria-valuemax="100"
+  aria-valuenow="50"
+  style="--pos: 50%"
+>
+  <div class="layer after">
+    <span>{afterLabel}</span>
+  </div>
+  <div class="layer before" data-ba-before>
+    <span>{beforeLabel}</span>
+  </div>
+  <div class="tag tag-before">BEFORE</div>
+  <div class="tag tag-after">AFTER</div>
+  <div class="handle" data-ba-handle>
+    <div class="grip">‹›</div>
+  </div>
+</div>
+
+<script src="../scripts/before-after.js"></script>
+
+<style>
+  .ba-slider {
+    position: relative;
+    aspect-ratio: 16 / 9;
+    max-height: 520px;
+    border-radius: var(--ff-radius-note);
+    overflow: hidden;
+    border: 1px solid var(--ff-photo-bg);
+    cursor: ew-resize;
+    user-select: none;
+    touch-action: none;
+  }
+
+  .layer {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: var(--ff-size-caption);
+  }
+
+  .layer.after {
+    background: var(--ff-band-blue);
+    color: var(--ff-photo-text);
+  }
+
+  .layer.before {
+    background: #e7ddcb;
+    color: #8a7d63;
+    clip-path: inset(0 calc(100% - var(--pos)) 0 0);
+  }
+
+  .tag {
+    position: absolute;
+    top: 14px;
+    background: var(--ff-navy);
+    color: #fff;
+    font-size: var(--ff-size-micro);
+    font-weight: var(--ff-weight-semibold);
+    padding: 4px 10px;
+    border-radius: 5px;
+    pointer-events: none;
+  }
+
+  .tag-before {
+    left: 14px;
+  }
+
+  .tag-after {
+    right: 14px;
+    background: var(--ff-azure);
+  }
+
+  .handle {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: var(--pos);
+    width: 2px;
+    background: #fff;
+    transform: translateX(-50%);
+    box-shadow: 0 0 0 1px rgba(22, 53, 115, 0.2);
+    pointer-events: none;
+  }
+
+  .grip {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: #fff;
+    box-shadow: 0 2px 10px rgba(22, 53, 115, 0.35);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--ff-navy);
+    font-size: 16px;
+    font-weight: var(--ff-weight-bold);
+    letter-spacing: -1px;
+  }
+</style>

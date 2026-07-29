@@ -1,0 +1,120 @@
+---
+import Base from '../layouts/Base.astro';
+import Breadcrumb from '../components/Breadcrumb.astro';
+import ReviewCard from '../components/ReviewCard.astro';
+import Callout from '../components/Callout.astro';
+import site from '../content/site.json';
+import reviewsData from '../content/reviews.json';
+
+const title = `Reviews | ${site.name} — Winona, MN`;
+const description = `Read what neighbors around Winona, MN are saying about ${site.name}'s carpet, upholstery, and rug cleaning.`;
+
+const avatarColors = ['#183F8C', '#139DF2', '#5BA9D9', '#7fc4f5', '#0f8ad8', '#122a4f'];
+---
+
+<Base title={title} description={description}>
+  <Fragment slot="hero">
+    <Breadcrumb items={[{ label: 'Home', href: '/' }, { label: 'Reviews' }]} />
+    <div class="hero-copy">
+      <div class="eyebrow">What neighbors say</div>
+      <h1>Reviews from around <span class="accent">Winona.</span></h1>
+      <p class="lead">Real feedback from real jobs.</p>
+    </div>
+  </Fragment>
+
+  <section class="container rating-section">
+    <span class="rating-number">{reviewsData.aggregateRating.toFixed(1)}</span>
+    <div>
+      <div class="stars">★★★★★</div>
+      <div class="rating-count">
+        {reviewsData.reviews.length} review{reviewsData.reviews.length === 1 ? '' : 's'}
+        {reviewsData.placeholder && ` · sample, syncs to ${site.ownerName}'s live Google profile`}
+      </div>
+    </div>
+  </section>
+
+  <section class="container review-grid">
+    {reviewsData.reviews.map((review, i) => (
+      <ReviewCard
+        name={review.name}
+        when={review.when}
+        rating={review.rating}
+        text={review.text}
+        avatarColor={avatarColors[i % avatarColors.length]}
+      />
+    ))}
+  </section>
+
+  <section class="container cta-section">
+    <Callout title="Had a good experience?">
+      A quick Google review helps a one-person business more than you'd think.
+      <div slot="action"><a href="/review" class="btn btn-primary">Leave a review</a></div>
+    </Callout>
+  </section>
+</Base>
+
+<style>
+  .hero-copy {
+    max-width: 600px;
+    padding: 28px 0 0;
+  }
+
+  .hero-copy h1 {
+    font-size: var(--ff-size-h1);
+    line-height: 1.03;
+    margin: 18px 0 20px;
+    letter-spacing: var(--ff-tracking-display);
+  }
+
+  .lead {
+    font-size: var(--ff-size-lead);
+    line-height: 1.6;
+    color: var(--ff-text-body);
+    margin: 0;
+  }
+
+  .rating-section {
+    padding: 56px var(--ff-gutter) 32px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .rating-number {
+    font-family: var(--ff-font-display);
+    font-size: 44px;
+    font-weight: var(--ff-weight-bold);
+    color: var(--ff-text);
+    line-height: 1;
+  }
+
+  .stars {
+    color: #fbbc04;
+    font-size: 20px;
+    letter-spacing: 2px;
+    line-height: 1;
+  }
+
+  .rating-count {
+    font-size: var(--ff-size-caption);
+    color: var(--ff-text-breadcrumb);
+    margin-top: 6px;
+  }
+
+  .review-grid {
+    padding: 0 var(--ff-gutter) 64px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+
+  @media (max-width: 780px) {
+    .review-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .cta-section {
+    padding: 0 var(--ff-gutter) 80px;
+  }
+</style>

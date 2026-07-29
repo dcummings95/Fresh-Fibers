@@ -1,0 +1,60 @@
+---
+interface Props {
+  title?: string;
+}
+
+const { title } = Astro.props;
+---
+
+<div class="callout">
+  <div class="content">
+    {title && <div class="title">{title}</div>}
+    <div class="body"><slot /></div>
+  </div>
+  {Astro.slots.has('action') && (
+    <div class="action">
+      <slot name="action" />
+    </div>
+  )}
+</div>
+
+<style>
+  .callout {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    background: var(--ff-fill-blue);
+    border: 1px solid var(--ff-border-blue);
+    border-radius: var(--ff-radius-note);
+    padding: 20px 22px;
+  }
+
+  .content {
+    flex: 1;
+    min-width: 240px;
+  }
+
+  .title {
+    font-family: var(--ff-font-display);
+    font-weight: var(--ff-weight-bold);
+    color: var(--ff-navy);
+    font-size: var(--ff-size-body);
+    letter-spacing: var(--ff-tracking-tight);
+    margin-bottom: 5px;
+  }
+
+  .body {
+    font-size: var(--ff-size-body-sm);
+    line-height: 1.6;
+    color: var(--ff-text-body);
+  }
+
+  .body :global(strong) {
+    color: var(--ff-navy);
+  }
+
+  .action {
+    white-space: nowrap;
+  }
+</style>

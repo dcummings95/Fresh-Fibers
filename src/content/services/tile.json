@@ -1,0 +1,31 @@
+{
+  "slug": "tile",
+  "route": "tile",
+  "pricingFile": "tile",
+  "navLabel": "Tile & grout",
+  "eyebrow": "Tile & grout cleaning",
+  "h1Plain": "Grout lines that ",
+  "h1Accent": "look new again.",
+  "lead": "Tile floors, backsplashes, and showers — high-pressure cleaning gets down into the grout to lift out the grime a mop just pushes around, then an optional sealer helps it stay clean far longer.",
+  "startingAtLabel": "Starting at",
+  "startingAtUnit": "per sq ft",
+  "photoLabel": "TILE & GROUT PHOTO",
+  "cardPriceLabel": "from",
+  "cardUnit": "/ sq ft",
+  "cardDescription": "High-pressure cleaning that lifts grime out of the grout lines, with optional sealing to keep it clean.",
+  "homeDescription": "Bring back the color that's been hiding in your floors.",
+  "whatsIncluded": [
+    { "label": "Pre-treat & dwell", "description": "A cleaning solution goes down first to break up grease and soap scum in the grout." },
+    { "label": "High-pressure extraction", "description": "A pressurized rinse blasts the grime out of the grout lines and vacuums it away." },
+    { "label": "Grout detail work", "description": "Stubborn lines get worked by hand so the whole floor comes out even." },
+    { "label": "Optional grout sealing", "description": "A sealer keeps dirt out of the porous grout so it stays clean longer." }
+  ],
+  "faq": [
+    { "q": "Will the grout look new?", "a": "It'll look dramatically better. Grout that's stained rather than just dirty may not go all the way back to white — I'll tell you before I start." },
+    { "q": "Should I get the grout sealed?", "a": "If your grout's unsealed, yes — it keeps dirt from soaking back in and makes the clean last much longer." },
+    { "q": "Can you clean shower tile too?", "a": "Yes — showers, backsplashes, and floors. Vertical tile takes a bit more time but cleans up well." },
+    { "q": "How long until I can walk on it?", "a": "The floor's walkable within an hour or two. If I seal the grout, give it a full day before heavy traffic." }
+  ],
+  "ctaHeadline": "Ready for cleaner grout?",
+  "beforeAfterCopy": "Real tile jobs from around Winona — photos coming soon."
+}

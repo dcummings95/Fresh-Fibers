@@ -1,0 +1,78 @@
+---
+import { Image } from 'astro:assets';
+import site from '../content/site.json';
+import logo from '../assets/images/logo.png';
+---
+
+<footer class="site-footer">
+  <div class="container inner">
+    <div class="brand-block">
+      <Image src={logo} width={44} height={44} alt={`${site.name} logo`} />
+      <div>
+        <div class="legal-name">{site.legalName}</div>
+        <div class="meta">Winona, MN · {site.hoursShort}</div>
+      </div>
+    </div>
+    <div class="links">
+      <a href={`tel:${site.phoneTel}`} class="phone">{site.phone}</a>
+      <span class="dot">·</span>
+      <a href="/book" class="book-link">Book online</a>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    background: var(--ff-navy-deep);
+  }
+
+  .inner {
+    padding: 40px var(--ff-gutter);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+
+  .brand-block {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+  }
+
+  .legal-name {
+    font-family: var(--ff-font-display);
+    font-weight: var(--ff-weight-bold);
+    font-size: 17px;
+    color: var(--ff-on-navy);
+  }
+
+  .meta {
+    font-size: var(--ff-size-micro);
+    color: var(--ff-on-navy-muted);
+    margin-top: 2px;
+  }
+
+  .links {
+    font-size: var(--ff-size-caption);
+    color: var(--ff-on-navy-muted);
+  }
+
+  .phone {
+    color: var(--ff-on-navy);
+    font-weight: var(--ff-weight-semibold);
+    text-decoration: none;
+  }
+
+  .dot {
+    margin: 0 10px;
+    color: #3a557f;
+  }
+
+  .book-link {
+    color: var(--ff-accent-on-navy);
+    text-decoration: none;
+    font-weight: var(--ff-weight-semibold);
+  }
+</style>

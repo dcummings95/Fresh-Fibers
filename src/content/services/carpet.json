@@ -1,0 +1,31 @@
+{
+  "slug": "carpet",
+  "route": "carpet",
+  "pricingFile": "carpet",
+  "navLabel": "Carpet cleaning",
+  "eyebrow": "Carpet cleaning",
+  "h1Plain": "Deep-clean carpets that ",
+  "h1Accent": "dry fast.",
+  "lead": "Hot-water extraction reaches down past the surface to pull out the dirt, allergens, and grit that regular vacuuming leaves behind — then powerful suction gets most of the water back out so your carpets are dry in hours, not days.",
+  "startingAtLabel": "Starting at",
+  "startingAtUnit": "first room",
+  "photoLabel": "CARPET CLEANING PHOTO",
+  "cardPriceLabel": "from",
+  "cardUnit": "/ room",
+  "cardDescription": "Deep hot-water extraction that pulls out ground-in dirt and allergens, then dries fast — hours, not days.",
+  "homeDescription": "Deep hot-water extraction that pulls out what you can't see and dries fast.",
+  "whatsIncluded": [
+    { "label": "Pre-inspection & spot treatment", "description": "I look over the carpet first and pre-treat the tough spots before the deep clean." },
+    { "label": "Hot-water extraction", "description": "A deep clean that lifts dirt and allergens from down in the fibers, not just the top." },
+    { "label": "High-power extraction for fast drying", "description": "Most of the water comes right back out, so carpets are dry in a few hours." },
+    { "label": "Light furniture moved & put back", "description": "I'll move couches and chairs and set everything back where it belongs." }
+  ],
+  "faq": [
+    { "q": "How long until the carpet's dry?", "a": "Usually 4 to 6 hours. Good airflow and a running fan speed it up. You can walk on it sooner in clean socks." },
+    { "q": "Do you move the furniture?", "a": "I move the light stuff — couches, chairs, tables — and put it all back. I leave heavy pieces like beds and dressers in place and clean around them." },
+    { "q": "Can you get old stains out?", "a": "Most of the time, yes. Some set-in stains won't come all the way out, but I'll tell you straight what I think before I start." },
+    { "q": "How often should I have it done?", "a": "Once a year for most homes. Every 6 months if you've got pets, kids, or allergies." }
+  ],
+  "ctaHeadline": "Ready for cleaner carpets?",
+  "beforeAfterCopy": "Real carpet jobs from around Winona — photos coming soon."
+}

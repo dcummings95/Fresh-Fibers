@@ -1,0 +1,729 @@
+---
+import { Image } from 'astro:assets';
+import Base from '../layouts/Base.astro';
+import Placeholder from '../components/Placeholder.astro';
+import BeforeAfterSlider from '../components/BeforeAfterSlider.astro';
+import ReviewCard from '../components/ReviewCard.astro';
+import Callout from '../components/Callout.astro';
+import site from '../content/site.json';
+import reviewsData from '../content/reviews.json';
+import { services } from '../lib/services';
+import heroPhoto from '../assets/images/ff-hero.jpg';
+
+const title = `Carpet & Upholstery Cleaning in the Driftless Region | ${site.name}`;
+const description = `${site.ownerName} cleans carpets, rugs, and upholstery for homes across the Driftless Region — Winona, La Crosse, and the towns between. Published pricing, free estimates, ${site.guaranteeDays}-day guarantee.`;
+
+const avatarColors = ['#183F8C', '#139DF2', '#5BA9D9'];
+---
+
+<Base title={title} description={description}>
+  <Fragment slot="hero">
+    <div class="hero-grid">
+      <div class="hero-copy">
+        <div class="eyebrow">Carpet &amp; upholstery cleaning · Driftless Region</div>
+        <h1>Cleaner carpets, <span class="accent">done right.</span></h1>
+        <p class="lead">
+          I'm {site.ownerName}. I clean carpets, rugs, and upholstery for homes around
+          <span class="location-carousel">
+            <span class="location-sizer" aria-hidden="true">{site.serviceAreas[0]}</span>
+            {site.serviceAreas.map((area, i) => (
+              <span class:list={['location-item', { 'is-active': i === 0 }]}>{area}</span>
+            ))}
+          </span>. Book a time online, or just give me a call.
+        </p>
+        <div class="cta-row">
+          <a href="/book" class="btn btn-primary">Book online</a>
+          <a href={`tel:${site.phoneTel}`} class="btn-tertiary">Call or text</a>
+        </div>
+      </div>
+      <Image src={heroPhoto} alt={`${site.ownerName} cleaning a carpet for a customer in the Driftless Region`} class="hero-photo" width={1000} height={800} loading="eager" fetchpriority="high" />
+    </div>
+  </Fragment>
+
+  <section class="trust-strip">
+    <div class="container strip-inner">
+      <span>Locally owned in the Driftless Region</span>
+      <span class="dot">·</span>
+      <span>Family-owned &amp; operated</span>
+      <span class="dot">·</span>
+      <span>{site.guaranteeDays}-day satisfaction guarantee</span>
+      <span class="dot">·</span>
+      <span>Free quotes, no pressure</span>
+    </div>
+  </section>
+
+  <section class="container services-section">
+    <div class="section-head">
+      <div>
+        <h2>What I clean</h2>
+        <p>Everything gets the same careful, hand-done treatment.</p>
+      </div>
+      <a href="/services" class="btn-tertiary">See all services <span class="arrow">→</span></a>
+    </div>
+    <div class="services-grid">
+      {services.map((service) => (
+        <a href={`/services/${service.route}`} class="service-tile">
+          <div class="tile-title">{service.navLabel}</div>
+          <p>{service.homeDescription}</p>
+          <span class="see-details">See details <span class="arrow">→</span></span>
+        </a>
+      ))}
+    </div>
+    <Callout>
+      <span class="not-sure-text">Not sure what you need? Tell me about it and I'll help you figure it out.</span>
+      <div slot="action" class="not-sure-actions">
+        <a href="/book" class="btn btn-primary">Get a free quote</a>
+        <a href={`tel:${site.phoneTel}`} class="btn-tertiary">Call {site.phone}</a>
+      </div>
+    </Callout>
+  </section>
+
+  <section class="container how-section">
+    <h2>How it works</h2>
+    <p class="how-lead">Three easy steps. No sales pitch, no surprises.</p>
+    <div class="steps">
+      <div>
+        <div class="step-number">1</div>
+        <div class="step-title">Reach out</div>
+        <p>Book online or give me a call or text. Tell me a bit about what needs cleaning.</p>
+      </div>
+      <div>
+        <div class="step-number">2</div>
+        <div class="step-title">I confirm your time</div>
+        <p>I'll text you back to lock in a time that works, and give you a straight-up quote.</p>
+      </div>
+      <div>
+        <div class="step-number">3</div>
+        <div class="step-title">I clean, you relax</div>
+        <p>I show up when I said I would and don't leave until you're happy with the job.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="about-band">
+    <div class="container about-inner">
+      <Placeholder label={`PHOTO OF ${site.ownerName.toUpperCase()}`} dimensions="640 × 640px, with the van, if he has one" aspectRatio="1 / 1" />
+      <div>
+        <h2 class="on-navy">One local, doing it right.</h2>
+        <p class="on-navy-body">
+          {site.name} is me, {site.ownerName}. I grew up around here, and I run this the way you'd want
+          a neighbor to: show up when I say I will, treat your home with care, and don't leave until
+          you're happy with it.
+        </p>
+        <p class="on-navy-body">
+          Family-owned, and I stand behind every job. If something's not right, I'll come back and make
+          it right.
+        </p>
+        <a href="/about" class="on-navy-link">More about {site.name} <span class="accent-on-navy">→</span></a>
+      </div>
+    </div>
+  </section>
+
+  <section class="container ba-section">
+    <div class="section-head">
+      <div>
+        <h2>Before &amp; after</h2>
+        <p>Drag the slider to compare. Real jobs from Winona to La Crosse — photos coming soon.</p>
+      </div>
+      <a href="/work" class="btn-tertiary">See more work <span class="arrow">→</span></a>
+    </div>
+    <BeforeAfterSlider />
+  </section>
+
+  <section class="reviews-band">
+    <div class="container">
+      <div class="reviews-head">
+        <div class="reviews-title-block">
+          <svg width="34" height="34" viewBox="0 0 48 48" aria-hidden="true">
+            <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"></path>
+            <path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"></path>
+            <path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"></path>
+            <path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"></path>
+          </svg>
+          <div>
+            <div class="reviews-title">Google reviews</div>
+            <div class="reviews-sub">From neighbors across the region</div>
+          </div>
+        </div>
+        <div class="rating-block">
+          <span class="rating-number">{reviewsData.aggregateRating.toFixed(1)}</span>
+          <div>
+            <div class="stars">★★★★★</div>
+            <div class="rating-note">{reviewsData.placeholder ? `Sample · syncs to ${site.ownerName}'s live profile` : ''}</div>
+          </div>
+        </div>
+        <a href="/reviews" class="btn-tertiary see-all-reviews">See all reviews <span class="arrow">→</span></a>
+      </div>
+      <div class="review-cards">
+        {reviewsData.reviews.map((review, i) => (
+          <ReviewCard name={review.name} when={review.when} rating={review.rating} text={review.text} avatarColor={avatarColors[i % avatarColors.length]} />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="guarantee-section">
+    <div class="container guarantee-inner">
+      <div>
+        <div class="guarantee-badge">{site.guaranteeDays}-day guarantee</div>
+        <h2>If it's not right, <span class="accent">I'll make it right.</span></h2>
+      </div>
+      <div>
+        <p class="guarantee-copy">
+          Not happy with the results within {site.guaranteeDays} days of your cleaning? Call me and I'll
+          come back and re-clean the area — no charge, no hassle. That's the promise behind every job I
+          do.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="area-booking">
+    <div class="container area-booking-grid">
+      <div class="area-col">
+        <h2 class="on-navy">Where I work</h2>
+        <p class="on-navy-soft">{site.serviceAreaNote}</p>
+        <div class="area-list">{site.serviceAreas.map((a) => a.replace(', MN', '').replace(', WI', '')).join(' · ')}</div>
+        <div class="area-hours">{site.hours}</div>
+        <a href="/areas" class="area-link">See area details <span class="accent-on-navy">→</span></a>
+      </div>
+      <div class="book-col">
+        <h2 class="on-navy">Book a time</h2>
+        <p class="book-sub">Tell me a little and I'll confirm by text.</p>
+        <a href="/book" class="btn btn-azure btn-full">Request my time</a>
+        <div class="book-call">Or call or text <a href={`tel:${site.phoneTel}`}>{site.phone}</a></div>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<script>
+  const carousel = document.querySelector('.location-carousel');
+  const items = carousel ? carousel.querySelectorAll('.location-item') : null;
+
+  if (carousel && items && items.length > 1) {
+    carousel.style.width = `${items[0].offsetWidth}px`;
+
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (!prefersReducedMotion) {
+      let current = 0;
+      setInterval(() => {
+        const next = (current + 1) % items.length;
+        carousel.style.width = `${items[next].offsetWidth}px`;
+        items[current].classList.remove('is-active');
+        items[next].classList.add('is-active');
+        current = next;
+      }, 3200);
+    }
+  }
+</script>
+
+<style>
+  .hero-grid {
+    display: grid;
+    grid-template-columns: 0.85fr 1.15fr;
+    gap: var(--ff-gap-lg);
+    align-items: center;
+    padding: 64px 0 0;
+  }
+
+  @media (max-width: 860px) {
+    .hero-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .hero-photo {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 5 / 4;
+    object-fit: cover;
+    border-radius: var(--ff-radius-note);
+    border: 1px solid #b9cee0;
+  }
+
+  .hero-copy h1 {
+    font-size: 56px;
+    line-height: 1.02;
+    margin: 20px 0 22px;
+    letter-spacing: var(--ff-tracking-display);
+  }
+
+  .lead {
+    font-size: var(--ff-size-lead);
+    line-height: 1.6;
+    color: var(--ff-text-body);
+    margin: 0 0 34px;
+    max-width: 400px;
+  }
+
+  .cta-row {
+    display: flex;
+    gap: 18px;
+    align-items: center;
+  }
+
+  .location-carousel {
+    position: relative;
+    display: inline-block;
+    vertical-align: baseline;
+    overflow: hidden;
+    transition: width 0.4s ease;
+  }
+
+  .location-sizer {
+    visibility: hidden;
+    white-space: nowrap;
+    font-weight: var(--ff-weight-semibold);
+  }
+
+  .location-item {
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    white-space: nowrap;
+    color: var(--ff-azure);
+    font-weight: var(--ff-weight-semibold);
+    transition: opacity 0.4s ease;
+  }
+
+  .location-item.is-active {
+    opacity: 1;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .location-carousel {
+      transition: none;
+    }
+
+    .location-item {
+      transition: none;
+    }
+  }
+
+  .trust-strip {
+    border-top: 1px solid var(--ff-border-line);
+    border-bottom: 1px solid var(--ff-border-line);
+    background: var(--ff-bg);
+  }
+
+  .strip-inner {
+    padding: 20px var(--ff-gutter);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 40px;
+    font-size: var(--ff-size-body-sm);
+    color: var(--ff-text-body);
+    font-weight: var(--ff-weight-medium);
+  }
+
+  .dot {
+    color: #c9c0af;
+  }
+
+  .services-section {
+    padding: 80px var(--ff-gutter) 40px;
+  }
+
+  .section-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 36px;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+
+  .section-head h2 {
+    font-size: var(--ff-size-h2);
+    margin-bottom: 8px;
+  }
+
+  .section-head p {
+    font-size: var(--ff-size-body-lg);
+    color: var(--ff-text-muted);
+    margin: 0;
+  }
+
+  .arrow {
+    color: var(--ff-azure);
+  }
+
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--ff-border-line);
+    border: 1px solid var(--ff-border-line);
+    margin-bottom: 32px;
+  }
+
+  @media (max-width: 780px) {
+    .services-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .service-tile {
+    display: block;
+    background: var(--ff-surface);
+    padding: 30px;
+    text-decoration: none;
+    transition: background var(--ff-transition), box-shadow var(--ff-transition);
+  }
+
+  .service-tile:hover {
+    background: #ffffff;
+    box-shadow: 0 10px 26px rgba(22, 53, 115, 0.1);
+  }
+
+  .tile-title {
+    font-size: 19px;
+    font-weight: var(--ff-weight-bold);
+    color: var(--ff-text);
+    margin-bottom: 8px;
+  }
+
+  .service-tile p {
+    font-size: var(--ff-size-body-sm);
+    line-height: 1.6;
+    color: var(--ff-text-muted);
+    margin: 0 0 18px;
+  }
+
+  .see-details {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: var(--ff-size-body-sm);
+    font-weight: var(--ff-weight-semibold);
+    color: var(--ff-azure);
+  }
+
+  .not-sure-text {
+    font-size: var(--ff-size-lead);
+    color: #1f2d44;
+    font-weight: var(--ff-weight-semibold);
+  }
+
+  .not-sure-actions {
+    display: flex;
+    gap: 18px;
+    align-items: center;
+  }
+
+  .how-section {
+    padding: 40px var(--ff-gutter) 80px;
+  }
+
+  .how-section h2 {
+    font-size: var(--ff-size-h2);
+    margin-bottom: 8px;
+  }
+
+  .how-lead {
+    font-size: var(--ff-size-body-lg);
+    color: var(--ff-text-muted);
+    margin: 0 0 40px;
+  }
+
+  .steps {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px;
+  }
+
+  @media (max-width: 700px) {
+    .steps {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .step-number {
+    font-family: var(--ff-font-display);
+    font-weight: var(--ff-weight-bold);
+    font-size: 34px;
+    color: var(--ff-azure);
+    line-height: 1;
+    margin-bottom: 16px;
+  }
+
+  .step-title {
+    font-size: 19px;
+    font-weight: var(--ff-weight-bold);
+    color: var(--ff-text);
+    margin-bottom: 8px;
+  }
+
+  .steps p {
+    font-size: var(--ff-size-body);
+    line-height: 1.6;
+    color: var(--ff-text-muted);
+    margin: 0;
+  }
+
+  .about-band {
+    background: var(--ff-navy);
+  }
+
+  .about-inner {
+    padding: 80px var(--ff-gutter);
+    display: grid;
+    grid-template-columns: 1fr 1.1fr;
+    gap: var(--ff-gap-lg);
+    align-items: center;
+  }
+
+  @media (max-width: 780px) {
+    .about-inner {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .on-navy {
+    font-size: var(--ff-size-h2);
+    color: #fff;
+    margin: 0 0 20px;
+    line-height: 1.1;
+  }
+
+  .on-navy-body {
+    font-size: var(--ff-size-body-lg);
+    line-height: 1.7;
+    color: #cfdcec;
+    margin: 0 0 18px;
+    max-width: 480px;
+  }
+
+  .on-navy-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: #fff;
+    font-weight: var(--ff-weight-semibold);
+    font-size: var(--ff-size-body);
+    text-decoration: none;
+  }
+
+  .on-navy-link:hover {
+    text-decoration: underline;
+    text-underline-offset: 4px;
+    color: #fff;
+  }
+
+  .ba-section {
+    padding: 80px var(--ff-gutter);
+  }
+
+  .reviews-band {
+    background: var(--ff-band-blue);
+    border-top: 1px solid var(--ff-photo-bg);
+    border-bottom: 1px solid var(--ff-photo-bg);
+  }
+
+  .reviews-band .container {
+    padding-top: 72px;
+    padding-bottom: 72px;
+  }
+
+  .reviews-head {
+    display: flex;
+    align-items: center;
+    gap: 28px;
+    flex-wrap: wrap;
+    margin-bottom: 36px;
+  }
+
+  .reviews-title-block {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .reviews-title {
+    font-family: var(--ff-font-display);
+    font-weight: var(--ff-weight-bold);
+    font-size: var(--ff-size-h3);
+    color: var(--ff-navy);
+    letter-spacing: var(--ff-tracking-tight);
+  }
+
+  .reviews-sub {
+    font-size: var(--ff-size-caption);
+    color: var(--ff-text-breadcrumb);
+  }
+
+  .rating-block {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .rating-number {
+    font-family: var(--ff-font-display);
+    font-size: 34px;
+    font-weight: var(--ff-weight-bold);
+    color: var(--ff-text);
+    line-height: 1;
+  }
+
+  .stars {
+    color: #fbbc04;
+    font-size: 17px;
+    letter-spacing: 2px;
+    line-height: 1;
+  }
+
+  .rating-note {
+    font-size: var(--ff-size-micro);
+    color: var(--ff-text-breadcrumb);
+    margin-top: 4px;
+  }
+
+  .see-all-reviews {
+    margin-left: auto;
+  }
+
+  .review-cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+
+  @media (max-width: 780px) {
+    .review-cards {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .guarantee-section {
+    background: var(--ff-bg);
+    border-top: 1px solid var(--ff-border-line);
+  }
+
+  .guarantee-inner {
+    padding: 64px var(--ff-gutter);
+    display: grid;
+    grid-template-columns: 0.9fr 1.1fr;
+    gap: var(--ff-gap-lg);
+    align-items: center;
+  }
+
+  @media (max-width: 780px) {
+    .guarantee-inner {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .guarantee-badge {
+    display: inline-block;
+    border: 1.5px solid var(--ff-navy-cta);
+    color: var(--ff-navy-cta);
+    font-weight: var(--ff-weight-bold);
+    font-size: var(--ff-size-caption);
+    letter-spacing: var(--ff-tracking-eyebrow);
+    text-transform: uppercase;
+    padding: 8px 16px;
+    border-radius: var(--ff-radius-pill);
+    margin-bottom: 20px;
+  }
+
+  .guarantee-section h2 {
+    font-size: 34px;
+    line-height: 1.1;
+    margin: 0;
+  }
+
+  .guarantee-copy {
+    font-size: var(--ff-size-lead);
+    line-height: 1.7;
+    color: var(--ff-text-body);
+    margin: 0;
+  }
+
+  .area-booking {
+    background: var(--ff-navy);
+  }
+
+  .area-booking-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding: 0;
+  }
+
+  @media (max-width: 780px) {
+    .area-booking-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .area-col {
+    padding: 72px 48px 72px var(--ff-gutter);
+    color: #dbe6f4;
+  }
+
+  .on-navy-soft {
+    font-size: var(--ff-size-body);
+    line-height: 1.7;
+    margin: 0 0 20px;
+    max-width: 400px;
+  }
+
+  .area-list {
+    font-size: var(--ff-size-body);
+    line-height: 2;
+    color: #fff;
+  }
+
+  .area-hours {
+    margin-top: 28px;
+    font-size: var(--ff-size-body-sm);
+    color: #9fc2e6;
+  }
+
+  .area-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 20px;
+    color: #fff;
+    font-weight: var(--ff-weight-semibold);
+    font-size: var(--ff-size-body-sm);
+    text-decoration: none;
+  }
+
+  .area-link:hover {
+    text-decoration: underline;
+    text-underline-offset: 4px;
+    color: #fff;
+  }
+
+  .book-col {
+    padding: 64px var(--ff-gutter) 64px 48px;
+    background: var(--ff-navy-panel);
+  }
+
+  .book-col h2 {
+    margin-bottom: 8px;
+  }
+
+  .book-sub {
+    font-size: var(--ff-size-body-sm);
+    color: #9fc2e6;
+    margin: 0 0 24px;
+  }
+
+  .book-call {
+    text-align: center;
+    margin-top: 16px;
+    font-size: var(--ff-size-caption);
+    color: #9fc2e6;
+  }
+
+  .book-call a {
+    color: #fff;
+    font-weight: var(--ff-weight-semibold);
+    text-decoration: none;
+  }
+</style>

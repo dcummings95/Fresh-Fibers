@@ -1,0 +1,37 @@
+---
+interface Props {
+  current: 'services' | 'pricing' | 'areas';
+}
+
+const { current } = Astro.props;
+
+const hubs = [
+  { key: 'services', href: '/services', label: 'Browse all services' },
+  { key: 'pricing', href: '/pricing', label: 'See published pricing' },
+  { key: 'areas', href: '/areas', label: 'Where I work' },
+] as const;
+
+const links = hubs.filter((h) => h.key !== current);
+---
+
+<div class="hub-links">
+  {links.map((link) => (
+    <a href={link.href} class="btn-tertiary">
+      {link.label} <span class="arrow">→</span>
+    </a>
+  ))}
+</div>
+
+<style>
+  .hub-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px 32px;
+    padding-top: 24px;
+    border-top: 1px solid var(--ff-border-line);
+  }
+
+  .arrow {
+    color: var(--ff-azure);
+  }
+</style>

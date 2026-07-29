@@ -1,0 +1,10 @@
+{
+  "service": "pet-odor",
+  "label": "Pet Stain & Odor Treatment",
+  "rows": [
+    { "label": "Spot & stain treatment", "detail": "surface stains, per affected area", "price": 30, "unit": null },
+    { "label": "Enzyme urine treatment", "detail": "neutralizes odor at the source, per area", "price": 50, "unit": null },
+    { "label": "Severe — soaked into pad or subfloor", "detail": null, "price": null, "unit": null, "quoteLabel": "Quoted honestly, on site" }
+  ],
+  "footnote": "Treatments are cheapest when done during an existing carpet cleaning visit."
+}

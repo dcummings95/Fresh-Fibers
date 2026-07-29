@@ -1,0 +1,166 @@
+---
+import Base from '../layouts/Base.astro';
+import Breadcrumb from '../components/Breadcrumb.astro';
+import PricingTable from '../components/PricingTable.astro';
+import PricingNote from '../components/PricingNote.astro';
+import Callout from '../components/Callout.astro';
+import HubLinks from '../components/HubLinks.astro';
+import site from '../content/site.json';
+import { services, getPricing } from '../lib/services';
+
+const title = `Carpet Cleaning Cost & Pricing | ${site.name} — Winona, MN`;
+const description = `See exactly what carpet, upholstery, rug, tile, pet odor, and auto interior cleaning costs around Winona, MN. Published, upfront pricing — no hidden fees.`;
+---
+
+<Base title={title} description={description}>
+  <Fragment slot="hero">
+    <Breadcrumb items={[{ label: 'Home', href: '/' }, { label: 'Pricing' }]} />
+    <div class="hero-copy">
+      <div class="eyebrow">Published pricing</div>
+      <h1>What it actually <span class="accent">costs.</span></h1>
+      <p class="lead">
+        Most cleaners around here won't quote a number until they're in your living room. I publish
+        mine. These are real, estimate-grade prices for every service I offer — the same numbers I use
+        when I write up your job.
+      </p>
+    </div>
+  </Fragment>
+
+  <section class="container note-section">
+    <PricingNote />
+  </section>
+
+  <nav class="container jump-nav" aria-label="Jump to a service">
+    {services.map((service) => (
+      <a href={`#${service.slug}`}>{service.navLabel}</a>
+    ))}
+  </nav>
+
+  <section class="container tables-section">
+    {services.map((service) => {
+      const pricing = getPricing(service.pricingFile);
+      return (
+        <div class="table-block" id={service.slug}>
+          <div class="table-head">
+            <h2>{service.navLabel}</h2>
+            <a href={`/services/${service.route}`} class="btn-tertiary">Full details <span class="arrow">→</span></a>
+          </div>
+          <PricingTable pricing={pricing} />
+          {pricing.safetyNote && (
+            <div class="extra-note">
+              <Callout title="Not every rug can be cleaned in your home">{pricing.safetyNote}</Callout>
+            </div>
+          )}
+          {pricing.footnote && (
+            <div class="extra-note">
+              <Callout>{pricing.footnote}</Callout>
+            </div>
+          )}
+        </div>
+      );
+    })}
+  </section>
+
+  <section class="container cta-section">
+    <Callout title="Not sure what it'll cost you?">
+      Send a few details — number of rooms, what needs cleaning — and I'll give you an honest,
+      firm number before I start any work.
+      <div slot="action"><a href="/book" class="btn btn-primary">Get a free estimate</a></div>
+    </Callout>
+  </section>
+
+  <section class="container hub-links-section">
+    <HubLinks current="pricing" />
+  </section>
+</Base>
+
+<style>
+  .hero-copy {
+    max-width: 680px;
+    padding: 28px 0 0;
+  }
+
+  .hero-copy h1 {
+    font-size: var(--ff-size-h1);
+    line-height: 1.03;
+    margin: 18px 0 20px;
+    letter-spacing: var(--ff-tracking-display);
+  }
+
+  .lead {
+    font-size: var(--ff-size-lead);
+    line-height: 1.6;
+    color: var(--ff-text-body);
+    margin: 0;
+  }
+
+  .note-section {
+    padding: 56px var(--ff-gutter) 0;
+  }
+
+  .note-section :global(.pricing-note) {
+    margin-top: 0;
+  }
+
+  .jump-nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    padding: 32px var(--ff-gutter) 0;
+  }
+
+  .jump-nav a {
+    font-size: var(--ff-size-body-sm);
+    font-weight: var(--ff-weight-semibold);
+    color: var(--ff-navy-cta);
+    background: var(--ff-fill-blue);
+    border: 1px solid var(--ff-border-blue);
+    padding: 8px 16px;
+    border-radius: var(--ff-radius-pill);
+    text-decoration: none;
+  }
+
+  .jump-nav a:hover {
+    background: #d8e8f6;
+  }
+
+  .tables-section {
+    padding: 40px var(--ff-gutter) 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 56px;
+  }
+
+  .table-block {
+    scroll-margin-top: 20px;
+    max-width: 640px;
+  }
+
+  .table-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 20px;
+  }
+
+  .table-head h2 {
+    font-size: var(--ff-size-h3);
+  }
+
+  .arrow {
+    color: var(--ff-azure);
+  }
+
+  .extra-note {
+    margin-top: 16px;
+  }
+
+  .cta-section {
+    padding: 24px var(--ff-gutter) 40px;
+  }
+
+  .hub-links-section {
+    padding: 0 var(--ff-gutter) 80px;
+  }
+</style>

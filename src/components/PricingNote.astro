@@ -1,0 +1,76 @@
+---
+import site from '../content/site.json';
+---
+
+<div class="pricing-note">
+  <div class="heading">How pricing works</div>
+  <ul>
+    <li>
+      <span class="bullet">•</span>
+      <p><strong>${site.minimumVisit} minimum per visit</strong> — one minimum, not one per service. Book carpet and upholstery together and you pay it once.</p>
+    </li>
+    <li>
+      <span class="bullet">•</span>
+      <p><strong>A &ldquo;room&rdquo; is up to {site.roomDefinitionSqFt} sq ft.</strong> Larger open areas count as two.</p>
+    </li>
+    <li>
+      <span class="bullet">•</span>
+      <p><strong>These are estimates.</strong> You get a firm price before any work starts, and it doesn&rsquo;t change unless you ask for more.</p>
+    </li>
+  </ul>
+</div>
+
+<style>
+  .pricing-note {
+    margin-top: 20px;
+    background: var(--ff-surface);
+    border: 1px solid var(--ff-border);
+    border-radius: var(--ff-radius-inner);
+    padding: 24px 26px;
+  }
+
+  .heading {
+    font-family: var(--ff-font-display);
+    font-weight: var(--ff-weight-bold);
+    font-size: 17px;
+    color: var(--ff-navy);
+    letter-spacing: var(--ff-tracking-tight);
+    margin-bottom: 16px;
+  }
+
+  ul {
+    display: flex;
+    flex-direction: column;
+    gap: 13px;
+  }
+
+  li {
+    display: flex;
+    gap: 11px;
+  }
+
+  .bullet {
+    color: var(--ff-azure);
+    font-weight: var(--ff-weight-bold);
+    font-size: var(--ff-size-body-sm);
+    line-height: 1.55;
+    flex-shrink: 0;
+  }
+
+  p {
+    font-size: var(--ff-size-body-sm);
+    line-height: 1.55;
+    color: var(--ff-text-body);
+    margin: 0;
+  }
+
+  strong {
+    color: var(--ff-text);
+    font-weight: var(--ff-weight-bold);
+  }
+
+  .warning {
+    color: var(--ff-warning);
+    font-weight: var(--ff-weight-semibold);
+  }
+</style>

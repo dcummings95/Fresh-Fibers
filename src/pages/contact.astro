@@ -1,0 +1,127 @@
+---
+import Base from '../layouts/Base.astro';
+import Breadcrumb from '../components/Breadcrumb.astro';
+import QuoteForm from '../components/QuoteForm.astro';
+import site from '../content/site.json';
+
+const title = `Contact ${site.name} | Winona, MN Carpet Cleaning`;
+const description = `Call, text, or send a message to ${site.name} for a free carpet, upholstery, or rug cleaning estimate in Winona, MN.`;
+---
+
+<Base title={title} description={description}>
+  <Fragment slot="hero">
+    <Breadcrumb items={[{ label: 'Home', href: '/' }, { label: 'Contact' }]} />
+    <div class="hero-copy">
+      <div class="eyebrow">Get in touch</div>
+      <h1>Call, text, or <span class="accent">send a note.</span></h1>
+      <p class="lead">Whatever's easiest for you. I answer my own phone.</p>
+    </div>
+  </Fragment>
+
+  <section class="container layout">
+    <QuoteForm />
+
+    <aside class="info-card">
+      <div class="info-block">
+        <div class="info-label">Phone</div>
+        <a href={`tel:${site.phoneTel}`} class="phone-link">{site.phone}</a>
+        <div class="info-sub">Call or text · {site.hours}</div>
+      </div>
+
+      <div class="info-block">
+        <div class="info-label">Service area</div>
+        <ul class="area-list">
+          {site.serviceAreas.map((area) => (
+            <li>{area}</li>
+          ))}
+        </ul>
+        <p class="area-note">{site.serviceAreaNote}</p>
+      </div>
+    </aside>
+  </section>
+</Base>
+
+<style>
+  .hero-copy {
+    max-width: 600px;
+    padding: 28px 0 0;
+  }
+
+  .hero-copy h1 {
+    font-size: var(--ff-size-h1);
+    line-height: 1.03;
+    margin: 18px 0 20px;
+    letter-spacing: var(--ff-tracking-display);
+  }
+
+  .lead {
+    font-size: var(--ff-size-lead);
+    line-height: 1.6;
+    color: var(--ff-text-body);
+    margin: 0;
+  }
+
+  .layout {
+    padding: 56px var(--ff-gutter) 80px;
+    display: grid;
+    grid-template-columns: 1.3fr 0.7fr;
+    gap: 40px;
+    align-items: start;
+  }
+
+  @media (max-width: 860px) {
+    .layout {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .info-card {
+    background: var(--ff-surface);
+    border: 1px solid var(--ff-border);
+    border-radius: var(--ff-radius-card);
+    padding: 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 26px;
+  }
+
+  .info-label {
+    font-weight: var(--ff-weight-bold);
+    color: var(--ff-navy);
+    font-size: var(--ff-size-caption);
+    letter-spacing: var(--ff-tracking-eyebrow);
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+
+  .phone-link {
+    display: block;
+    font-family: var(--ff-font-display);
+    font-weight: var(--ff-weight-bold);
+    font-size: 22px;
+    color: var(--ff-navy);
+    text-decoration: none;
+  }
+
+  .info-sub {
+    font-size: var(--ff-size-body-sm);
+    color: var(--ff-text-muted);
+    margin-top: 4px;
+  }
+
+  .area-list {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    font-size: var(--ff-size-body-sm);
+    color: var(--ff-text-body);
+    margin-bottom: 10px;
+  }
+
+  .area-note {
+    font-size: var(--ff-size-caption);
+    color: var(--ff-text-tan);
+    margin: 0;
+    line-height: 1.5;
+  }
+</style>

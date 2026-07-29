@@ -1,0 +1,31 @@
+{
+  "slug": "upholstery",
+  "route": "upholstery",
+  "pricingFile": "upholstery",
+  "navLabel": "Upholstery cleaning",
+  "eyebrow": "Upholstery cleaning",
+  "h1Plain": "Furniture that feels ",
+  "h1Accent": "fresh again.",
+  "lead": "Sofas, sectionals, chairs, even mattresses — a deep clean that lifts out the body oils, dust, and spills that settle into the fabric over the years, with a gentle touch that's safe for delicate upholstery.",
+  "startingAtLabel": "Starting at",
+  "startingAtUnit": "per sofa",
+  "photoLabel": "UPHOLSTERY PHOTO",
+  "cardPriceLabel": "from",
+  "cardUnit": "/ sofa",
+  "cardDescription": "Sofas, sectionals, chairs, and mattresses deep-cleaned safe for the fabric — leaves them soft, not stiff.",
+  "homeDescription": "Sofas, chairs, and cushions cleaned gently so they look and smell fresh.",
+  "whatsIncluded": [
+    { "label": "Fabric check & spot test", "description": "I check the fabric type and test a hidden spot so the clean is safe for your piece." },
+    { "label": "Warm-water extraction", "description": "Lifts body oils, dust, and spills out of the fabric, not just off the surface." },
+    { "label": "Fabric-safe deodorizing", "description": "A gentle deodorizer leaves it smelling clean, never heavy or perfumed." },
+    { "label": "Dries soft, not stiff", "description": "Careful rinsing means cushions dry soft and are usually ready the same day." }
+  ],
+  "faq": [
+    { "q": "How long until it's dry?", "a": "Usually 4 to 6 hours with good airflow. Thick cushions can take a little longer than carpet." },
+    { "q": "Is it safe for my fabric?", "a": "I test a hidden spot first and match the method to the fabric. Delicate pieces get a gentler clean." },
+    { "q": "Can you get pet smells out?", "a": "Most of the time, yes. For heavy pet odor I'll add an enzyme treatment and tell you what to expect." },
+    { "q": "Do you clean leather?", "a": "I clean and condition finished leather too — it's a different process, so just mention it when you book." }
+  ],
+  "ctaHeadline": "Ready for fresher furniture?",
+  "beforeAfterCopy": "Real upholstery jobs from around Winona — photos coming soon."
+}

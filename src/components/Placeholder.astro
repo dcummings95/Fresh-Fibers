@@ -1,0 +1,45 @@
+---
+interface Props {
+  label: string;
+  dimensions?: string;
+  aspectRatio?: string;
+  rounded?: boolean;
+}
+
+const { label, dimensions, aspectRatio = '4 / 3', rounded = true } = Astro.props;
+---
+
+<div class="placeholder" class:list={{ rounded }}>
+  <div class="label">{label}</div>
+  {dimensions && <div class="dimensions">{dimensions}</div>}
+</div>
+
+<style define:vars={{ aspectRatio }}>
+  .placeholder {
+    background: var(--ff-photo-bg);
+    color: var(--ff-photo-text);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    aspect-ratio: var(--aspectRatio);
+    border: 1px solid #b9cee0;
+    overflow: hidden;
+  }
+
+  .placeholder.rounded {
+    border-radius: var(--ff-radius-note);
+  }
+
+  .label {
+    font-weight: var(--ff-weight-bold);
+    font-size: var(--ff-size-caption);
+    letter-spacing: 0.02em;
+  }
+
+  .dimensions {
+    font-size: var(--ff-size-micro);
+    margin-top: 5px;
+  }
+</style>

@@ -1,0 +1,31 @@
+{
+  "slug": "pet-odor",
+  "route": "pet-odor",
+  "pricingFile": "pet-odor",
+  "navLabel": "Pet stains & odor",
+  "eyebrow": "Pet stains & odor",
+  "h1Plain": "Get rid of pet smells ",
+  "h1Accent": "for good.",
+  "lead": "Accidents soak past the carpet into the pad below — which is why the smell keeps coming back. Enzyme treatment breaks down the source instead of masking it, so your home actually smells clean again.",
+  "startingAtLabel": "Add-on from",
+  "startingAtUnit": "per area",
+  "photoLabel": "PET TREATMENT PHOTO",
+  "cardPriceLabel": "add-on from",
+  "cardUnit": "/ area",
+  "cardDescription": "Enzyme treatment that breaks down odor at the source in the pad below — not just masking the smell.",
+  "homeDescription": "The stain and the smell, not just the surface.",
+  "whatsIncluded": [
+    { "label": "Find the source", "description": "I use a moisture meter to find exactly where the accidents soaked in — including spots you can't see." },
+    { "label": "Enzyme treatment", "description": "An enzyme cleaner breaks down the odor at its source instead of just covering it up." },
+    { "label": "Deep flush & extraction", "description": "Hot-water extraction flushes the treated area and pulls the mess back out of the carpet and pad." },
+    { "label": "An honest look", "description": "If it's soaked into the subfloor, I'll tell you straight what it'll take — no guessing." }
+  ],
+  "faq": [
+    { "q": "Will the smell really be gone?", "a": "For surface and pad-level odor, almost always — the enzyme breaks it down instead of masking it. If it's reached the subfloor I'll be honest about what's possible." },
+    { "q": "Can you get the stain out too?", "a": "Most pet stains lift well. Old, set-in stains may leave a faint mark — I'll tell you what to expect before I start." },
+    { "q": "Is it safe for pets and kids?", "a": "Yes. The enzyme treatments I use are safe around pets and children once the area's dry." },
+    { "q": "Do I have to replace the pad?", "a": "Usually not. Replacing pad or subfloor is a last resort for severe cases — most odor clears with treatment and extraction." }
+  ],
+  "ctaHeadline": "Ready to get the smell out?",
+  "beforeAfterCopy": "Real pet-treatment jobs from around Winona — photos coming soon."
+}

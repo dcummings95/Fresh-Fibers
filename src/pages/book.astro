@@ -1,0 +1,220 @@
+---
+import Base from '../layouts/Base.astro';
+import QuoteForm from '../components/QuoteForm.astro';
+import site from '../content/site.json';
+
+const title = `Book a Free Estimate | ${site.name} — Winona, MN`;
+const description = `Request a free carpet, upholstery, rug, tile, pet odor, or auto interior cleaning estimate from ${site.name} in Winona, MN. No obligation.`;
+---
+
+<Base title={title} description={description}>
+  <Fragment slot="hero">
+    <div class="hero-copy">
+      <div class="eyebrow">Free estimate</div>
+      <h1>Tell me about the job — <span class="accent">I'll get right back.</span></h1>
+      <p class="lead">
+        Fill this out or just call or text. There's no charge for an estimate and no pressure — I'll give
+        you an honest number, usually the same day.
+      </p>
+    </div>
+  </Fragment>
+
+  <section class="container layout">
+    <QuoteForm />
+
+    <aside class="sidebar">
+      <div class="call-card">
+        <div class="call-title">Prefer to just call?</div>
+        <p>You'll get me — the person doing the work — not a call center.</p>
+        <a href={`tel:${site.phoneTel}`} class="call-button">{site.phone}</a>
+        <div class="call-hours">Call or text · {site.hours}</div>
+      </div>
+
+      <div class="next-card">
+        <div class="next-title">What happens next</div>
+        <div class="steps">
+          <div class="step">
+            <span class="step-num">1</span>
+            <p>I get back to you the same day with an honest estimate.</p>
+          </div>
+          <div class="step">
+            <span class="step-num">2</span>
+            <p>We pick a time that works — real window, not an all-day wait.</p>
+          </div>
+          <div class="step">
+            <span class="step-num">3</span>
+            <p>I confirm the price before I start. No surprises on the bill.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="guarantee-card">
+        <div class="badge">{site.guaranteeDays}-day guarantee</div>
+        <p>Not happy within {site.guaranteeDays} days? I'll come back and re-clean the area — no charge, no hassle.</p>
+      </div>
+    </aside>
+  </section>
+</Base>
+
+<style>
+  .hero-copy {
+    max-width: 720px;
+    padding: 36px 0 0;
+  }
+
+  .hero-copy h1 {
+    font-size: 48px;
+    line-height: 1.04;
+    margin: 18px 0 18px;
+    letter-spacing: var(--ff-tracking-display);
+  }
+
+  .lead {
+    font-size: var(--ff-size-lead);
+    line-height: 1.6;
+    color: var(--ff-text-body);
+    margin: 0;
+  }
+
+  .layout {
+    padding: 56px var(--ff-gutter) 80px;
+    display: grid;
+    grid-template-columns: 1.35fr 0.85fr;
+    gap: 48px;
+    align-items: start;
+  }
+
+  @media (max-width: 900px) {
+    .layout {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .call-card {
+    background: var(--ff-navy);
+    border-radius: var(--ff-radius-card);
+    padding: 28px;
+  }
+
+  .call-title {
+    font-family: var(--ff-font-display);
+    font-weight: var(--ff-weight-bold);
+    font-size: 19px;
+    color: #fff;
+    letter-spacing: var(--ff-tracking-tight);
+    margin-bottom: 6px;
+  }
+
+  .call-card p {
+    font-size: var(--ff-size-body-sm);
+    color: var(--ff-on-navy-soft);
+    margin: 0 0 18px;
+    line-height: 1.6;
+  }
+
+  .call-button {
+    display: block;
+    text-align: center;
+    background: var(--ff-azure);
+    color: #fff;
+    padding: 14px;
+    border-radius: var(--ff-radius-btn);
+    font-weight: var(--ff-weight-bold);
+    font-size: 18px;
+    text-decoration: none;
+    transition: background var(--ff-transition);
+  }
+
+  .call-button:hover {
+    background: var(--ff-azure-hover);
+    color: #fff;
+  }
+
+  .call-hours {
+    font-size: var(--ff-size-caption);
+    color: #9fc2e6;
+    margin-top: 14px;
+    text-align: center;
+  }
+
+  .next-card {
+    background: var(--ff-surface);
+    border: 1px solid var(--ff-border);
+    border-radius: var(--ff-radius-card);
+    padding: 26px;
+  }
+
+  .next-title {
+    font-family: var(--ff-font-display);
+    font-weight: var(--ff-weight-bold);
+    font-size: 18px;
+    color: var(--ff-navy);
+    letter-spacing: var(--ff-tracking-tight);
+    margin-bottom: 16px;
+  }
+
+  .steps {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .step {
+    display: flex;
+    gap: 12px;
+  }
+
+  .step-num {
+    flex-shrink: 0;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: #e4f1fb;
+    color: var(--ff-azure);
+    font-weight: var(--ff-weight-bold);
+    font-size: 13px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .step p {
+    font-size: var(--ff-size-body-sm);
+    line-height: 1.55;
+    color: var(--ff-text-body);
+    margin: 0;
+  }
+
+  .guarantee-card {
+    background: var(--ff-fill-blue);
+    border: 1px solid var(--ff-border-blue);
+    border-radius: var(--ff-radius-card);
+    padding: 24px;
+  }
+
+  .badge {
+    display: inline-block;
+    border: 1.5px solid var(--ff-azure);
+    color: var(--ff-azure);
+    font-weight: var(--ff-weight-bold);
+    font-size: 12px;
+    letter-spacing: var(--ff-tracking-eyebrow);
+    text-transform: uppercase;
+    padding: 5px 12px;
+    border-radius: var(--ff-radius-pill);
+    margin-bottom: 12px;
+  }
+
+  .guarantee-card p {
+    font-size: var(--ff-size-body-sm);
+    line-height: 1.6;
+    color: var(--ff-text-body);
+    margin: 0;
+  }
+</style>

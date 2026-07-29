@@ -1,0 +1,11 @@
+{
+  "service": "tile",
+  "label": "Tile & Grout Cleaning",
+  "rows": [
+    { "label": "Floor tile & grout", "detail": "per sq ft", "price": 1.25, "unit": "/ sq ft" },
+    { "label": "Grout sealing", "detail": "add-on, recommended after cleaning", "price": 0.50, "unit": "/ sq ft", "addOn": true },
+    { "label": "Typical bathroom floor", "detail": "around 40 sq ft — minimum applies", "price": 99, "unit": null, "approx": true },
+    { "label": "Typical kitchen floor", "detail": "around 100 sq ft", "price": 125, "unit": null }
+  ],
+  "footnote": null
+}

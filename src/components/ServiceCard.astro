@@ -1,0 +1,115 @@
+---
+import Placeholder from './Placeholder.astro';
+import { formatPrice } from '../lib/format';
+
+interface Props {
+  href: string;
+  title: string;
+  description: string;
+  photoLabel: string;
+  priceLabel: string;
+  price: number;
+  unit: string;
+}
+
+const { href, title, description, photoLabel, priceLabel, price, unit } = Astro.props;
+---
+
+<a href={href} class="service-card">
+  <Placeholder label={photoLabel} aspectRatio="3 / 2" rounded={false} />
+  <div class="body">
+    <div class="title">{title}</div>
+    <p class="description">{description}</p>
+    <div class="footer">
+      <div class="price-line">
+        <span class="price-label">{priceLabel}</span>
+        <span class="price">{formatPrice(price)}</span>
+        <span class="unit">{unit}</span>
+      </div>
+      <span class="view">View <span class="arrow">→</span></span>
+    </div>
+  </div>
+</a>
+
+<style>
+  .service-card {
+    display: flex;
+    flex-direction: column;
+    background: var(--ff-surface);
+    border: 1px solid var(--ff-border);
+    border-radius: var(--ff-radius-card);
+    overflow: hidden;
+    text-decoration: none;
+    box-shadow: var(--ff-shadow-card);
+    transition: box-shadow var(--ff-transition), transform var(--ff-transition), border-color var(--ff-transition);
+  }
+
+  .service-card:hover {
+    box-shadow: var(--ff-shadow-hover);
+    transform: translateY(-3px);
+    border-color: #b9cee0;
+  }
+
+  .body {
+    padding: 24px 24px 26px;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+  }
+
+  .title {
+    font-family: var(--ff-font-display);
+    font-weight: var(--ff-weight-bold);
+    font-size: var(--ff-size-card-title);
+    color: var(--ff-navy);
+    letter-spacing: var(--ff-tracking-tight);
+    margin-bottom: 8px;
+  }
+
+  .description {
+    font-size: var(--ff-size-body-sm);
+    line-height: 1.6;
+    color: var(--ff-text-muted);
+    margin: 0 0 20px;
+    flex: 1;
+  }
+
+  .footer {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 12px;
+    padding-top: 18px;
+    border-top: 1px solid var(--ff-border-soft);
+  }
+
+  .price-line {
+    display: flex;
+    align-items: baseline;
+    gap: 6px;
+  }
+
+  .price-label,
+  .unit {
+    font-size: var(--ff-size-caption);
+    color: var(--ff-text-tan);
+  }
+
+  .price {
+    font-family: var(--ff-font-display);
+    font-weight: var(--ff-weight-bold);
+    font-size: 20px;
+    color: var(--ff-navy);
+  }
+
+  .view {
+    color: var(--ff-navy-cta);
+    font-weight: var(--ff-weight-semibold);
+    font-size: var(--ff-size-body-sm);
+    white-space: nowrap;
+  }
+
+  .arrow {
+    color: var(--ff-azure);
+  }
+</style>

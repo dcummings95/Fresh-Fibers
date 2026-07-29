@@ -1,0 +1,31 @@
+{
+  "slug": "rugs",
+  "route": "area-rugs",
+  "pricingFile": "rugs",
+  "navLabel": "Area & oriental rugs",
+  "eyebrow": "Area & oriental rugs",
+  "h1Plain": "Rugs cleaned with a ",
+  "h1Accent": "careful hand.",
+  "lead": "From synthetic runners to wool and oriental heirlooms — a gentle, fiber-matched clean that lifts out the ground-in grit dulling your rug's color, without stressing the weave or bleeding the dyes.",
+  "startingAtLabel": "Starting at",
+  "startingAtUnit": "per sq ft",
+  "photoLabel": "AREA RUG PHOTO",
+  "cardPriceLabel": "from",
+  "cardUnit": "/ sq ft",
+  "cardDescription": "A gentle, fiber-matched clean for synthetic runners to wool heirlooms, with the dyes tested first.",
+  "homeDescription": "Careful cleaning for the rugs you don't want to trust to just anyone.",
+  "whatsIncluded": [
+    { "label": "Fiber & colorfast test", "description": "I identify the fiber and test the dyes first, so nothing bleeds or shrinks." },
+    { "label": "Gentle deep clean", "description": "A low-stress wash matched to your rug lifts out grit and years of dulling dirt." },
+    { "label": "Fringe & edge care", "description": "Fringes and bound edges get cleaned by hand, where the wear usually starts." },
+    { "label": "Dried flat & fully", "description": "Rugs are dried flat and all the way through, so there's no mildew smell or backing damage." }
+  ],
+  "faq": [
+    { "q": "Do you take the rug away?", "a": "Most rugs I can clean right in your home. Delicate or heavily soiled ones may be better cleaned off-site — I'll let you know." },
+    { "q": "Is it safe for wool and oriental rugs?", "a": "Yes. I match the method to the fiber and always test the dyes first so colors don't run." },
+    { "q": "How long until it's dry?", "a": "Synthetic rugs dry in a few hours; thick wool can take a day. I dry them flat so the backing isn't stressed." },
+    { "q": "Can you get pet stains out of a rug?", "a": "Often, yes. I'll add an enzyme treatment for odor and tell you honestly how much will lift." }
+  ],
+  "ctaHeadline": "Ready to refresh your rugs?",
+  "beforeAfterCopy": "Real rug jobs from around Winona — photos coming soon."
+}

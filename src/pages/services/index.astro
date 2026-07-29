@@ -1,0 +1,179 @@
+---
+import Base from '../../layouts/Base.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import ServiceCard from '../../components/ServiceCard.astro';
+import Callout from '../../components/Callout.astro';
+import HubLinks from '../../components/HubLinks.astro';
+import site from '../../content/site.json';
+import { services, getPricing } from '../../lib/services';
+
+const title = `Carpet, Upholstery & Tile Cleaning Services | ${site.name} — Winona, MN`;
+const description =
+  'Carpet, upholstery, area rug, tile & grout, pet odor, and auto & boat interior cleaning around Winona, MN — one person, one truck, published pricing.';
+---
+
+<Base title={title} description={description}>
+  <Fragment slot="hero">
+    <Breadcrumb items={[{ label: 'Home', href: '/' }, { label: 'Services' }]} />
+    <div class="hero-copy">
+      <div class="eyebrow">What I do</div>
+      <h1>One person, one truck, <span class="accent">done right.</span></h1>
+      <p class="lead">
+        Everything I clean, I clean myself — no rotating crews, no upsells. Pick what you need below
+        for what's included, honest pricing, and answers to the questions I get asked most.
+      </p>
+    </div>
+  </Fragment>
+
+  <section class="container cards-section">
+    <div class="cards-grid">
+      {services.map((service) => {
+        const pricing = getPricing(service.pricingFile);
+        const firstPrice = pricing.rows.find((r) => r.price !== null)?.price ?? 0;
+        return (
+          <ServiceCard
+            href={`/services/${service.route}`}
+            title={service.navLabel}
+            description={service.cardDescription}
+            photoLabel={service.photoLabel}
+            priceLabel={service.cardPriceLabel}
+            price={firstPrice}
+            unit={service.cardUnit}
+          />
+        );
+      })}
+    </div>
+  </section>
+
+  <section class="container bundle-section">
+    <Callout title={`Booking more than one? Save about ${site.bundleDiscountPercent}%.`}>
+      Getting carpets and furniture done in the same visit saves me setup time — and I pass that
+      along. Just mention it and I'll work it into your estimate.
+      <div slot="action"><a href="/book" class="btn btn-primary">Get a bundle estimate</a></div>
+    </Callout>
+  </section>
+
+  <section class="how-it-works">
+    <div class="container">
+      <h2>How booking works</h2>
+      <div class="steps">
+        <div>
+          <div class="step-number">1</div>
+          <div class="step-title">Tell me what you need</div>
+          <p>Book online or call and text me a couple photos. I'll give you an honest estimate — free, no pressure.</p>
+        </div>
+        <div>
+          <div class="step-number">2</div>
+          <div class="step-title">I show up on time</div>
+          <p>You'll get a real arrival window, not an all-day wait. I confirm the estimate before I start any work.</p>
+        </div>
+        <div>
+          <div class="step-number">3</div>
+          <div class="step-title">You're covered {site.guaranteeDays} days</div>
+          <p>Not right within {site.guaranteeDays} days? I'll come back and re-clean the area — no charge, no hassle.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="container hub-links-section">
+    <HubLinks current="services" />
+  </section>
+</Base>
+
+<style>
+  .hero-copy {
+    max-width: 680px;
+    padding: 28px 0 0;
+  }
+
+  .hero-copy h1 {
+    font-size: var(--ff-size-h1);
+    line-height: 1.03;
+    margin: 18px 0 20px;
+    letter-spacing: var(--ff-tracking-display);
+  }
+
+  .lead {
+    font-size: var(--ff-size-lead);
+    line-height: 1.6;
+    color: var(--ff-text-body);
+    margin: 0;
+  }
+
+  .cards-section {
+    padding: 64px var(--ff-gutter) 24px;
+  }
+
+  .cards-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+
+  @media (max-width: 900px) {
+    .cards-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 620px) {
+    .cards-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .bundle-section {
+    padding: 24px var(--ff-gutter) 72px;
+  }
+
+  .how-it-works {
+    background: var(--ff-surface);
+    border-top: 1px solid var(--ff-border-line);
+    border-bottom: 1px solid var(--ff-border-line);
+    padding: 72px 0;
+  }
+
+  .how-it-works h2 {
+    font-size: var(--ff-size-h2);
+    margin-bottom: 40px;
+  }
+
+  .steps {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px;
+  }
+
+  @media (max-width: 700px) {
+    .steps {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .step-number {
+    font-family: var(--ff-font-display);
+    font-weight: var(--ff-weight-bold);
+    font-size: 34px;
+    color: var(--ff-azure);
+    margin-bottom: 10px;
+  }
+
+  .step-title {
+    font-weight: var(--ff-weight-bold);
+    color: var(--ff-text);
+    font-size: var(--ff-size-body-lg);
+    margin-bottom: 6px;
+  }
+
+  .steps p {
+    font-size: var(--ff-size-body);
+    line-height: 1.6;
+    color: var(--ff-text-muted);
+    margin: 0;
+  }
+
+  .hub-links-section {
+    padding: 40px var(--ff-gutter) 0;
+  }
+</style>

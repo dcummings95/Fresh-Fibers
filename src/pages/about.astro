@@ -1,0 +1,211 @@
+---
+import Base from '../layouts/Base.astro';
+import Breadcrumb from '../components/Breadcrumb.astro';
+import Placeholder from '../components/Placeholder.astro';
+import GuaranteeBookingBand from '../components/GuaranteeBookingBand.astro';
+import site from '../content/site.json';
+
+const title = `About ${site.ownerName} | ${site.name} — Winona, MN`;
+const description = `${site.name} is a one-person, owner-operated carpet and upholstery cleaning business in Winona, MN. No subcontractors, no rotating crews — just ${site.ownerName}.`;
+---
+
+<Base title={title} description={description}>
+  <Fragment slot="hero">
+    <Breadcrumb items={[{ label: 'Home', href: '/' }, { label: 'About' }]} />
+    <div class="hero-copy">
+      <div class="eyebrow">About {site.name}</div>
+      <h1>One person, one van, <span class="accent">no subcontractors.</span></h1>
+      <p class="lead">
+        Every job that gets booked, I'm the one who shows up and does the work — not a rotating crew,
+        not a subcontractor I've never met.
+      </p>
+    </div>
+  </Fragment>
+
+  <section class="container story-section">
+    <Placeholder label={`PHOTO OF ${site.ownerName.toUpperCase()}`} dimensions="640 × 640px, with the van" aspectRatio="1 / 1" />
+    <div class="story-copy">
+      <h2>How this started</h2>
+      <p>
+        I'm {site.ownerName}. I grew up around Winona, and {site.legalName} started the way a lot of
+        small local businesses do — doing a good job for one neighbor, then the next one, until it was
+        steady enough to run full-time out of a truckmount van instead of a side gig on weekends.
+      </p>
+      <p>
+        I never brought on a crew, and I'm not planning to. Keeping it to one person means every job gets
+        the same hands, the same standards, and the same care I'd want in my own house — and it means
+        when you call, you're talking to the person who's actually going to show up, not a dispatcher.
+      </p>
+    </div>
+  </section>
+
+  <section class="container equipment-section">
+    <h2>What that means for you</h2>
+    <div class="points">
+      <div class="point">
+        <div class="point-title">You get me, every time</div>
+        <p>No subcontractors, no unfamiliar faces. The person who quotes the job is the person who does it.</p>
+      </div>
+      <div class="point">
+        <div class="point-title">A real truckmount system</div>
+        <p>I run a van-mounted hot-water extraction system — the same class of equipment the bigger crews use, just without the overhead.</p>
+      </div>
+      <div class="point">
+        <div class="point-title">Honest, upfront pricing</div>
+        <p>My rates are published on this site because I'd rather earn the job on trust than surprise you with a number after I've already started.</p>
+      </div>
+      <div class="point">
+        <div class="point-title">Accountable if something's off</div>
+        <p>There's no one else to blame and no one else to fix it — if a job's not right, I come back and make it right, on my dime.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="area-section">
+    <div class="container">
+      <h2 class="on-navy">Where I work</h2>
+      <p class="on-navy-body">{site.serviceAreaNote}</p>
+      <div class="area-list">{site.serviceAreas.join(' · ')}</div>
+      <div class="hours">{site.hours}</div>
+      <a href="/areas" class="area-link">See area details <span class="accent-on-navy">→</span></a>
+    </div>
+  </section>
+
+  <GuaranteeBookingBand ctaHeadline={`Ready to work with ${site.ownerName}?`} />
+</Base>
+
+<style>
+  .hero-copy {
+    max-width: 640px;
+    padding: 28px 0 0;
+  }
+
+  .hero-copy h1 {
+    font-size: var(--ff-size-h1);
+    line-height: 1.03;
+    margin: 18px 0 20px;
+    letter-spacing: var(--ff-tracking-display);
+  }
+
+  .lead {
+    font-size: var(--ff-size-lead);
+    line-height: 1.6;
+    color: var(--ff-text-body);
+    margin: 0;
+  }
+
+  .story-section {
+    padding: 72px var(--ff-gutter);
+    display: grid;
+    grid-template-columns: 0.9fr 1.1fr;
+    gap: var(--ff-gap-lg);
+    align-items: center;
+  }
+
+  @media (max-width: 780px) {
+    .story-section {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .story-copy h2 {
+    font-size: var(--ff-size-h2);
+    margin-bottom: 20px;
+  }
+
+  .story-copy p {
+    font-size: var(--ff-size-body-lg);
+    line-height: 1.7;
+    color: var(--ff-text-body);
+    margin: 0 0 18px;
+  }
+
+  .story-copy p:last-child {
+    margin-bottom: 0;
+  }
+
+  .equipment-section {
+    padding: 0 var(--ff-gutter) 80px;
+  }
+
+  .equipment-section h2 {
+    font-size: var(--ff-size-h2);
+    margin-bottom: 32px;
+  }
+
+  .points {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 32px;
+  }
+
+  @media (max-width: 700px) {
+    .points {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .point-title {
+    font-weight: var(--ff-weight-bold);
+    color: var(--ff-text);
+    font-size: var(--ff-size-body-lg);
+    margin-bottom: 8px;
+  }
+
+  .points p {
+    font-size: var(--ff-size-body);
+    line-height: 1.6;
+    color: var(--ff-text-muted);
+    margin: 0;
+  }
+
+  .area-section {
+    background: var(--ff-navy);
+  }
+
+  .area-section .container {
+    padding: 64px var(--ff-gutter);
+  }
+
+  .on-navy {
+    font-size: var(--ff-size-h2);
+    color: #fff;
+    margin: 0 0 16px;
+  }
+
+  .on-navy-body {
+    font-size: var(--ff-size-body-lg);
+    color: var(--ff-on-navy-soft);
+    margin: 0 0 20px;
+    max-width: 480px;
+  }
+
+  .area-list {
+    font-size: var(--ff-size-body);
+    color: #fff;
+    line-height: 1.8;
+  }
+
+  .area-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 24px;
+    color: #fff;
+    font-weight: var(--ff-weight-semibold);
+    font-size: var(--ff-size-body);
+    text-decoration: none;
+  }
+
+  .area-link:hover {
+    text-decoration: underline;
+    text-underline-offset: 4px;
+    color: #fff;
+  }
+
+  .hours {
+    margin-top: 16px;
+    font-size: var(--ff-size-body-sm);
+    color: #9fc2e6;
+  }
+</style>

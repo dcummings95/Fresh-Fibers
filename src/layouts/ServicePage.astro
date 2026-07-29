@@ -1,0 +1,291 @@
+---
+import Base from './Base.astro';
+import Breadcrumb from '../components/Breadcrumb.astro';
+import Placeholder from '../components/Placeholder.astro';
+import PricingTable from '../components/PricingTable.astro';
+import PricingNote from '../components/PricingNote.astro';
+import Callout from '../components/Callout.astro';
+import BeforeAfterSlider from '../components/BeforeAfterSlider.astro';
+import GuaranteeBookingBand from '../components/GuaranteeBookingBand.astro';
+import site from '../content/site.json';
+import { getService, getPricing } from '../lib/services';
+import { formatPrice } from '../lib/format';
+import { buildServiceSchema } from '../lib/schema';
+
+interface Props {
+  slug: string;
+}
+
+const { slug } = Astro.props;
+const service = getService(slug);
+const pricing = getPricing(service.pricingFile);
+const firstPrice = pricing.rows.find((r) => r.price !== null)?.price ?? 0;
+
+const title = `${service.navLabel} | ${site.name} — Winona, MN`;
+const schema = buildServiceSchema(service.navLabel, service.lead);
+---
+
+<Base title={title} description={service.cardDescription} structuredData={schema}>
+  <Fragment slot="hero">
+    <Breadcrumb
+      items={[
+        { label: 'Home', href: '/' },
+        { label: 'Services', href: '/services' },
+        { label: service.navLabel },
+      ]}
+    />
+    <div class="hero-grid">
+      <div class="hero-copy">
+        <div class="eyebrow">{service.eyebrow}</div>
+        <h1>{service.h1Plain}<span class="accent">{service.h1Accent}</span></h1>
+        <p class="lead">{service.lead}</p>
+        <div class="starting-at">
+          <span class="starting-label">{service.startingAtLabel}</span>
+          <span class="starting-price">{formatPrice(firstPrice)}</span>
+          <span class="starting-unit">{service.startingAtUnit}</span>
+        </div>
+        <div class="cta-row">
+          <a href="/book" class="btn btn-primary">Get a free estimate</a>
+          <a href={`tel:${site.phoneTel}`} class="btn-tertiary">Call or text</a>
+        </div>
+      </div>
+      <Placeholder label={service.photoLabel} dimensions="900 × 675px" aspectRatio="4 / 3" />
+    </div>
+  </Fragment>
+
+  <section class="container included-pricing">
+    <div class="included">
+      <h2>What's included</h2>
+      <div class="checklist">
+        {service.whatsIncluded.map((item) => (
+          <div class="check-row">
+            <span class="check">✓</span>
+            <div>
+              <div class="check-label">{item.label}</div>
+              <p>{item.description}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <div class="pricing-col">
+      <h2>Estimated pricing</h2>
+      <PricingTable pricing={pricing} />
+      <PricingNote />
+      {pricing.safetyNote && (
+        <div class="extra-note">
+          <Callout title="Not every rug can be cleaned in your home">{pricing.safetyNote}</Callout>
+        </div>
+      )}
+      {pricing.footnote && (
+        <div class="extra-note">
+          <Callout>{pricing.footnote}</Callout>
+        </div>
+      )}
+    </div>
+  </section>
+
+  <section class="container before-after">
+    <div class="section-head">
+      <div>
+        <h2>See the difference</h2>
+        <p>Drag the slider to compare. {service.beforeAfterCopy}</p>
+      </div>
+      <a href="/work" class="btn-tertiary">See all before &amp; afters <span class="arrow">→</span></a>
+    </div>
+    <BeforeAfterSlider />
+  </section>
+
+  <section class="faq-band">
+    <div class="container">
+      <h2>Common questions</h2>
+      <div class="faq-grid">
+        {service.faq.map((item) => (
+          <div>
+            <div class="q">{item.q}</div>
+            <p class="a">{item.a}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <GuaranteeBookingBand ctaHeadline={service.ctaHeadline} />
+</Base>
+
+<style>
+  .hero-grid {
+    display: grid;
+    grid-template-columns: 1.05fr 0.95fr;
+    gap: var(--ff-gap-lg);
+    align-items: center;
+    padding: 28px 0 0;
+  }
+
+  @media (max-width: 860px) {
+    .hero-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .hero-copy h1 {
+    font-size: var(--ff-size-h1);
+    line-height: 1.03;
+    margin: 18px 0 22px;
+    letter-spacing: var(--ff-tracking-display);
+  }
+
+  .lead {
+    font-size: var(--ff-size-lead);
+    line-height: 1.6;
+    color: var(--ff-text-body);
+    margin: 0 0 20px;
+    max-width: 460px;
+  }
+
+  .starting-at {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    margin-bottom: 28px;
+  }
+
+  .starting-label,
+  .starting-unit {
+    font-size: var(--ff-size-body-sm);
+    color: var(--ff-text-muted);
+  }
+
+  .starting-price {
+    font-family: var(--ff-font-display);
+    font-weight: var(--ff-weight-bold);
+    font-size: 32px;
+    color: var(--ff-navy);
+  }
+
+  .cta-row {
+    display: flex;
+    gap: 18px;
+    align-items: center;
+  }
+
+  .included-pricing {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--ff-gap-lg);
+    padding-top: 80px;
+    padding-bottom: 40px;
+  }
+
+  @media (max-width: 860px) {
+    .included-pricing {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .included h2,
+  .pricing-col h2,
+  .before-after h2,
+  .faq-band h2 {
+    font-size: var(--ff-size-h2);
+    margin-bottom: 24px;
+  }
+
+  .checklist {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .check-row {
+    display: flex;
+    gap: 14px;
+    padding: 16px 0;
+    border-bottom: 1px solid var(--ff-border-line);
+  }
+
+  .check-row:last-child {
+    border-bottom: none;
+  }
+
+  .check {
+    color: var(--ff-azure);
+    font-weight: var(--ff-weight-bold);
+    font-size: 18px;
+    line-height: 1.5;
+  }
+
+  .check-label {
+    font-weight: var(--ff-weight-bold);
+    color: var(--ff-text);
+    font-size: var(--ff-size-body-lg);
+    margin-bottom: 3px;
+  }
+
+  .check-row p {
+    font-size: var(--ff-size-body-sm);
+    color: var(--ff-text-muted);
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  .extra-note {
+    margin-top: 16px;
+  }
+
+  .before-after {
+    padding: 40px var(--ff-gutter) 80px;
+  }
+
+  .section-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 24px;
+    margin-bottom: 32px;
+    flex-wrap: wrap;
+  }
+
+  .section-head p {
+    font-size: var(--ff-size-body-lg);
+    color: var(--ff-text-muted);
+    margin: 0;
+  }
+
+  .arrow {
+    color: var(--ff-azure);
+  }
+
+  .faq-band {
+    background: var(--ff-surface);
+    border-top: 1px solid var(--ff-border-line);
+    border-bottom: 1px solid var(--ff-border-line);
+    padding: 72px 0;
+  }
+
+  .faq-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 36px 56px;
+  }
+
+  @media (max-width: 700px) {
+    .faq-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .q {
+    font-weight: var(--ff-weight-bold);
+    color: var(--ff-text);
+    font-size: var(--ff-size-body-lg);
+    margin-bottom: 8px;
+  }
+
+  .a {
+    font-size: var(--ff-size-body);
+    line-height: 1.6;
+    color: var(--ff-text-muted);
+    margin: 0;
+  }
+</style>

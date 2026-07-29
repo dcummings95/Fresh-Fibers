@@ -1,0 +1,196 @@
+---
+import Base from '../../layouts/Base.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import HubLinks from '../../components/HubLinks.astro';
+import GuaranteeBookingBand from '../../components/GuaranteeBookingBand.astro';
+import site from '../../content/site.json';
+
+const title = `Service Areas | ${site.name} — Winona, MN & La Crosse, WI`;
+const description = `${site.name} cleans carpets, upholstery, and rugs across Winona, MN, La Crosse, WI, and the towns between — ${site.serviceAreas.join(', ')}.`;
+
+const featured = [
+  {
+    href: '/areas/winona',
+    town: 'Winona, MN',
+    blurb: "Home base — where the van's parked and most weeks are spent, from the lake up to the bluffs.",
+  },
+  {
+    href: '/areas/la-crosse',
+    town: 'La Crosse, WI',
+    blurb: 'A regular stop across the river, including college-rental turnovers and the neighborhoods around it.',
+  },
+];
+---
+
+<Base title={title} description={description}>
+  <Fragment slot="hero">
+    <Breadcrumb items={[{ label: 'Home', href: '/' }, { label: 'Areas' }]} />
+    <div class="hero-copy">
+      <div class="eyebrow">Where I work</div>
+      <h1>Serving the river valley, <span class="accent">bluff to bluff.</span></h1>
+      <p class="lead">{site.serviceAreaNote}</p>
+    </div>
+  </Fragment>
+
+  <section class="container featured-section">
+    <div class="featured-grid">
+      {featured.map((f) => (
+        <a href={f.href} class="featured-card">
+          <div class="town">{f.town}</div>
+          <p>{f.blurb}</p>
+          <span class="see-more">See local details <span class="arrow">→</span></span>
+        </a>
+      ))}
+    </div>
+  </section>
+
+  <section class="container coverage-section">
+    <h2>Full coverage area</h2>
+    <p class="coverage-intro">{site.serviceAreaNote}</p>
+    <ul class="town-list">
+      {site.serviceAreas.map((area) => (
+        <li>{area}</li>
+      ))}
+    </ul>
+    <p class="coverage-note">
+      Only Winona and La Crosse have their own pages here, but I clean regularly in all of the towns
+      above. If you're nearby and don't see your town listed, <a href="/contact">just ask</a> — chances
+      are I already cover it.
+    </p>
+  </section>
+
+  <section class="container hub-links-section">
+    <HubLinks current="areas" />
+  </section>
+
+  <GuaranteeBookingBand ctaHeadline="Ready to book in your area?" />
+</Base>
+
+<style>
+  .hero-copy {
+    max-width: 640px;
+    padding: 28px 0 0;
+  }
+
+  .hero-copy h1 {
+    font-size: var(--ff-size-h1);
+    line-height: 1.03;
+    margin: 18px 0 20px;
+    letter-spacing: var(--ff-tracking-display);
+  }
+
+  .lead {
+    font-size: var(--ff-size-lead);
+    line-height: 1.6;
+    color: var(--ff-text-body);
+    margin: 0;
+  }
+
+  .featured-section {
+    padding: 64px var(--ff-gutter) 24px;
+  }
+
+  .featured-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+  }
+
+  @media (max-width: 700px) {
+    .featured-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .featured-card {
+    display: block;
+    background: var(--ff-surface);
+    border: 1px solid var(--ff-border);
+    border-radius: var(--ff-radius-card);
+    padding: 28px;
+    text-decoration: none;
+    box-shadow: var(--ff-shadow-card);
+    transition: box-shadow var(--ff-transition), transform var(--ff-transition), border-color var(--ff-transition);
+  }
+
+  .featured-card:hover {
+    box-shadow: var(--ff-shadow-hover);
+    transform: translateY(-3px);
+    border-color: #b9cee0;
+  }
+
+  .town {
+    font-family: var(--ff-font-display);
+    font-weight: var(--ff-weight-bold);
+    font-size: var(--ff-size-card-title);
+    color: var(--ff-navy);
+    letter-spacing: var(--ff-tracking-tight);
+    margin-bottom: 10px;
+  }
+
+  .featured-card p {
+    font-size: var(--ff-size-body-sm);
+    line-height: 1.6;
+    color: var(--ff-text-muted);
+    margin: 0 0 18px;
+  }
+
+  .see-more {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: var(--ff-size-body-sm);
+    font-weight: var(--ff-weight-semibold);
+    color: var(--ff-navy-cta);
+  }
+
+  .arrow {
+    color: var(--ff-azure);
+  }
+
+  .coverage-section {
+    padding: 40px var(--ff-gutter) 24px;
+    max-width: 700px;
+  }
+
+  .coverage-section h2 {
+    font-size: var(--ff-size-h2);
+    margin-bottom: 16px;
+  }
+
+  .coverage-intro {
+    font-size: var(--ff-size-body-lg);
+    line-height: 1.6;
+    color: var(--ff-text-body);
+    margin: 0 0 24px;
+  }
+
+  .town-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 24px;
+  }
+
+  .town-list li {
+    background: var(--ff-fill-blue);
+    border: 1px solid var(--ff-border-blue);
+    color: var(--ff-navy-cta);
+    font-weight: var(--ff-weight-semibold);
+    font-size: var(--ff-size-body-sm);
+    padding: 8px 16px;
+    border-radius: var(--ff-radius-pill);
+  }
+
+  .coverage-note {
+    font-size: var(--ff-size-body-sm);
+    line-height: 1.6;
+    color: var(--ff-text-muted);
+    margin: 0;
+  }
+
+  .hub-links-section {
+    padding: 24px var(--ff-gutter) 80px;
+    max-width: 700px;
+  }
+</style>

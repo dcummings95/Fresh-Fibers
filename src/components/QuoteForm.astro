@@ -1,0 +1,336 @@
+---
+import site from '../content/site.json';
+import { services } from '../lib/services';
+---
+
+<div class="quote-form-card">
+  <form
+    id="quote-form"
+    method="POST"
+    action="https://api.web3forms.com/submit"
+    novalidate
+  >
+    <input type="hidden" name="access_key" value={site.web3formsAccessKey} />
+    <input type="hidden" name="subject" value={`New quote request — ${site.name}`} />
+    <input type="hidden" name="from_name" value={`${site.name} website`} />
+    <input type="checkbox" name="botcheck" class="visually-hidden" tabindex="-1" autocomplete="off" aria-hidden="true" />
+
+    <div class="field-group">
+      <div class="label">What do you need cleaned?</div>
+      <div class="hint">Pick all that apply — bundling more than one usually saves about {site.bundleDiscountPercent}%.</div>
+      <div class="chips">
+        {services.map((service) => (
+          <label class="chip">
+            <input type="checkbox" name="services" value={service.navLabel} />
+            <span>{service.navLabel}</span>
+          </label>
+        ))}
+      </div>
+    </div>
+
+    <div class="grid-2">
+      <div class="field">
+        <label for="name">Your name</label>
+        <input id="name" name="name" type="text" placeholder="First and last" required />
+      </div>
+      <div class="field">
+        <label for="phone">Phone <span class="optional">(text is fine)</span></label>
+        <input id="phone" name="phone" type="tel" placeholder="Your phone number" required />
+      </div>
+    </div>
+
+    <div class="grid-2">
+      <div class="field">
+        <label for="email">Email</label>
+        <input id="email" name="email" type="email" placeholder="you@example.com" required />
+      </div>
+      <div class="field">
+        <label for="area">Service area</label>
+        <select id="area" name="area" required>
+          <option value="">Select your town</option>
+          {site.serviceAreas.map((area) => (
+            <option value={area}>{area}</option>
+          ))}
+        </select>
+      </div>
+    </div>
+
+    <div class="field">
+      <label for="best_time">Best time to reach you <span class="optional">(optional)</span></label>
+      <input id="best_time" name="best_time" type="text" placeholder="e.g. weekday mornings" />
+    </div>
+
+    <div class="field">
+      <label for="message">A few details <span class="optional">(optional)</span></label>
+      <textarea
+        id="message"
+        name="message"
+        rows="4"
+        placeholder="How many rooms or pieces? Any tough spots, pet stains, or something set-in? A photo texted over helps a lot."
+      ></textarea>
+    </div>
+
+    <button type="submit" class="btn btn-primary btn-full submit-btn">Send my free estimate request</button>
+    <p class="disclaimer">No obligation. I'll only use this to get back to you about your job.</p>
+    <p class="error-message" data-form-error role="alert"></p>
+  </form>
+
+  <div class="confirmation" data-confirmation hidden>
+    <div class="check">✓</div>
+    <h2>Got it — thanks, <span data-first-name>there</span>!</h2>
+    <p>Your request came through. I'll look it over and text or call you back with an honest estimate, usually within a few hours during business hours.</p>
+    <div class="actions">
+      <a href={`tel:${site.phoneTel}`} class="btn btn-primary">Rather talk now? Call me</a>
+      <button type="button" class="btn btn-secondary" data-form-reset>Send another request</button>
+    </div>
+  </div>
+</div>
+
+<script is:inline define:vars={{ phone: site.phone }}>
+  const form = document.getElementById('quote-form');
+  const confirmation = document.querySelector('[data-confirmation]');
+  const errorEl = document.querySelector('[data-form-error]');
+  const firstNameEl = document.querySelector('[data-first-name]');
+  const resetBtn = document.querySelector('[data-form-reset]');
+
+  if (form && confirmation) {
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      if (errorEl) errorEl.textContent = '';
+
+      const submitBtn = form.querySelector('button[type="submit"]');
+      if (submitBtn) submitBtn.disabled = true;
+
+      const data = new FormData(form);
+      const name = String(data.get('name') || '').trim();
+      const first = name.split(/\s+/)[0] || 'there';
+
+      try {
+        const res = await fetch(form.action, {
+          method: 'POST',
+          body: data,
+          headers: { Accept: 'application/json' },
+        });
+        const json = await res.json().catch(() => ({}));
+
+        if (res.ok && json.success) {
+          if (firstNameEl) firstNameEl.textContent = first;
+          form.hidden = true;
+          confirmation.hidden = false;
+        } else {
+          throw new Error(json.message || 'Submission failed');
+        }
+      } catch {
+        if (errorEl) {
+          errorEl.textContent = `Something went wrong sending that. Please call or text instead — ${phone}.`;
+        }
+      } finally {
+        if (submitBtn) submitBtn.disabled = false;
+      }
+    });
+
+    resetBtn?.addEventListener('click', () => {
+      form.reset();
+      form.hidden = false;
+      confirmation.hidden = true;
+    });
+  }
+</script>
+
+<style>
+  .quote-form-card {
+    background: var(--ff-surface);
+    border: 1px solid var(--ff-border);
+    border-radius: var(--ff-radius-card-lg);
+    padding: 40px;
+    box-shadow: var(--ff-shadow-form);
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
+
+  .field-group {
+    margin-bottom: 8px;
+  }
+
+  .label {
+    font-weight: var(--ff-weight-bold);
+    color: var(--ff-text);
+    font-size: var(--ff-size-body-sm);
+    margin-bottom: 6px;
+  }
+
+  .hint {
+    font-size: var(--ff-size-caption);
+    color: var(--ff-text-tan);
+    margin-bottom: 14px;
+  }
+
+  .chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .chip {
+    position: relative;
+    cursor: pointer;
+  }
+
+  .chip input {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  .chip span {
+    display: inline-flex;
+    font-size: var(--ff-size-body-sm);
+    font-weight: var(--ff-weight-semibold);
+    padding: 10px 18px;
+    border-radius: var(--ff-radius-pill);
+    border: 1.5px solid #ddd4c4;
+    background: #fff;
+    color: var(--ff-text-body);
+    transition: all 0.12s;
+  }
+
+  .chip input:checked + span {
+    border-color: var(--ff-navy-cta);
+    background: var(--ff-navy-cta);
+    color: #fff;
+  }
+
+  .chip input:focus-visible + span {
+    outline: 3px solid var(--ff-azure);
+    outline-offset: 2px;
+  }
+
+  .grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+  }
+
+  @media (max-width: 560px) {
+    .grid-2 {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .field label {
+    display: block;
+    font-weight: var(--ff-weight-semibold);
+    color: var(--ff-text);
+    font-size: var(--ff-size-caption);
+    margin-bottom: 7px;
+  }
+
+  .optional {
+    color: var(--ff-text-tan);
+    font-weight: var(--ff-weight-regular);
+  }
+
+  .field input,
+  .field select,
+  .field textarea {
+    width: 100%;
+    padding: 13px 15px;
+    font-size: var(--ff-size-body);
+    color: var(--ff-text);
+    background: #fff;
+    border: 1.5px solid var(--ff-border-input);
+    border-radius: 9px;
+  }
+
+  .field textarea {
+    resize: vertical;
+    line-height: 1.5;
+  }
+
+  .field input:focus-visible,
+  .field select:focus-visible,
+  .field textarea:focus-visible {
+    outline: none;
+    border-color: var(--ff-azure);
+    box-shadow: 0 0 0 3px rgba(19, 157, 242, 0.18);
+  }
+
+  .submit-btn {
+    padding: 17px;
+    font-size: 17px;
+    border-radius: 9px;
+    margin-top: 4px;
+  }
+
+  .disclaimer {
+    text-align: center;
+    font-size: var(--ff-size-micro);
+    color: var(--ff-text-tan);
+    margin: 0;
+  }
+
+  .error-message {
+    text-align: center;
+    font-size: var(--ff-size-body-sm);
+    color: #b3261e;
+    margin: 0;
+  }
+
+  .error-message:empty {
+    display: none;
+  }
+
+  .confirmation {
+    text-align: center;
+    padding: 28px 12px 20px;
+  }
+
+  .check {
+    width: 66px;
+    height: 66px;
+    margin: 0 auto 22px;
+    border-radius: 50%;
+    background: #e4f1fb;
+    border: 2px solid var(--ff-azure);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--ff-azure);
+    font-size: 30px;
+    font-weight: var(--ff-weight-bold);
+  }
+
+  .confirmation h2 {
+    font-size: 28px;
+    margin: 0 0 12px;
+  }
+
+  .confirmation p {
+    font-size: var(--ff-size-body-lg);
+    line-height: 1.65;
+    color: var(--ff-text-body);
+    margin: 0 auto 28px;
+    max-width: 420px;
+  }
+
+  .actions {
+    display: flex;
+    gap: 14px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .actions button {
+    font-family: inherit;
+  }
+</style>

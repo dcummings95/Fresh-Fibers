@@ -1,0 +1,141 @@
+---
+import Base from '../../layouts/Base.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import GuaranteeBookingBand from '../../components/GuaranteeBookingBand.astro';
+import site from '../../content/site.json';
+import { services } from '../../lib/services';
+
+const title = `Carpet & Upholstery Cleaning in La Crosse, WI | ${site.name}`;
+const description = `${site.name} cleans carpets, rugs, and upholstery for homes and rentals in La Crosse, WI and nearby Onalaska, Holmen, and Arcadia.`;
+---
+
+<Base title={title} description={description}>
+  <Fragment slot="hero">
+    <Breadcrumb items={[{ label: 'Home', href: '/' }, { label: 'Areas', href: '/areas' }, { label: 'La Crosse, WI' }]} />
+    <div class="hero-copy">
+      <div class="eyebrow">Serving La Crosse, WI</div>
+      <h1>Across the river, <span class="accent">same standard.</span></h1>
+      <p class="lead">
+        I'm over the bridge in La Crosse regularly — homes, rentals, and everything between Onalaska and
+        Holmen.
+      </p>
+    </div>
+  </Fragment>
+
+  <section class="container prose-section">
+    <p>
+      La Crosse is a quick drive over the river from Winona, and it's one of the areas I get to most weeks.
+      Being a college town — UW-La Crosse and Viterbo both draw a lot of rental turnover — means a
+      meaningful share of my La Crosse work is move-out and move-in carpet cleaning for landlords and
+      property managers trying to turn a unit around fast between leases. I keep that kind of job simple:
+      a clear price up front, quick scheduling around a move-out date, and a straightforward invoice if
+      you need one for a deposit dispute.
+    </p>
+    <p>
+      Outside the rental market, La Crosse's neighborhoods — the North Side, the Southside near Copeland
+      Park, up on French Island — are mostly the same mix of family homes and older housing stock you'd
+      find in Winona, so the actual cleaning work looks familiar: carpet and upholstery in living spaces,
+      the occasional area rug, and pet stains that come with a river town full of dogs.
+    </p>
+    <p>
+      I bundle Onalaska, Holmen, and Arcadia in with La Crosse since they're all a short drive along the
+      same stretch of highway — if you're in one of those towns and not sure whether you're in range, just
+      ask. If you're close, I'll come.
+    </p>
+  </section>
+
+  <section class="container services-section">
+    <h2>Services in La Crosse</h2>
+    <ul class="service-list">
+      {services.map((service) => (
+        <li>
+          <a href={`/services/${service.route}`}>{service.navLabel}</a>
+          <span class="desc">{service.homeDescription}</span>
+        </li>
+      ))}
+    </ul>
+  </section>
+
+  <GuaranteeBookingBand ctaHeadline="Ready to book in La Crosse?" />
+</Base>
+
+<style>
+  .hero-copy {
+    max-width: 640px;
+    padding: 28px 0 0;
+  }
+
+  .hero-copy h1 {
+    font-size: var(--ff-size-h1);
+    line-height: 1.03;
+    margin: 18px 0 20px;
+    letter-spacing: var(--ff-tracking-display);
+  }
+
+  .lead {
+    font-size: var(--ff-size-lead);
+    line-height: 1.6;
+    color: var(--ff-text-body);
+    margin: 0;
+  }
+
+  .prose-section {
+    padding: 64px var(--ff-gutter);
+    max-width: 760px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .prose-section p {
+    font-size: var(--ff-size-body-lg);
+    line-height: 1.7;
+    color: var(--ff-text-body);
+    margin: 0;
+  }
+
+  .services-section {
+    padding: 0 var(--ff-gutter) 72px;
+  }
+
+  .services-section h2 {
+    font-size: var(--ff-size-h2);
+    margin-bottom: 24px;
+  }
+
+  .service-list {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .service-list li {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 16px;
+    flex-wrap: wrap;
+    padding: 16px 0;
+    border-bottom: 1px solid var(--ff-border-line);
+  }
+
+  .service-list li:last-child {
+    border-bottom: none;
+  }
+
+  .service-list a {
+    font-weight: var(--ff-weight-bold);
+    color: var(--ff-navy);
+    text-decoration: none;
+    font-size: var(--ff-size-body);
+  }
+
+  .service-list a:hover {
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  .desc {
+    font-size: var(--ff-size-body-sm);
+    color: var(--ff-text-muted);
+  }
+</style>

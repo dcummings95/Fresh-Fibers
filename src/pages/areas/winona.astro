@@ -1,0 +1,141 @@
+---
+import Base from '../../layouts/Base.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import GuaranteeBookingBand from '../../components/GuaranteeBookingBand.astro';
+import site from '../../content/site.json';
+import { services } from '../../lib/services';
+
+const title = `Carpet & Upholstery Cleaning in Winona, MN | ${site.name}`;
+const description = `${site.ownerName} of ${site.name} is based right in Winona, MN — carpet, rug, and upholstery cleaning for homes near Lake Winona, downtown, and Sugar Loaf.`;
+---
+
+<Base title={title} description={description}>
+  <Fragment slot="hero">
+    <Breadcrumb items={[{ label: 'Home', href: '/' }, { label: 'Areas', href: '/areas' }, { label: 'Winona, MN' }]} />
+    <div class="hero-copy">
+      <div class="eyebrow">Serving Winona, MN</div>
+      <h1>Cleaning the town <span class="accent">I grew up in.</span></h1>
+      <p class="lead">
+        Winona's home base for {site.name} — the van's parked here, and most weeks I'm cleaning somewhere
+        between the lake and the bluffs.
+      </p>
+    </div>
+  </Fragment>
+
+  <section class="container prose-section">
+    <p>
+      Winona sits on a bend of the Mississippi between the river and the bluffs, and that geography shapes
+      a lot of the work I do here. Homes near the lake and the historic downtown — a lot of them built
+      long before central air was standard — tend to have older hardwood with area rugs on top rather than
+      wall-to-wall carpet, so a good chunk of my Winona jobs are rug and floor work: testing a rug's fiber
+      before I touch it, working carefully around original woodwork, and treating the kind of ground-in
+      soil that comes from a century of foot traffic.
+    </p>
+    <p>
+      Closer to Winona State and the newer neighborhoods on the east and south sides, it's a different mix
+      — full carpet in bedrooms and living rooms, more pet stains, more move-in and move-out cleanings
+      between semesters. Either way, because I live here, I'm usually not driving far to get to you, which
+      means more flexibility on scheduling and faster turnaround if something comes up last-minute.
+    </p>
+    <p>
+      Whatever your house looks like — a bluffside bungalow, a lake-view rental, or something newer out by
+      the highway — the approach is the same: an honest look at what you've got, a firm price before I
+      start, and I don't leave until it's right.
+    </p>
+  </section>
+
+  <section class="container services-section">
+    <h2>Services in Winona</h2>
+    <ul class="service-list">
+      {services.map((service) => (
+        <li>
+          <a href={`/services/${service.route}`}>{service.navLabel}</a>
+          <span class="desc">{service.homeDescription}</span>
+        </li>
+      ))}
+    </ul>
+  </section>
+
+  <GuaranteeBookingBand ctaHeadline="Ready to book in Winona?" />
+</Base>
+
+<style>
+  .hero-copy {
+    max-width: 640px;
+    padding: 28px 0 0;
+  }
+
+  .hero-copy h1 {
+    font-size: var(--ff-size-h1);
+    line-height: 1.03;
+    margin: 18px 0 20px;
+    letter-spacing: var(--ff-tracking-display);
+  }
+
+  .lead {
+    font-size: var(--ff-size-lead);
+    line-height: 1.6;
+    color: var(--ff-text-body);
+    margin: 0;
+  }
+
+  .prose-section {
+    padding: 64px var(--ff-gutter);
+    max-width: 760px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .prose-section p {
+    font-size: var(--ff-size-body-lg);
+    line-height: 1.7;
+    color: var(--ff-text-body);
+    margin: 0;
+  }
+
+  .services-section {
+    padding: 0 var(--ff-gutter) 72px;
+  }
+
+  .services-section h2 {
+    font-size: var(--ff-size-h2);
+    margin-bottom: 24px;
+  }
+
+  .service-list {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .service-list li {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 16px;
+    flex-wrap: wrap;
+    padding: 16px 0;
+    border-bottom: 1px solid var(--ff-border-line);
+  }
+
+  .service-list li:last-child {
+    border-bottom: none;
+  }
+
+  .service-list a {
+    font-weight: var(--ff-weight-bold);
+    color: var(--ff-navy);
+    text-decoration: none;
+    font-size: var(--ff-size-body);
+  }
+
+  .service-list a:hover {
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  .desc {
+    font-size: var(--ff-size-body-sm);
+    color: var(--ff-text-muted);
+  }
+</style>

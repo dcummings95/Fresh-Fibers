@@ -1,0 +1,104 @@
+---
+import { formatPrice } from '../lib/format';
+
+interface Row {
+  label: string;
+  detail: string | null;
+  price: number | null;
+  unit: string | null;
+  quoteLabel?: string;
+  approx?: boolean;
+  addOn?: boolean;
+}
+
+interface Pricing {
+  service: string;
+  label: string;
+  rows: Row[];
+  footnote: string | null;
+}
+
+interface Props {
+  pricing: Pricing;
+}
+
+const { pricing } = Astro.props;
+
+function priceText(row: Row): string {
+  if (row.quoteLabel) return row.quoteLabel;
+  if (row.price === null) return '';
+  const amount = `${row.addOn ? '+' : ''}${row.approx ? 'from ' : ''}${formatPrice(row.price)}`;
+  return row.unit ? `${amount} ${row.unit}` : amount;
+}
+---
+
+<div class="pricing-table">
+  {pricing.rows.map((row) => {
+    const isBestValue = row.detail === 'best value';
+    return (
+      <div class="row" class:list={{ 'best-value': isBestValue }}>
+        <div class="name">
+          <div class="label">
+            {row.label}
+            {isBestValue && <span class="tag">· best value</span>}
+          </div>
+          {row.detail && !isBestValue && <div class="detail">{row.detail}</div>}
+        </div>
+        <div class="price">{priceText(row)}</div>
+      </div>
+    );
+  })}
+</div>
+
+<style>
+  .pricing-table {
+    background: var(--ff-surface);
+    border: 1px solid var(--ff-border);
+    border-radius: var(--ff-radius-inner);
+    overflow: hidden;
+  }
+
+  .row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 16px;
+    padding: 20px 24px;
+    border-bottom: 1px solid var(--ff-border-soft);
+  }
+
+  .row:last-child {
+    border-bottom: none;
+  }
+
+  .row.best-value {
+    background: var(--ff-fill-blue);
+  }
+
+  .label {
+    font-weight: var(--ff-weight-bold);
+    color: var(--ff-text);
+    font-size: var(--ff-size-body);
+  }
+
+  .tag {
+    color: var(--ff-azure);
+    font-weight: var(--ff-weight-bold);
+    margin-left: 4px;
+  }
+
+  .detail {
+    font-size: var(--ff-size-caption);
+    color: var(--ff-text-tan);
+    margin-top: 2px;
+  }
+
+  .price {
+    white-space: nowrap;
+    font-family: var(--ff-font-display);
+    font-weight: var(--ff-weight-bold);
+    color: var(--ff-navy);
+    font-size: 20px;
+  }
+
+</style>

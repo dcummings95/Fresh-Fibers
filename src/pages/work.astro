@@ -1,0 +1,89 @@
+---
+import Base from '../layouts/Base.astro';
+import Breadcrumb from '../components/Breadcrumb.astro';
+import BeforeAfterSlider from '../components/BeforeAfterSlider.astro';
+import GuaranteeBookingBand from '../components/GuaranteeBookingBand.astro';
+import site from '../content/site.json';
+import { services } from '../lib/services';
+
+const title = `Before & After Photos | ${site.name} — Winona, MN`;
+const description = `See real carpet, upholstery, rug, tile, and auto interior cleaning results from ${site.name} around Winona, MN.`;
+---
+
+<Base title={title} description={description}>
+  <Fragment slot="hero">
+    <Breadcrumb items={[{ label: 'Home', href: '/' }, { label: 'Before & After' }]} />
+    <div class="hero-copy">
+      <div class="eyebrow">See the results</div>
+      <h1>Before &amp; <span class="accent">after.</span></h1>
+      <p class="lead">
+        Drag any slider to compare. These are real jobs from around Winona — photos are being added as
+        they come in.
+      </p>
+    </div>
+  </Fragment>
+
+  <section class="container gallery">
+    {services.map((service) => (
+      <div class="gallery-item">
+        <div class="item-head">
+          <h2>{service.navLabel}</h2>
+          <a href={`/services/${service.route}`} class="btn-tertiary">Service details <span class="arrow">→</span></a>
+        </div>
+        <BeforeAfterSlider beforeLabel={`BEFORE · ${service.navLabel}`} afterLabel={`AFTER · ${service.navLabel}`} />
+      </div>
+    ))}
+  </section>
+
+  <GuaranteeBookingBand ctaHeadline="Ready to see your own before & after?" />
+</Base>
+
+<style>
+  .hero-copy {
+    max-width: 600px;
+    padding: 28px 0 0;
+  }
+
+  .hero-copy h1 {
+    font-size: var(--ff-size-h1);
+    line-height: 1.03;
+    margin: 18px 0 20px;
+    letter-spacing: var(--ff-tracking-display);
+  }
+
+  .lead {
+    font-size: var(--ff-size-lead);
+    line-height: 1.6;
+    color: var(--ff-text-body);
+    margin: 0;
+  }
+
+  .gallery {
+    padding: 64px var(--ff-gutter) 80px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+  }
+
+  @media (max-width: 780px) {
+    .gallery {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .item-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+
+  .item-head h2 {
+    font-size: var(--ff-size-h3);
+  }
+
+  .arrow {
+    color: var(--ff-azure);
+  }
+</style>

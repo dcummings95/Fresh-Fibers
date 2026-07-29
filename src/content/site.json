@@ -1,0 +1,28 @@
+{
+  "name": "Fresh Fibers",
+  "legalName": "Fresh Fibers LLC",
+  "ownerName": "Augie Yanta",
+  "tagline": "Cleaner carpets, done right.",
+  "phone": "(952) 393-0384",
+  "phoneTel": "9523930384",
+  "email": "PLACEHOLDER",
+  "url": "https://freshfibersllc.com",
+  "minimumVisit": 99,
+  "roomDefinitionSqFt": 200,
+  "googleReviewUrl": "PLACEHOLDER",
+  "googleBusinessProfileUrl": "PLACEHOLDER",
+  "web3formsAccessKey": "PLACEHOLDER",
+  "serviceAreas": [
+    "Winona, MN",
+    "Fountain City, WI",
+    "La Crosse, WI",
+    "Arcadia, WI",
+    "Onalaska, WI",
+    "Holmen, WI"
+  ],
+  "serviceAreaNote": "Roughly within 60 miles of Winona. If you're close and not on the list, just ask.",
+  "hours": "Mon–Sat, 7:00 AM – 6:00 PM",
+  "hoursShort": "Mon–Sat 7–6",
+  "guaranteeDays": 30,
+  "bundleDiscountPercent": 10
+}
