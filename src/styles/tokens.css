@@ -11,8 +11,8 @@
   --ff-navy:            #163573; /* primary brand — headings, key figures, logo text */
   --ff-navy-cta:        #183F8C; /* solid primary button fill */
   --ff-navy-cta-hover:  #163573; /* primary button hover (darken) */
-  --ff-azure:           #139DF2; /* accent — links, arrows, italic serif highlight */
-  --ff-azure-hover:     #0f8ad8; /* azure button hover (darken) */
+  --ff-azure:           #0B6FB8; /* accent — links, arrows, italic serif highlight */
+  --ff-azure-hover:     #094F87; /* azure button hover (darken) */
   --ff-navy-deep:       #0f2749; /* footer background */
   --ff-navy-panel:      #122a4f; /* inset card on the navy booking band */
 
@@ -34,13 +34,14 @@
   /* ---- Text ----------------------------------------------- */
   --ff-text:              #2a3345; /* primary text / bold labels */
   --ff-text-body:         #4d5561; /* body copy on light */
-  --ff-text-muted:        #6b7280; /* secondary copy */
-  --ff-text-tan:          #8a8570; /* captions, table sub-labels */
+  --ff-text-muted:        #63697A; /* secondary copy */
+  --ff-text-tan:          #6E6A5A; /* captions, table sub-labels */
   --ff-text-placeholder:  #a7a08c; /* input placeholder */
   --ff-text-breadcrumb:   #5b6675; /* breadcrumb */
-  --ff-warning:           #b6892a; /* "to confirm" / attention tag */
+  --ff-warning:           #89671F; /* "to confirm" / attention tag */
+  --ff-error:             #b3261e; /* form/validation error text */
   /* On navy surfaces */
-  --ff-on-navy:           #ffffff;
+  --ff-on-navy:           #FBF8F2; /* warm off-white, not pure white */
   --ff-on-navy-soft:      #bcd0e8; /* body copy on navy */
   --ff-on-navy-muted:     #9fb4d2; /* footer muted */
   --ff-accent-on-navy:    #7fc4f5; /* azure accent legible on navy */
@@ -88,8 +89,6 @@
   /* ---- Layout --------------------------------------------- */
   --ff-container: 1180px; /* max content width */
   --ff-gutter:    32px;   /* horizontal page padding */
-  --ff-gap-sm:    24px;
-  --ff-gap-md:    40px;
   --ff-gap-lg:    56px;   /* two-column section gap */
 
   /* ---- Motion --------------------------------------------- */
