@@ -46,9 +46,9 @@
   --ff-accent-on-navy:    #7fc4f5; /* azure accent legible on navy */
 
   /* ---- Typography ----------------------------------------- */
-  --ff-font-display: 'Bricolage Grotesque', sans-serif; /* headings (600/700) */
-  --ff-font-serif:   'Newsreader', serif;               /* ITALIC accent phrases ONLY */
-  --ff-font-body:    'Figtree', sans-serif;             /* everything else (400-700) */
+  --ff-font-display: 'Zilla Slab', Georgia, serif;      /* headings (600 only) */
+  --ff-font-serif:   'Zilla Slab', Georgia, serif;      /* ITALIC accent phrases ONLY (500 italic) */
+  --ff-font-body:    'Karla', system-ui, sans-serif;    /* everything else (400/700) */
 
   --ff-size-h1:        52px; /* page hero (48px on Book) */
   --ff-size-h2:        32px; /* section headings (34px on navy bands) */

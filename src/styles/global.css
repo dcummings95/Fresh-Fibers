@@ -29,10 +29,9 @@ svg {
 
 h1,
 h2,
-h3,
-h4 {
+h3 {
   font-family: var(--ff-font-display);
-  font-weight: var(--ff-weight-bold);
+  font-weight: var(--ff-weight-semibold);
   color: var(--ff-navy);
   letter-spacing: var(--ff-tracking-tight);
   margin: 0;
