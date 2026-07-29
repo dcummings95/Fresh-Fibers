@@ -21,6 +21,7 @@
   --ff-surface:     #fbfaf7; /* cards, pricing tables, form card */
   --ff-band-blue:   #dfeaf3; /* header + hero band */
   --ff-fill-blue:   #eef4fa; /* highlighted "best value" row, soft note fill */
+  --ff-fill-blue-hover: #d8e8f6; /* hover state for fill-blue surfaces */
   --ff-photo-bg:    #cddef0; /* image placeholder background */
   --ff-photo-text:  #6f8299; /* image placeholder label */
 
@@ -30,6 +31,7 @@
   --ff-border-line:   #e3ddd1; /* section rules / horizontal separators */
   --ff-border-input:  #e0d8c8; /* form input border */
   --ff-border-blue:   #cfe0f0; /* pale-blue note border */
+  --ff-photo-border:  #b9cee0; /* border on placeholder/photo frames and their hover state */
 
   /* ---- Text ----------------------------------------------- */
   --ff-text:              #2a3345; /* primary text / bold labels */
@@ -40,6 +42,8 @@
   --ff-text-breadcrumb:   #5b6675; /* breadcrumb */
   --ff-warning:           #89671F; /* "to confirm" / attention tag */
   --ff-error:             #b3261e; /* form/validation error text */
+  --ff-nav-text:          #4a4436; /* header nav link text (warm brown-gray) */
+  --ff-nav-text-muted:    #6b6455; /* mobile dropdown sub-link text */
   /* On navy surfaces */
   --ff-on-navy:           #FBF8F2; /* warm off-white, not pure white */
   --ff-on-navy-soft:      #bcd0e8; /* body copy on navy */
@@ -85,6 +89,7 @@
   --ff-shadow-card: 0 4px 14px rgba(22,53,115,.05); /* resting card */
   --ff-shadow-hover:0 12px 30px rgba(22,53,115,.13);/* card hover lift */
   --ff-shadow-form: 0 6px 22px rgba(22,53,115,.06); /* form card */
+  --ff-focus-ring:  0 0 0 3px rgba(11,111,184,.18); /* azure-tinted form focus ring */
 
   /* ---- Layout --------------------------------------------- */
   --ff-container: 1180px; /* max content width */

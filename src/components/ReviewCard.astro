@@ -7,7 +7,7 @@ interface Props {
   avatarColor?: string;
 }
 
-const { name, when, rating, text, avatarColor = '#183F8C' } = Astro.props;
+const { name, when, rating, text, avatarColor = 'var(--ff-navy-cta)' } = Astro.props;
 const initial = name.trim().charAt(0).toUpperCase();
 ---
 
@@ -31,8 +31,8 @@ const initial = name.trim().charAt(0).toUpperCase();
 
 <style>
   .review-card {
-    background: #fff;
-    border: 1px solid var(--ff-photo-bg);
+    background: var(--ff-surface);
+    border: 1px solid var(--ff-photo-border);
     border-radius: var(--ff-radius-inner);
     padding: 24px;
   }
@@ -48,7 +48,7 @@ const initial = name.trim().charAt(0).toUpperCase();
     width: 40px;
     height: 40px;
     border-radius: 50%;
-    color: #fff;
+    color: var(--ff-on-navy);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -69,7 +69,7 @@ const initial = name.trim().charAt(0).toUpperCase();
 
   .when {
     font-size: var(--ff-size-micro);
-    color: #8a97a8;
+    color: var(--ff-text-muted);
   }
 
   .stars {

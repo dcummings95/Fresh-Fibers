@@ -13,7 +13,7 @@ import heroPhoto from '../assets/images/ff-hero.jpg';
 const title = `Carpet & Upholstery Cleaning in the Driftless Region | ${site.name}`;
 const description = `${site.ownerName} cleans carpets, rugs, and upholstery for homes across the Driftless Region — Winona, La Crosse, and the towns between. Published pricing, free estimates, ${site.guaranteeDays}-day guarantee.`;
 
-const avatarColors = ['#183F8C', '#139DF2', '#5BA9D9'];
+const avatarColors = ['var(--ff-navy-cta)', 'var(--ff-azure)', 'var(--ff-accent-on-navy)'];
 ---
 
 <Base title={title} description={description}>
@@ -239,7 +239,7 @@ const avatarColors = ['#183F8C', '#139DF2', '#5BA9D9'];
     aspect-ratio: 5 / 4;
     object-fit: cover;
     border-radius: var(--ff-radius-note);
-    border: 1px solid #b9cee0;
+    border: 1px solid var(--ff-photo-border);
   }
 
   .hero-copy h1 {
@@ -374,8 +374,8 @@ const avatarColors = ['#183F8C', '#139DF2', '#5BA9D9'];
   }
 
   .service-tile:hover {
-    background: #ffffff;
-    box-shadow: 0 10px 26px rgba(22, 53, 115, 0.1);
+    background: var(--ff-surface);
+    box-shadow: var(--ff-shadow-hover);
   }
 
   .tile-title {
@@ -403,7 +403,7 @@ const avatarColors = ['#183F8C', '#139DF2', '#5BA9D9'];
 
   .not-sure-text {
     font-size: var(--ff-size-lead);
-    color: #1f2d44;
+    color: var(--ff-text);
     font-weight: var(--ff-weight-semibold);
   }
 
@@ -483,7 +483,7 @@ const avatarColors = ['#183F8C', '#139DF2', '#5BA9D9'];
 
   .on-navy {
     font-size: var(--ff-size-h2);
-    color: #fff;
+    color: var(--ff-on-navy);
     margin: 0 0 20px;
     line-height: 1.1;
   }
@@ -491,7 +491,7 @@ const avatarColors = ['#183F8C', '#139DF2', '#5BA9D9'];
   .on-navy-body {
     font-size: var(--ff-size-body-lg);
     line-height: 1.7;
-    color: #cfdcec;
+    color: var(--ff-on-navy-soft);
     margin: 0 0 18px;
     max-width: 480px;
   }
@@ -500,7 +500,7 @@ const avatarColors = ['#183F8C', '#139DF2', '#5BA9D9'];
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    color: #fff;
+    color: var(--ff-on-navy);
     font-weight: var(--ff-weight-semibold);
     font-size: var(--ff-size-body);
     text-decoration: none;
@@ -509,7 +509,7 @@ const avatarColors = ['#183F8C', '#139DF2', '#5BA9D9'];
   .on-navy-link:hover {
     text-decoration: underline;
     text-underline-offset: 4px;
-    color: #fff;
+    color: var(--ff-on-navy);
   }
 
   .ba-section {
@@ -660,7 +660,7 @@ const avatarColors = ['#183F8C', '#139DF2', '#5BA9D9'];
 
   .area-col {
     padding: 72px 48px 72px var(--ff-gutter);
-    color: #dbe6f4;
+    color: var(--ff-on-navy-soft);
   }
 
   .on-navy-soft {
@@ -673,13 +673,13 @@ const avatarColors = ['#183F8C', '#139DF2', '#5BA9D9'];
   .area-list {
     font-size: var(--ff-size-body);
     line-height: 2;
-    color: #fff;
+    color: var(--ff-on-navy);
   }
 
   .area-hours {
     margin-top: 28px;
     font-size: var(--ff-size-body-sm);
-    color: #9fc2e6;
+    color: var(--ff-on-navy-muted);
   }
 
   .area-link {
@@ -687,7 +687,7 @@ const avatarColors = ['#183F8C', '#139DF2', '#5BA9D9'];
     align-items: center;
     gap: 8px;
     margin-top: 20px;
-    color: #fff;
+    color: var(--ff-on-navy);
     font-weight: var(--ff-weight-semibold);
     font-size: var(--ff-size-body-sm);
     text-decoration: none;
@@ -696,7 +696,7 @@ const avatarColors = ['#183F8C', '#139DF2', '#5BA9D9'];
   .area-link:hover {
     text-decoration: underline;
     text-underline-offset: 4px;
-    color: #fff;
+    color: var(--ff-on-navy);
   }
 
   .book-col {
@@ -710,7 +710,7 @@ const avatarColors = ['#183F8C', '#139DF2', '#5BA9D9'];
 
   .book-sub {
     font-size: var(--ff-size-body-sm);
-    color: #9fc2e6;
+    color: var(--ff-on-navy-muted);
     margin: 0 0 24px;
   }
 
@@ -718,11 +718,11 @@ const avatarColors = ['#183F8C', '#139DF2', '#5BA9D9'];
     text-align: center;
     margin-top: 16px;
     font-size: var(--ff-size-caption);
-    color: #9fc2e6;
+    color: var(--ff-on-navy-muted);
   }
 
   .book-call a {
-    color: #fff;
+    color: var(--ff-on-navy);
     font-weight: var(--ff-weight-semibold);
     text-decoration: none;
   }

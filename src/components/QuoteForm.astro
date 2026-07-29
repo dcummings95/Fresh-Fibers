@@ -198,8 +198,8 @@ import { services } from '../lib/services';
     font-weight: var(--ff-weight-semibold);
     padding: 10px 18px;
     border-radius: var(--ff-radius-pill);
-    border: 1.5px solid #ddd4c4;
-    background: #fff;
+    border: 1.5px solid var(--ff-border-input);
+    background: var(--ff-surface);
     color: var(--ff-text-body);
     transition: all 0.12s;
   }
@@ -207,7 +207,7 @@ import { services } from '../lib/services';
   .chip input:checked + span {
     border-color: var(--ff-navy-cta);
     background: var(--ff-navy-cta);
-    color: #fff;
+    color: var(--ff-on-navy);
   }
 
   .chip input:focus-visible + span {
@@ -247,9 +247,9 @@ import { services } from '../lib/services';
     padding: 13px 15px;
     font-size: var(--ff-size-body);
     color: var(--ff-text);
-    background: #fff;
+    background: var(--ff-surface);
     border: 1.5px solid var(--ff-border-input);
-    border-radius: 9px;
+    border-radius: var(--ff-radius-btn);
   }
 
   .field textarea {
@@ -262,13 +262,13 @@ import { services } from '../lib/services';
   .field textarea:focus-visible {
     outline: none;
     border-color: var(--ff-azure);
-    box-shadow: 0 0 0 3px rgba(19, 157, 242, 0.18);
+    box-shadow: var(--ff-focus-ring);
   }
 
   .submit-btn {
     padding: 17px;
     font-size: 17px;
-    border-radius: 9px;
+    border-radius: var(--ff-radius-btn);
     margin-top: 4px;
   }
 
@@ -282,7 +282,7 @@ import { services } from '../lib/services';
   .error-message {
     text-align: center;
     font-size: var(--ff-size-body-sm);
-    color: #b3261e;
+    color: var(--ff-error);
     margin: 0;
   }
 
@@ -300,7 +300,7 @@ import { services } from '../lib/services';
     height: 66px;
     margin: 0 auto 22px;
     border-radius: 50%;
-    background: #e4f1fb;
+    background: var(--ff-fill-blue);
     border: 2px solid var(--ff-azure);
     display: flex;
     align-items: center;

@@ -193,14 +193,14 @@ function isActive(href: string, path: string) {
     align-items: center;
     gap: 18px;
     font-size: var(--ff-size-caption);
-    color: #4a4436;
+    color: var(--ff-nav-text);
     font-weight: var(--ff-weight-medium);
     white-space: nowrap;
     margin-left: 28px;
   }
 
   .nav-links a {
-    color: #4a4436;
+    color: var(--ff-nav-text);
     text-decoration: none;
   }
 
@@ -285,13 +285,13 @@ function isActive(href: string, path: string) {
 
   .dropdown a {
     padding: 9px 14px;
-    border-radius: 8px;
+    border-radius: var(--ff-radius-btn);
     font-weight: var(--ff-weight-medium);
   }
 
   .dropdown a:hover,
   .dropdown a:focus-visible {
-    background: var(--ff-fill-blue);
+    background: var(--ff-band-blue);
   }
 
   .dropdown-all {
@@ -348,7 +348,7 @@ function isActive(href: string, path: string) {
 
     .nav-links a {
       padding: 10px 12px;
-      border-radius: 8px;
+      border-radius: var(--ff-radius-btn);
     }
 
     .nav-links a.btn {
@@ -374,7 +374,7 @@ function isActive(href: string, path: string) {
     }
 
     .dropdown a {
-      color: #6b6455;
+      color: var(--ff-nav-text-muted);
       font-size: 14px;
       padding: 8px 12px;
     }

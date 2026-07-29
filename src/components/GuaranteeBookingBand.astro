@@ -60,7 +60,7 @@ const { ctaHeadline } = Astro.props;
 
   .guarantee h2 {
     font-size: 34px;
-    color: #fff;
+    color: var(--ff-on-navy);
     margin: 0 0 16px;
     line-height: 1.1;
   }
@@ -81,13 +81,13 @@ const { ctaHeadline } = Astro.props;
 
   .panel h3 {
     font-size: var(--ff-size-h3);
-    color: #fff;
+    color: var(--ff-on-navy);
     margin: 0 0 8px;
   }
 
   .panel p {
     font-size: var(--ff-size-body);
-    color: #9fc2e6;
+    color: var(--ff-on-navy-muted);
     margin: 0 0 24px;
   }
 
@@ -101,7 +101,7 @@ const { ctaHeadline } = Astro.props;
   .call-link {
     display: inline-flex;
     align-items: center;
-    color: #fff;
+    color: var(--ff-on-navy);
     font-weight: var(--ff-weight-semibold);
     font-size: var(--ff-size-body);
     text-decoration: none;
@@ -110,6 +110,6 @@ const { ctaHeadline } = Astro.props;
   .call-link:hover {
     text-decoration: underline;
     text-underline-offset: 4px;
-    color: #fff;
+    color: var(--ff-on-navy);
   }
 </style>

@@ -171,7 +171,7 @@ select {
 }
 
 .btn-secondary:hover {
-  background: #d8e8f6;
+  background: var(--ff-fill-blue-hover);
   color: var(--ff-navy-cta);
 }
 
