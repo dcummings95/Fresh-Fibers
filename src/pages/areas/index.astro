@@ -2,7 +2,6 @@
 import Base from '../../layouts/Base.astro';
 import Breadcrumb from '../../components/Breadcrumb.astro';
 import HubLinks from '../../components/HubLinks.astro';
-import GuaranteeBookingBand from '../../components/GuaranteeBookingBand.astro';
 import site from '../../content/site.json';
 
 const title = `Service Areas | ${site.name} — Winona, MN & La Crosse, WI`;
@@ -40,8 +39,6 @@ const description = `${site.name} cleans carpets, upholstery, and rugs across Wi
   <section class="container hub-links-section">
     <HubLinks current="areas" />
   </section>
-
-  <GuaranteeBookingBand ctaHeadline="Book a time in your area" />
 </Base>
 
 <style>

@@ -6,7 +6,6 @@ import PricingTable from '../components/PricingTable.astro';
 import PricingNote from '../components/PricingNote.astro';
 import Callout from '../components/Callout.astro';
 import BeforeAfterSlider from '../components/BeforeAfterSlider.astro';
-import GuaranteeBookingBand from '../components/GuaranteeBookingBand.astro';
 import site from '../content/site.json';
 import { getService, getPricing } from '../lib/services';
 import { formatPrice } from '../lib/format';
@@ -110,8 +109,6 @@ const schema = buildServiceSchema(service.navLabel, service.lead);
       </div>
     </div>
   </section>
-
-  <GuaranteeBookingBand ctaHeadline={service.ctaHeadline} />
 </Base>
 
 <style>

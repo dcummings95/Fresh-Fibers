@@ -2,7 +2,6 @@
 import Base from '../layouts/Base.astro';
 import Breadcrumb from '../components/Breadcrumb.astro';
 import Placeholder from '../components/Placeholder.astro';
-import GuaranteeBookingBand from '../components/GuaranteeBookingBand.astro';
 import site from '../content/site.json';
 
 const title = `About ${site.ownerName} | ${site.name} — Winona, MN`;
@@ -74,8 +73,6 @@ const description = `${site.name} is a one-person, owner-operated carpet and uph
       <a href="/areas" class="area-link">See area details <span class="accent-on-navy">→</span></a>
     </div>
   </section>
-
-  <GuaranteeBookingBand ctaHeadline={`Book a time with ${site.ownerName}`} />
 </Base>
 
 <style>
