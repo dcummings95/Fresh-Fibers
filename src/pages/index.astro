@@ -40,18 +40,6 @@ const avatarColors = ['var(--ff-navy-cta)', 'var(--ff-azure)', 'var(--ff-accent-
     </div>
   </Fragment>
 
-  <section class="trust-strip">
-    <div class="container strip-inner">
-      <span>Locally owned in the Driftless Region</span>
-      <span class="dot">·</span>
-      <span>Owner-operated &mdash; no subcontractors</span>
-      <span class="dot">·</span>
-      <span>{site.guaranteeDays}-day satisfaction guarantee</span>
-      <span class="dot">·</span>
-      <span>Free quotes, no pressure</span>
-    </div>
-  </section>
-
   <section class="container services-section">
     <div class="section-head">
       <div>
@@ -305,38 +293,6 @@ const avatarColors = ['var(--ff-navy-cta)', 'var(--ff-azure)', 'var(--ff-accent-
 
     .location-item {
       transition: none;
-    }
-  }
-
-  .trust-strip {
-    border-top: 1px solid var(--ff-border-line);
-    border-bottom: 1px solid var(--ff-border-line);
-    background: var(--ff-bg);
-  }
-
-  .strip-inner {
-    padding: 20px var(--ff-gutter);
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px 40px;
-    font-size: var(--ff-size-body-sm);
-    color: var(--ff-text-body);
-    font-weight: var(--ff-weight-medium);
-  }
-
-  .dot {
-    color: #c9c0af;
-  }
-
-  @media (max-width: 700px) {
-    .strip-inner {
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 10px;
-    }
-
-    .dot {
-      display: none;
     }
   }
 
