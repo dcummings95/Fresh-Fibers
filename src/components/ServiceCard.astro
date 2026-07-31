@@ -36,18 +36,16 @@ const { href, title, description, photoLabel, priceLabel, price, unit } = Astro.
     display: flex;
     flex-direction: column;
     background: var(--ff-surface);
-    border: 1px solid var(--ff-border);
     border-radius: var(--ff-radius-card);
     overflow: hidden;
     text-decoration: none;
     box-shadow: var(--ff-shadow-card);
-    transition: box-shadow var(--ff-transition), transform var(--ff-transition), border-color var(--ff-transition);
+    transition: box-shadow var(--ff-transition), transform var(--ff-transition);
   }
 
   .service-card:hover {
     box-shadow: var(--ff-shadow-hover);
     transform: translateY(-3px);
-    border-color: var(--ff-photo-border);
   }
 
   .body {
@@ -60,11 +58,6 @@ const { href, title, description, photoLabel, priceLabel, price, unit } = Astro.
   @media (max-width: 640px) {
     .service-card {
       box-shadow: none;
-    }
-
-    .service-card :global(.placeholder) {
-      border-left: none;
-      border-right: none;
     }
 
     .body {
@@ -95,7 +88,6 @@ const { href, title, description, photoLabel, priceLabel, price, unit } = Astro.
     justify-content: space-between;
     gap: 12px;
     padding-top: 18px;
-    border-top: 1px solid var(--ff-border-soft);
   }
 
   .price-line {

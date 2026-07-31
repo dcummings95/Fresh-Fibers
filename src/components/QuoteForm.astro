@@ -141,7 +141,6 @@ import { services } from '../lib/services';
   .quote-form-card {
     min-width: 0;
     background: var(--ff-surface);
-    border: 1px solid var(--ff-border);
     border-radius: var(--ff-radius-card-lg);
     padding: 40px;
     box-shadow: var(--ff-shadow-form);
@@ -206,14 +205,12 @@ import { services } from '../lib/services';
     font-weight: var(--ff-weight-semibold);
     padding: 10px 18px;
     border-radius: var(--ff-radius-pill);
-    border: 1.5px solid var(--ff-border-input);
-    background: var(--ff-surface);
+    background: var(--ff-bg);
     color: var(--ff-text-body);
     transition: all 0.12s;
   }
 
   .chip input:checked + span {
-    border-color: var(--ff-navy-cta);
     background: var(--ff-navy-cta);
     color: var(--ff-on-navy);
   }
@@ -255,8 +252,8 @@ import { services } from '../lib/services';
     padding: 13px 15px;
     font-size: var(--ff-size-body);
     color: var(--ff-text);
-    background: var(--ff-surface);
-    border: 1.5px solid var(--ff-border-input);
+    background: var(--ff-bg);
+    border: none;
     border-radius: var(--ff-radius-btn);
   }
 
@@ -269,7 +266,6 @@ import { services } from '../lib/services';
   .field select:focus-visible,
   .field textarea:focus-visible {
     outline: none;
-    border-color: var(--ff-azure);
     box-shadow: var(--ff-focus-ring);
   }
 
@@ -308,12 +304,11 @@ import { services } from '../lib/services';
     height: 66px;
     margin: 0 auto 22px;
     border-radius: 50%;
-    background: var(--ff-fill-blue);
-    border: 2px solid var(--ff-azure);
+    background: var(--ff-azure);
     display: flex;
     align-items: center;
     justify-content: center;
-    color: var(--ff-azure);
+    color: var(--ff-on-navy);
     font-size: 32px;
     font-weight: var(--ff-weight-bold);
   }

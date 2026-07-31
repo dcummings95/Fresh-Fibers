@@ -26,12 +26,8 @@
   --ff-photo-text:  #6f8299; /* image placeholder label */
 
   /* ---- Borders -------------------------------------------- */
-  --ff-border:        #e6ded1; /* default card border (warm) */
-  --ff-border-soft:   #eee6d8; /* table row dividers */
-  --ff-border-line:   #e3ddd1; /* section rules / horizontal separators */
-  --ff-border-input:  #e0d8c8; /* form input border */
-  --ff-border-blue:   #cfe0f0; /* pale-blue note border */
-  --ff-photo-border:  #b9cee0; /* border on placeholder/photo frames and their hover state */
+  --ff-border-soft:   #eee6d8; /* table/list row dividers */
+  --ff-border-line:   #e3ddd1; /* checklist row dividers */
 
   /* ---- Text ----------------------------------------------- */
   --ff-text:              #2a3345; /* primary text / bold labels */
