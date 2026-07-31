@@ -15,7 +15,7 @@ const { ctaHeadline } = Astro.props;
       <h2>If it's not right, <span class="accent accent-on-navy">I'll make it right.</span></h2>
       <p>Not happy within {site.guaranteeDays} days of your cleaning? Call me and I'll come back and re-clean the area — no charge, no hassle.</p>
     </div>
-    <div class="panel">
+    <div class="panel bleed-sm">
       <h3>{ctaHeadline}</h3>
       <p>Book online or call — free estimate, no pressure.</p>
       <div class="actions">
@@ -77,6 +77,12 @@ const { ctaHeadline } = Astro.props;
     background: var(--ff-navy-panel);
     border-radius: var(--ff-radius-inner);
     padding: 36px;
+  }
+
+  @media (max-width: 640px) {
+    .panel {
+      padding: 28px 20px;
+    }
   }
 
   .panel h3 {

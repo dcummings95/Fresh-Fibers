@@ -21,7 +21,7 @@ const description = `Call, text, or send a message to ${site.name} for a free ca
   <section class="container layout">
     <QuoteForm />
 
-    <aside class="info-card">
+    <aside class="info-card bleed-sm">
       <div class="info-block">
         <div class="info-label">Phone</div>
         <a href={`tel:${site.phoneTel}`} class="phone-link">{site.phone}</a>
@@ -89,6 +89,12 @@ const description = `Call, text, or send a message to ${site.name} for a free ca
     display: flex;
     flex-direction: column;
     gap: 26px;
+  }
+
+  @media (max-width: 640px) {
+    .info-card {
+      padding: 24px 20px;
+    }
   }
 
   .info-label {

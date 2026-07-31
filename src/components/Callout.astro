@@ -6,7 +6,7 @@ interface Props {
 const { title } = Astro.props;
 ---
 
-<div class="callout">
+<div class="callout bleed-sm">
   <div class="content">
     {title && <div class="title">{title}</div>}
     <div class="body"><slot /></div>
@@ -28,6 +28,12 @@ const { title } = Astro.props;
     border: 1px solid var(--ff-border-blue);
     border-radius: var(--ff-radius-note);
     padding: 20px 22px;
+  }
+
+  @media (max-width: 640px) {
+    .callout {
+      padding: 18px 20px;
+    }
   }
 
   .content {

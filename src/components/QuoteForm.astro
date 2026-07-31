@@ -3,7 +3,7 @@ import site from '../content/site.json';
 import { services } from '../lib/services';
 ---
 
-<div class="quote-form-card">
+<div class="quote-form-card bleed-sm">
   <form
     id="quote-form"
     method="POST"
@@ -144,6 +144,13 @@ import { services } from '../lib/services';
     border-radius: var(--ff-radius-card-lg);
     padding: 40px;
     box-shadow: var(--ff-shadow-form);
+  }
+
+  @media (max-width: 640px) {
+    .quote-form-card {
+      padding: 28px 20px;
+      box-shadow: none;
+    }
   }
 
   form {

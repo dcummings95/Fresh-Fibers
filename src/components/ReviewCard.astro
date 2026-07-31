@@ -11,7 +11,7 @@ const { name, when, rating, text, avatarColor = 'var(--ff-navy-cta)' } = Astro.p
 const initial = name.trim().charAt(0).toUpperCase();
 ---
 
-<div class="review-card">
+<div class="review-card bleed-sm">
   <div class="head">
     <div class="avatar" style={{ background: avatarColor }}>{initial}</div>
     <div class="who">
@@ -35,6 +35,12 @@ const initial = name.trim().charAt(0).toUpperCase();
     border: 1px solid var(--ff-photo-border);
     border-radius: var(--ff-radius-inner);
     padding: 24px;
+  }
+
+  @media (max-width: 640px) {
+    .review-card {
+      padding: 20px;
+    }
   }
 
   .head {

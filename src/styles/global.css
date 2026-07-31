@@ -91,8 +91,35 @@ select {
 }
 
 @media (max-width: 480px) {
-  .container {
-    padding: 0 20px;
+  :root {
+    --ff-gutter: 20px;
+  }
+}
+
+/* Flatten every rounded corner on small screens — square edges throughout. */
+@media (max-width: 640px) {
+  :root {
+    --ff-radius-pill: 0px;
+    --ff-radius-card: 0px;
+    --ff-radius-card-lg: 0px;
+    --ff-radius-inner: 0px;
+    --ff-radius-note: 0px;
+    --ff-radius-btn: 0px;
+  }
+}
+
+/*
+  Lets a card-like element (border + radius + its own padding) span edge to
+  edge on small screens instead of floating as a boxed rectangle inside the
+  page gutter. Cancels the parent's horizontal inset and drops the corner
+  radius / side borders; top/bottom borders, if any, are left as dividers.
+*/
+@media (max-width: 640px) {
+  .bleed-sm {
+    margin-inline: calc(-1 * var(--ff-gutter));
+    border-radius: 0;
+    border-left: none;
+    border-right: none;
   }
 }
 

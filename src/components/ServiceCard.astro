@@ -15,7 +15,7 @@ interface Props {
 const { href, title, description, photoLabel, priceLabel, price, unit } = Astro.props;
 ---
 
-<a href={href} class="service-card">
+<a href={href} class="service-card bleed-sm">
   <Placeholder label={photoLabel} aspectRatio="3 / 2" rounded={false} />
   <div class="body">
     <div class="title">{title}</div>
@@ -55,6 +55,21 @@ const { href, title, description, photoLabel, priceLabel, price, unit } = Astro.
     display: flex;
     flex-direction: column;
     flex: 1;
+  }
+
+  @media (max-width: 640px) {
+    .service-card {
+      box-shadow: none;
+    }
+
+    .service-card :global(.placeholder) {
+      border-left: none;
+      border-right: none;
+    }
+
+    .body {
+      padding: 20px 20px 22px;
+    }
   }
 
   .title {
