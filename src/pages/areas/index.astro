@@ -5,7 +5,14 @@ import HubLinks from '../../components/HubLinks.astro';
 import site from '../../content/site.json';
 
 const title = `Service Areas | ${site.name} — Winona, MN & La Crosse, WI`;
-const description = `${site.name} cleans carpets, upholstery, and rugs across Winona, MN, La Crosse, WI, and the towns between — ${site.serviceAreas.join(', ')}.`;
+const description = `${site.name} cleans carpets, upholstery, and rugs across ${site.serviceAreas.length} towns in the Driftless Region, from Winona, MN to La Crosse, WI.`;
+
+const stateNames = { WI: 'Wisconsin', MN: 'Minnesota' };
+const areasByState = site.serviceAreas.reduce((groups, area) => {
+  const state = area.slice(-2);
+  (groups[state] ??= []).push(area);
+  return groups;
+}, {});
 ---
 
 <Base title={title} description={description}>
@@ -25,11 +32,16 @@ const description = `${site.name} cleans carpets, upholstery, and rugs across Wi
   <section class="container coverage-section">
     <h2>Full coverage area</h2>
     <p class="coverage-intro">{site.serviceAreaNote}</p>
-    <ul class="town-list">
-      {site.serviceAreas.map((area) => (
-        <li>{area}</li>
-      ))}
-    </ul>
+    {['MN', 'WI'].map((state) => (
+      <div class="state-group">
+        <h3>{stateNames[state]}</h3>
+        <ul class="town-list">
+          {areasByState[state].map((area) => (
+            <li>{area}</li>
+          ))}
+        </ul>
+      </div>
+    ))}
     <p class="coverage-note">
       I clean regularly in all of the towns above. If you're nearby and don't see your town listed,{' '}
       <a href="/contact">just ask</a> — chances are I already cover it.
@@ -90,11 +102,24 @@ const description = `${site.name} cleans carpets, upholstery, and rugs across Wi
     margin: 0 0 24px;
   }
 
+  .state-group {
+    margin-bottom: 24px;
+  }
+
+  .state-group h3 {
+    font-size: var(--ff-size-caption);
+    font-weight: var(--ff-weight-semibold);
+    text-transform: uppercase;
+    letter-spacing: var(--ff-tracking-eyebrow);
+    color: var(--ff-text-muted);
+    margin: 0 0 12px;
+  }
+
   .town-list {
     display: flex;
     flex-wrap: wrap;
     gap: 10px;
-    margin-bottom: 24px;
+    margin-bottom: 0;
   }
 
   .town-list li {
@@ -102,7 +127,8 @@ const description = `${site.name} cleans carpets, upholstery, and rugs across Wi
     color: var(--ff-navy-cta);
     font-weight: var(--ff-weight-semibold);
     font-size: var(--ff-size-body-sm);
-    padding: 8px 16px;
+    border: 1px solid rgba(22, 53, 115, 0.18);
+    padding: 7px 15px;
     border-radius: var(--ff-radius-pill);
   }
 
