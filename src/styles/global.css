@@ -203,15 +203,15 @@ select {
 }
 
 .btn-tertiary {
-  background: none;
-  padding: 0;
+  background: var(--ff-surface);
   color: var(--ff-navy-cta);
-  text-decoration: none;
+  border: 1.5px solid var(--ff-navy-cta);
+  padding: 13.5px 26.5px;
+  box-shadow: var(--ff-shadow-card);
 }
 
 .btn-tertiary:hover {
-  text-decoration: underline;
-  text-underline-offset: 4px;
+  background: var(--ff-band-blue);
   color: var(--ff-navy-cta);
 }
 

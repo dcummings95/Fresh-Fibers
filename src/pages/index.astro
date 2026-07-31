@@ -24,7 +24,7 @@ const avatarColors = ['var(--ff-navy-cta)', 'var(--ff-azure)', 'var(--ff-accent-
         <h1>Cleaner carpets, <span class="accent">done right.</span></h1>
         <div class="cta-row">
           <a href="/book" class="btn btn-primary">Book online</a>
-          <a href={`tel:${site.phoneTel}`} class="btn-tertiary">Call or text</a>
+          <a href={`tel:${site.phoneTel}`} class="btn btn-tertiary">Call or text</a>
         </div>
         <p class="lead">
           I'm {site.ownerName}, cleaning homes around
@@ -46,7 +46,7 @@ const avatarColors = ['var(--ff-navy-cta)', 'var(--ff-azure)', 'var(--ff-accent-
         <h2>What I clean</h2>
         <p>Everything gets the same careful, hand-done treatment.</p>
       </div>
-      <a href="/services" class="btn-tertiary">See all services <span class="arrow">→</span></a>
+      <a href="/services" class="btn btn-tertiary">See all services <span class="arrow">→</span></a>
     </div>
     <div class="services-grid">
       {services.map((service) => (
@@ -64,7 +64,7 @@ const avatarColors = ['var(--ff-navy-cta)', 'var(--ff-azure)', 'var(--ff-accent-
       <span class="not-sure-text">Tell me what you need and I'll help you figure it out.</span>
       <div slot="action" class="not-sure-actions">
         <a href="/book" class="btn btn-primary">Get a free quote</a>
-        <a href={`tel:${site.phoneTel}`} class="btn-tertiary">Call {site.phone}</a>
+        <a href={`tel:${site.phoneTel}`} class="btn btn-tertiary">Call {site.phone}</a>
       </div>
     </Callout>
   </section>
@@ -116,7 +116,7 @@ const avatarColors = ['var(--ff-navy-cta)', 'var(--ff-azure)', 'var(--ff-accent-
         <h2>Before &amp; after</h2>
         <p>Drag the slider to compare. Real jobs from Winona to La Crosse — photos coming soon.</p>
       </div>
-      <a href="/work" class="btn-tertiary">See more work <span class="arrow">→</span></a>
+      <a href="/work" class="btn btn-tertiary">See more work <span class="arrow">→</span></a>
     </div>
     <BeforeAfterSlider />
   </section>
@@ -143,7 +143,7 @@ const avatarColors = ['var(--ff-navy-cta)', 'var(--ff-azure)', 'var(--ff-accent-
             <div class="rating-note">{reviewsData.placeholder ? `Sample · syncs to ${site.ownerName}'s live profile` : ''}</div>
           </div>
         </div>
-        <a href="/reviews" class="btn-tertiary see-all-reviews">See all reviews <span class="arrow">→</span></a>
+        <a href="/reviews" class="btn btn-tertiary see-all-reviews">See all reviews <span class="arrow">→</span></a>
       </div>
       <div class="review-cards">
         {reviewsData.reviews.map((review, i) => (
