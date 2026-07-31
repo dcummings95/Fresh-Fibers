@@ -328,6 +328,18 @@ const avatarColors = ['var(--ff-navy-cta)', 'var(--ff-azure)', 'var(--ff-accent-
     color: #c9c0af;
   }
 
+  @media (max-width: 700px) {
+    .strip-inner {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 10px;
+    }
+
+    .dot {
+      display: none;
+    }
+  }
+
   .services-section {
     padding: 80px var(--ff-gutter) 40px;
   }
@@ -415,8 +427,19 @@ const avatarColors = ['var(--ff-navy-cta)', 'var(--ff-azure)', 'var(--ff-accent-
 
   .not-sure-actions {
     display: flex;
+    flex-wrap: wrap;
     gap: 18px;
     align-items: center;
+  }
+
+  @media (max-width: 480px) {
+    .not-sure-actions {
+      width: 100%;
+    }
+
+    .not-sure-actions .btn {
+      width: 100%;
+    }
   }
 
   .how-section {

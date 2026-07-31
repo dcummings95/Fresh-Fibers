@@ -101,10 +101,17 @@ function priceText(row: Row): string {
 
   .price {
     white-space: nowrap;
+    text-align: right;
     font-family: var(--ff-font-display);
     font-weight: var(--ff-weight-semibold);
     color: var(--ff-navy);
     font-size: 23px;
+  }
+
+  @media (max-width: 480px) {
+    .price {
+      white-space: normal;
+    }
   }
 
 </style>
