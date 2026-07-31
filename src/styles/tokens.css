@@ -79,6 +79,7 @@
   --ff-radius-inner: 12px;  /* pricing table, note boxes */
   --ff-radius-note:  10px;  /* small notes, photo frames */
   --ff-radius-btn:   8px;   /* buttons (9px on form submit) */
+  --ff-radius-card-mobile: 12px; /* content cards on mobile — kept off the global flatten so they stay softly rounded and inset */
 
   /* ---- Shadow (all tinted navy, never neutral gray) ------- */
   --ff-shadow-nav:  0 6px 20px rgba(22,53,115,.08); /* floating nav bar */

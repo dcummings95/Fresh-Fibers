@@ -51,7 +51,7 @@ const avatarColors = ['var(--ff-navy-cta)', 'var(--ff-azure)', 'var(--ff-accent-
     <div class="services-grid">
       {services.map((service) => (
         <a href={`/services/${service.route}`} class="service-tile">
-          <Placeholder label={service.photoLabel} aspectRatio="3 / 2" rounded={false} />
+          <Placeholder label={service.photoLabel} dimensions="600 × 400px" aspectRatio="3 / 2" rounded={false} />
           <div class="tile-body">
             <div class="tile-title">{service.navLabel}</div>
             <p>{service.homeDescription}</p>

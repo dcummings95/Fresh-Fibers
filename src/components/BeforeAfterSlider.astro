@@ -11,7 +11,7 @@ const {
 ---
 
 <div
-  class="ba-slider bleed-sm"
+  class="ba-slider"
   data-ba-slider
   tabindex="0"
   role="slider"
@@ -46,6 +46,12 @@ const {
     cursor: ew-resize;
     user-select: none;
     touch-action: none;
+  }
+
+  @media (max-width: 640px) {
+    .ba-slider {
+      border-radius: var(--ff-radius-card-mobile);
+    }
   }
 
   .layer {

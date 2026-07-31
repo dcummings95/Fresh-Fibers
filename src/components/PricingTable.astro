@@ -32,7 +32,7 @@ function priceText(row: Row): string {
 }
 ---
 
-<div class="pricing-table bleed-sm">
+<div class="pricing-table">
   {pricing.rows.map((row) => {
     const isBestValue = row.detail === 'best value';
     return (
@@ -72,6 +72,10 @@ function priceText(row: Row): string {
   }
 
   @media (max-width: 640px) {
+    .pricing-table {
+      border-radius: var(--ff-radius-card-mobile);
+    }
+
     .row {
       padding: 16px 20px;
     }

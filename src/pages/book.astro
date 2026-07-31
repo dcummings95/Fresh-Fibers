@@ -20,14 +20,14 @@ const description = `Request a free carpet, upholstery, rug, tile, pet odor, or 
     <QuoteForm />
 
     <aside class="sidebar">
-      <div class="call-card bleed-sm">
+      <div class="call-card">
         <div class="call-title">Or just call</div>
         <p>You'll get me — the person doing the work — not a call center.</p>
         <a href={`tel:${site.phoneTel}`} class="call-button">{site.phone}</a>
         <div class="call-hours">Call or text · {site.hours}</div>
       </div>
 
-      <div class="next-card bleed-sm">
+      <div class="next-card">
         <div class="next-title">What happens next</div>
         <div class="steps">
           <div class="step">
@@ -45,7 +45,7 @@ const description = `Request a free carpet, upholstery, rug, tile, pet odor, or 
         </div>
       </div>
 
-      <div class="guarantee-card bleed-sm">
+      <div class="guarantee-card">
         <div class="badge">{site.guaranteeDays}-day guarantee</div>
         <p>Not happy within {site.guaranteeDays} days? I'll come back and re-clean the area — no charge, no hassle.</p>
       </div>
@@ -210,6 +210,7 @@ const description = `Request a free carpet, upholstery, rug, tile, pet odor, or 
     .next-card,
     .guarantee-card {
       padding: 22px 20px;
+      border-radius: var(--ff-radius-card-mobile);
     }
   }
 
