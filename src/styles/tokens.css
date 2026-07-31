@@ -55,16 +55,16 @@
   --ff-font-serif:   'Zilla Slab', Georgia, serif;      /* ITALIC accent phrases ONLY (500 italic) */
   --ff-font-body:    'Karla', system-ui, sans-serif;    /* everything else (400/700) */
 
-  --ff-size-h1:        52px; /* page hero (48px on Book) */
-  --ff-size-h2:        32px; /* section headings (34px on navy bands) */
-  --ff-size-h3:        26px; /* sub-headings / booking card title */
-  --ff-size-card-title:22px; /* service card / grid title */
-  --ff-size-lead:      19px; /* hero sub-paragraph */
-  --ff-size-body-lg:   17px; /* body on navy, FAQ answers */
-  --ff-size-body:      16px; /* default body */
-  --ff-size-body-sm:   15px; /* card body, notes */
-  --ff-size-caption:   14px; /* sub-labels, breadcrumb */
-  --ff-size-micro:     13px; /* tags, footer meta */
+  --ff-size-h1:        60px; /* page hero (54px on Book) */
+  --ff-size-h2:        38px; /* section headings (40px on navy bands) */
+  --ff-size-h3:        30px; /* sub-headings / booking card title */
+  --ff-size-card-title:25px; /* service card / grid title */
+  --ff-size-lead:      21px; /* hero sub-paragraph */
+  --ff-size-body-lg:   19px; /* body on navy, FAQ answers */
+  --ff-size-body:      18px; /* default body */
+  --ff-size-body-sm:   17px; /* card body, notes */
+  --ff-size-caption:   15px; /* sub-labels, breadcrumb */
+  --ff-size-micro:     14px; /* tags, footer meta */
 
   --ff-weight-regular: 400;
   --ff-weight-medium:  500;
