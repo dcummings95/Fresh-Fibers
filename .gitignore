@@ -31,3 +31,6 @@ Claude-Design-Dump/*
 .claude/settings.local.json
 DESIGN-PROPOSAL.md
 TOKEN-AUDIT.md
+DESIGN.md
+VAN-WRAP-HANDOFF.md
+COPY_AUDIT.md
