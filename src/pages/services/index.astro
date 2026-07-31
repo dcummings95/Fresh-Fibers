@@ -18,10 +18,11 @@ const description =
     <div class="hero-copy">
       <div class="eyebrow">What I do</div>
       <h1>One person, one truck, <span class="accent">done right.</span></h1>
-      <p class="lead">
-        Everything I clean, I clean myself — no rotating crews, no upsells. Pick what you need below
-        for what's included, honest pricing, and answers to the questions I get asked most.
-      </p>
+      <div class="cta-row">
+        <a href="/book" class="btn btn-primary">Book online</a>
+        <a href={`tel:${site.phoneTel}`} class="btn-tertiary">Call or text</a>
+      </div>
+      <p class="lead">No rotating crews, no upsells — just an honest job, priced upfront.</p>
     </div>
   </Fragment>
 
@@ -90,15 +91,27 @@ const description =
   .hero-copy h1 {
     font-size: var(--ff-size-h1);
     line-height: 1.03;
-    margin: 18px 0 20px;
+    margin: 18px 0 24px;
     letter-spacing: var(--ff-tracking-display);
   }
 
+  .cta-row {
+    display: flex;
+    gap: 18px;
+    align-items: center;
+  }
+
   .lead {
-    font-size: var(--ff-size-lead);
+    font-size: var(--ff-size-body);
     line-height: 1.6;
     color: var(--ff-text-body);
-    margin: 0;
+    margin: 18px 0 0;
+  }
+
+  @media (max-width: 640px) {
+    .hero-copy h1 {
+      font-size: 34px;
+    }
   }
 
   .cards-section {

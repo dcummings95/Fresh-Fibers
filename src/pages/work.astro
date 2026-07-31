@@ -16,10 +16,11 @@ const description = `See real carpet, upholstery, rug, tile, and auto interior c
     <div class="hero-copy">
       <div class="eyebrow">See the results</div>
       <h1>Before &amp; <span class="accent">after.</span></h1>
-      <p class="lead">
-        Drag any slider to compare. These are real jobs from around Winona — photos are being added as
-        they come in.
-      </p>
+      <div class="cta-row">
+        <a href="/book" class="btn btn-primary">Book online</a>
+        <a href={`tel:${site.phoneTel}`} class="btn-tertiary">Call or text</a>
+      </div>
+      <p class="lead">Drag any slider to compare — real jobs from around Winona.</p>
     </div>
   </Fragment>
 
@@ -47,15 +48,27 @@ const description = `See real carpet, upholstery, rug, tile, and auto interior c
   .hero-copy h1 {
     font-size: var(--ff-size-h1);
     line-height: 1.03;
-    margin: 18px 0 20px;
+    margin: 18px 0 24px;
     letter-spacing: var(--ff-tracking-display);
   }
 
+  .cta-row {
+    display: flex;
+    gap: 18px;
+    align-items: center;
+  }
+
   .lead {
-    font-size: var(--ff-size-lead);
+    font-size: var(--ff-size-body);
     line-height: 1.6;
     color: var(--ff-text-body);
-    margin: 0;
+    margin: 18px 0 0;
+  }
+
+  @media (max-width: 640px) {
+    .hero-copy h1 {
+      font-size: 34px;
+    }
   }
 
   .gallery {

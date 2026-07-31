@@ -15,6 +15,10 @@ const description = `${site.name} cleans carpets, upholstery, and rugs across Wi
     <div class="hero-copy">
       <div class="eyebrow">Where I work</div>
       <h1>Serving the river valley, <span class="accent">bluff to bluff.</span></h1>
+      <div class="cta-row">
+        <a href="/book" class="btn btn-primary">Book online</a>
+        <a href={`tel:${site.phoneTel}`} class="btn-tertiary">Call or text</a>
+      </div>
       <p class="lead">{site.serviceAreaNote}</p>
     </div>
   </Fragment>
@@ -49,15 +53,27 @@ const description = `${site.name} cleans carpets, upholstery, and rugs across Wi
   .hero-copy h1 {
     font-size: var(--ff-size-h1);
     line-height: 1.03;
-    margin: 18px 0 20px;
+    margin: 18px 0 24px;
     letter-spacing: var(--ff-tracking-display);
   }
 
+  .cta-row {
+    display: flex;
+    gap: 18px;
+    align-items: center;
+  }
+
   .lead {
-    font-size: var(--ff-size-lead);
+    font-size: var(--ff-size-body);
     line-height: 1.6;
     color: var(--ff-text-body);
-    margin: 0;
+    margin: 18px 0 0;
+  }
+
+  @media (max-width: 640px) {
+    .hero-copy h1 {
+      font-size: 34px;
+    }
   }
 
   .coverage-section {

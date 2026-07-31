@@ -22,19 +22,19 @@ const avatarColors = ['var(--ff-navy-cta)', 'var(--ff-azure)', 'var(--ff-accent-
       <div class="hero-copy">
         <div class="eyebrow">Carpet &amp; upholstery cleaning · Driftless Region</div>
         <h1>Cleaner carpets, <span class="accent">done right.</span></h1>
+        <div class="cta-row">
+          <a href="/book" class="btn btn-primary">Book online</a>
+          <a href={`tel:${site.phoneTel}`} class="btn-tertiary">Call or text</a>
+        </div>
         <p class="lead">
-          I'm {site.ownerName}. I clean carpets, rugs, and upholstery for homes around
+          I'm {site.ownerName}, cleaning homes around
           <span class="location-carousel">
             <span class="location-sizer" aria-hidden="true">{site.serviceAreas[0]}</span>
             {site.serviceAreas.map((area, i) => (
               <span class:list={['location-item', { 'is-active': i === 0 }]}>{area}</span>
             ))}
-          </span>. Book a time online, or just give me a call.
+          </span>.
         </p>
-        <div class="cta-row">
-          <a href="/book" class="btn btn-primary">Book online</a>
-          <a href={`tel:${site.phoneTel}`} class="btn-tertiary">Call or text</a>
-        </div>
       </div>
       <Image src={heroPhoto} alt={`${site.ownerName} cleaning a carpet for a customer in the Driftless Region`} class="hero-photo" width={1000} height={800} loading="eager" fetchpriority="high" />
     </div>
@@ -230,6 +230,12 @@ const avatarColors = ['var(--ff-navy-cta)', 'var(--ff-azure)', 'var(--ff-accent-
   @media (max-width: 860px) {
     .hero-grid {
       grid-template-columns: 1fr;
+      gap: 28px;
+      padding: 28px 0 0;
+    }
+
+    .hero-copy h1 {
+      font-size: 38px;
     }
   }
 
@@ -250,10 +256,10 @@ const avatarColors = ['var(--ff-navy-cta)', 'var(--ff-azure)', 'var(--ff-accent-
   }
 
   .lead {
-    font-size: var(--ff-size-lead);
+    font-size: var(--ff-size-body);
     line-height: 1.6;
     color: var(--ff-text-body);
-    margin: 0 0 34px;
+    margin: 22px 0 0;
     max-width: 400px;
   }
 

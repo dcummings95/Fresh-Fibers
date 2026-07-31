@@ -18,6 +18,10 @@ const avatarColors = ['var(--ff-navy-cta)', 'var(--ff-azure)', 'var(--ff-accent-
     <div class="hero-copy">
       <div class="eyebrow">What neighbors say</div>
       <h1>Reviews from around <span class="accent">Winona.</span></h1>
+      <div class="cta-row">
+        <a href="/book" class="btn btn-primary">Book online</a>
+        <a href={`tel:${site.phoneTel}`} class="btn-tertiary">Call or text</a>
+      </div>
       <p class="lead">Real feedback from real jobs.</p>
     </div>
   </Fragment>
@@ -62,15 +66,27 @@ const avatarColors = ['var(--ff-navy-cta)', 'var(--ff-azure)', 'var(--ff-accent-
   .hero-copy h1 {
     font-size: var(--ff-size-h1);
     line-height: 1.03;
-    margin: 18px 0 20px;
+    margin: 18px 0 24px;
     letter-spacing: var(--ff-tracking-display);
   }
 
+  .cta-row {
+    display: flex;
+    gap: 18px;
+    align-items: center;
+  }
+
   .lead {
-    font-size: var(--ff-size-lead);
+    font-size: var(--ff-size-body);
     line-height: 1.6;
     color: var(--ff-text-body);
-    margin: 0;
+    margin: 18px 0 0;
+  }
+
+  @media (max-width: 640px) {
+    .hero-copy h1 {
+      font-size: 34px;
+    }
   }
 
   .rating-section {

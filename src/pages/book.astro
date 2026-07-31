@@ -12,10 +12,7 @@ const description = `Request a free carpet, upholstery, rug, tile, pet odor, or 
     <div class="hero-copy">
       <div class="eyebrow">Free estimate</div>
       <h1>Tell me about the job — <span class="accent">I'll get right back.</span></h1>
-      <p class="lead">
-        Fill this out or just call or text. There's no charge for an estimate and no pressure — I'll give
-        you an honest number, usually the same day.
-      </p>
+      <p class="lead">No charge, no pressure — I'll give you an honest number, usually the same day.</p>
     </div>
   </Fragment>
 
@@ -70,10 +67,20 @@ const description = `Request a free carpet, upholstery, rug, tile, pet odor, or 
   }
 
   .lead {
-    font-size: var(--ff-size-lead);
+    font-size: var(--ff-size-body);
     line-height: 1.6;
     color: var(--ff-text-body);
     margin: 0;
+  }
+
+  @media (max-width: 640px) {
+    .hero-copy {
+      padding: 20px 0 0;
+    }
+
+    .hero-copy h1 {
+      font-size: 32px;
+    }
   }
 
   .layout {

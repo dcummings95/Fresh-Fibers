@@ -55,10 +55,16 @@ const description = `Call, text, or send a message to ${site.name} for a free ca
   }
 
   .lead {
-    font-size: var(--ff-size-lead);
+    font-size: var(--ff-size-body);
     line-height: 1.6;
     color: var(--ff-text-body);
     margin: 0;
+  }
+
+  @media (max-width: 640px) {
+    .hero-copy h1 {
+      font-size: 34px;
+    }
   }
 
   .layout {

@@ -38,7 +38,6 @@ const schema = buildServiceSchema(service.navLabel, service.lead);
       <div class="hero-copy">
         <div class="eyebrow">{service.eyebrow}</div>
         <h1>{service.h1Plain}<span class="accent">{service.h1Accent}</span></h1>
-        <p class="lead">{service.lead}</p>
         <div class="starting-at">
           <span class="starting-label">{service.startingAtLabel}</span>
           <span class="starting-price">{formatPrice(firstPrice)}</span>
@@ -48,6 +47,7 @@ const schema = buildServiceSchema(service.navLabel, service.lead);
           <a href="/book" class="btn btn-primary">Get a free estimate</a>
           <a href={`tel:${site.phoneTel}`} class="btn-tertiary">Call or text</a>
         </div>
+        <p class="lead">{service.lead}</p>
       </div>
       <Placeholder label={service.photoLabel} dimensions="900 × 675px" aspectRatio="4 / 3" />
     </div>
@@ -126,21 +126,23 @@ const schema = buildServiceSchema(service.navLabel, service.lead);
   @media (max-width: 860px) {
     .hero-grid {
       grid-template-columns: 1fr;
+      gap: 24px;
+      padding: 20px 0 0;
     }
   }
 
   .hero-copy h1 {
     font-size: var(--ff-size-h1);
     line-height: 1.03;
-    margin: 18px 0 22px;
+    margin: 18px 0 20px;
     letter-spacing: var(--ff-tracking-display);
   }
 
   .lead {
-    font-size: var(--ff-size-lead);
+    font-size: var(--ff-size-body);
     line-height: 1.6;
     color: var(--ff-text-body);
-    margin: 0 0 20px;
+    margin: 20px 0 0;
     max-width: 460px;
   }
 
@@ -148,7 +150,13 @@ const schema = buildServiceSchema(service.navLabel, service.lead);
     display: flex;
     align-items: baseline;
     gap: 10px;
-    margin-bottom: 28px;
+    margin-bottom: 20px;
+  }
+
+  @media (max-width: 640px) {
+    .hero-copy h1 {
+      font-size: 34px;
+    }
   }
 
   .starting-label,
