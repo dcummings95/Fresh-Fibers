@@ -51,9 +51,12 @@ const avatarColors = ['var(--ff-navy-cta)', 'var(--ff-azure)', 'var(--ff-accent-
     <div class="services-grid">
       {services.map((service) => (
         <a href={`/services/${service.route}`} class="service-tile">
-          <div class="tile-title">{service.navLabel}</div>
-          <p>{service.homeDescription}</p>
-          <span class="see-details">See details <span class="arrow">→</span></span>
+          <Placeholder label={service.photoLabel} aspectRatio="3 / 2" rounded={false} />
+          <div class="tile-body">
+            <div class="tile-title">{service.navLabel}</div>
+            <p>{service.homeDescription}</p>
+            <span class="see-details">See details <span class="arrow">→</span></span>
+          </div>
         </a>
       ))}
     </div>
@@ -304,17 +307,22 @@ const avatarColors = ['var(--ff-navy-cta)', 'var(--ff-azure)', 'var(--ff-accent-
   }
 
   .service-tile {
-    display: block;
+    display: flex;
+    flex-direction: column;
     background: var(--ff-surface);
     border-radius: var(--ff-radius-card);
     box-shadow: var(--ff-shadow-card);
-    padding: 30px;
+    overflow: hidden;
     text-decoration: none;
     transition: box-shadow var(--ff-transition);
   }
 
   .service-tile:hover {
     box-shadow: var(--ff-shadow-hover);
+  }
+
+  .tile-body {
+    padding: 24px 30px 30px;
   }
 
   .tile-title {
