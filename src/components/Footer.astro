@@ -49,16 +49,22 @@ import logo from '../assets/images/logo.png';
   }
 
   .band-inner {
-    padding: 72px var(--ff-gutter);
+    padding: 72px var(--ff-gutter) 48px;
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: var(--ff-gap-lg);
-    align-items: center;
+    align-items: end;
   }
 
   @media (max-width: 780px) {
     .band-inner {
       grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .band-inner {
+      padding-bottom: 0;
     }
   }
 
@@ -137,7 +143,7 @@ import logo from '../assets/images/logo.png';
   }
 
   .inner {
-    padding: 40px var(--ff-gutter);
+    padding: 24px var(--ff-gutter) 32px;
     display: flex;
     justify-content: space-between;
     align-items: center;
