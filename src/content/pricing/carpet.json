@@ -2,14 +2,15 @@
   "service": "carpet",
   "label": "Carpet Cleaning",
   "rows": [
-    { "label": "1 room", "detail": "our minimum visit", "price": 99, "unit": null },
+    { "label": "1 room", "detail": "this is our visit minimum, not a per-room rate", "price": 99, "unit": null },
     { "label": "2 rooms", "detail": null, "price": 139, "unit": null },
     { "label": "3 rooms", "detail": null, "price": 179, "unit": null },
     { "label": "4 rooms", "detail": null, "price": 219, "unit": null },
     { "label": "5 rooms", "detail": "best value", "price": 249, "unit": null },
     { "label": "Each additional room", "detail": null, "price": 45, "unit": null },
     { "label": "Stairs", "detail": "per step", "price": 2.50, "unit": null },
-    { "label": "Hallway or walk-in closet", "detail": "each", "price": 20, "unit": null }
+    { "label": "Hallway or walk-in closet", "detail": "each", "price": 20, "unit": null },
+    { "label": "Stain-guard protector", "detail": "per room, helps it stay clean longer", "price": 25, "unit": "/ room", "addOn": true }
   ],
   "footnote": null
 }

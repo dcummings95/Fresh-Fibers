@@ -24,15 +24,8 @@ const navItems: NavItem[] = [
     dropdown: services.map((s) => ({ href: `/services/${s.route}`, label: s.navLabel })),
     viewAllLabel: 'All services',
   },
-  {
-    href: '/areas',
-    label: 'Areas',
-    dropdown: [
-      { href: '/areas/winona', label: 'Winona, MN' },
-      { href: '/areas/la-crosse', label: 'La Crosse, WI' },
-    ],
-    viewAllLabel: 'All areas',
-  },
+  { href: '/pricing', label: 'Pricing' },
+  { href: '/areas', label: 'Areas' },
   { href: '/work', label: 'Before & After' },
   { href: '/about', label: 'About' },
   { href: '/reviews', label: 'Reviews' },
@@ -67,13 +60,31 @@ function isActive(href: string, path: string) {
     </button>
 
     <div class="nav-links" id="primary-nav-links" data-nav-links>
-      {navItems.map((item) =>
+      {navItems.map((item, index) =>
         item.dropdown ? (
           <div class="nav-item">
             <a href={item.href} class:list={{ active: isActive(item.href, currentPath) }}>
               {item.label}
             </a>
-            <div class="dropdown">
+            <button
+              type="button"
+              class="dropdown-toggle"
+              aria-expanded="false"
+              aria-controls={`nav-dropdown-${index}`}
+              aria-label={`Show ${item.label} submenu`}
+              data-dropdown-toggle
+            >
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
+                <path
+                  d="M2.5 4.5L6 8l3.5-3.5"
+                  stroke="currentColor"
+                  stroke-width="1.6"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+            </button>
+            <div class="dropdown" id={`nav-dropdown-${index}`}>
               {item.dropdown.map((sub) => (
                 <a href={sub.href} class:list={{ active: currentPath === sub.href }}>
                   {sub.label}
@@ -100,16 +111,25 @@ function isActive(href: string, path: string) {
   const toggle = document.querySelector('[data-nav-toggle]');
   const links = document.querySelector('[data-nav-links]');
 
+  function collapseSubmenus() {
+    document.querySelectorAll('.nav-item.expanded').forEach((item) => {
+      item.classList.remove('expanded');
+      item.querySelector('[data-dropdown-toggle]')?.setAttribute('aria-expanded', 'false');
+    });
+  }
+
   if (toggle && links) {
     toggle.addEventListener('click', () => {
       const open = links.classList.toggle('open');
       toggle.setAttribute('aria-expanded', String(open));
+      if (!open) collapseSubmenus();
     });
 
     links.querySelectorAll('a').forEach((a) => {
       a.addEventListener('click', () => {
         links.classList.remove('open');
         toggle.setAttribute('aria-expanded', 'false');
+        collapseSubmenus();
       });
     });
 
@@ -117,10 +137,23 @@ function isActive(href: string, path: string) {
       if (e.key === 'Escape' && links.classList.contains('open')) {
         links.classList.remove('open');
         toggle.setAttribute('aria-expanded', 'false');
+        collapseSubmenus();
         (toggle as HTMLElement).focus();
       }
     });
   }
+
+  // On mobile, the nav-item's own link/chevron toggles its submenu open
+  // instead of relying on hover, which doesn't exist on touch screens.
+  document.querySelectorAll('[data-dropdown-toggle]').forEach((btn) => {
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      const item = btn.closest('.nav-item');
+      if (!item) return;
+      const expanded = item.classList.toggle('expanded');
+      btn.setAttribute('aria-expanded', String(expanded));
+    });
+  });
 
   // On touch devices without hover, the first tap on a dropdown trigger
   // reveals the submenu instead of navigating straight through.
@@ -242,13 +275,18 @@ function isActive(href: string, path: string) {
     transition: transform var(--ff-transition);
   }
 
-  .nav-links > a:not(.phone):not(.btn):hover::after,
   .nav-links > a:not(.phone):not(.btn):focus-visible::after,
   .nav-links > a:not(.phone):not(.btn).active::after,
-  .nav-item:hover > a::after,
   .nav-item:focus-within > a::after,
   .nav-item > a.active::after {
     transform: scaleX(1);
+  }
+
+  @media (hover: hover) {
+    .nav-links > a:not(.phone):not(.btn):hover::after,
+    .nav-item:hover > a::after {
+      transform: scaleX(1);
+    }
   }
 
   .nav-item {
@@ -275,12 +313,21 @@ function isActive(href: string, path: string) {
     z-index: 30;
   }
 
-  .nav-item:hover .dropdown,
-  .nav-item:focus-within .dropdown,
-  .nav-item.tap-open .dropdown {
-    opacity: 1;
-    visibility: visible;
-    transform: translate(-50%, 0);
+  @media (min-width: 941px) {
+    .nav-item:focus-within .dropdown,
+    .nav-item.tap-open .dropdown {
+      opacity: 1;
+      visibility: visible;
+      transform: translate(-50%, 0);
+    }
+
+    @media (hover: hover) {
+      .nav-item:hover .dropdown {
+        opacity: 1;
+        visibility: visible;
+        transform: translate(-50%, 0);
+      }
+    }
   }
 
   .dropdown a {
@@ -289,9 +336,14 @@ function isActive(href: string, path: string) {
     font-weight: var(--ff-weight-medium);
   }
 
-  .dropdown a:hover,
   .dropdown a:focus-visible {
     background: var(--ff-band-blue);
+  }
+
+  @media (hover: hover) {
+    .dropdown a:hover {
+      background: var(--ff-band-blue);
+    }
   }
 
   .dropdown-all {
@@ -317,6 +369,10 @@ function isActive(href: string, path: string) {
     color: var(--ff-navy);
     border-radius: 50%;
     cursor: pointer;
+  }
+
+  .dropdown-toggle {
+    display: none;
   }
 
   @media (max-width: 940px) {
@@ -357,11 +413,36 @@ function isActive(href: string, path: string) {
     }
 
     .nav-item {
-      display: flex;
-      flex-direction: column;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: center;
+    }
+
+    .nav-item > a {
+      grid-column: 1;
+    }
+
+    .dropdown-toggle {
+      display: inline-flex;
+      grid-column: 2;
+      align-items: center;
+      justify-content: center;
+      width: 36px;
+      height: 36px;
+      border: none;
+      background: transparent;
+      color: var(--ff-nav-text-muted);
+      cursor: pointer;
+      transition: transform var(--ff-transition), color var(--ff-transition);
+    }
+
+    .nav-item.expanded .dropdown-toggle {
+      transform: rotate(180deg);
+      color: var(--ff-navy);
     }
 
     .dropdown {
+      grid-column: 1 / -1;
       position: static;
       opacity: 1;
       visibility: visible;
@@ -369,8 +450,16 @@ function isActive(href: string, path: string) {
       background: transparent;
       border: none;
       box-shadow: none;
-      padding: 0 0 6px 14px;
+      padding: 0 0 0 14px;
       min-width: 0;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height var(--ff-transition);
+    }
+
+    .nav-item.expanded .dropdown {
+      max-height: 400px;
+      padding: 4px 0 6px 14px;
     }
 
     .dropdown a {
