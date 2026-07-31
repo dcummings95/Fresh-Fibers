@@ -233,7 +233,6 @@ const avatarColors = ['var(--ff-navy-cta)', 'var(--ff-azure)', 'var(--ff-accent-
     aspect-ratio: 5 / 4;
     object-fit: cover;
     border-radius: var(--ff-radius-note);
-    border: 1px solid var(--ff-photo-border);
   }
 
   .hero-copy h1 {
@@ -327,9 +326,7 @@ const avatarColors = ['var(--ff-navy-cta)', 'var(--ff-azure)', 'var(--ff-accent-
   .services-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 1px;
-    background: var(--ff-border-line);
-    border: 1px solid var(--ff-border-line);
+    gap: 20px;
     margin-bottom: 32px;
   }
 
@@ -342,13 +339,14 @@ const avatarColors = ['var(--ff-navy-cta)', 'var(--ff-azure)', 'var(--ff-accent-
   .service-tile {
     display: block;
     background: var(--ff-surface);
+    border-radius: var(--ff-radius-card);
+    box-shadow: var(--ff-shadow-card);
     padding: 30px;
     text-decoration: none;
-    transition: background var(--ff-transition), box-shadow var(--ff-transition);
+    transition: box-shadow var(--ff-transition);
   }
 
   .service-tile:hover {
-    background: var(--ff-surface);
     box-shadow: var(--ff-shadow-hover);
   }
 
@@ -503,8 +501,6 @@ const avatarColors = ['var(--ff-navy-cta)', 'var(--ff-azure)', 'var(--ff-accent-
 
   .reviews-band {
     background: var(--ff-band-blue);
-    border-top: 1px solid var(--ff-photo-bg);
-    border-bottom: 1px solid var(--ff-photo-bg);
   }
 
   .reviews-band .container {
@@ -584,7 +580,6 @@ const avatarColors = ['var(--ff-navy-cta)', 'var(--ff-azure)', 'var(--ff-accent-
 
   .guarantee-section {
     background: var(--ff-bg);
-    border-top: 1px solid var(--ff-border-line);
   }
 
   .guarantee-inner {
@@ -603,7 +598,7 @@ const avatarColors = ['var(--ff-navy-cta)', 'var(--ff-azure)', 'var(--ff-accent-
 
   .guarantee-badge {
     display: inline-block;
-    border: 1.5px solid var(--ff-navy-cta);
+    background: var(--ff-fill-blue);
     color: var(--ff-navy-cta);
     font-weight: var(--ff-weight-bold);
     font-size: var(--ff-size-caption);
