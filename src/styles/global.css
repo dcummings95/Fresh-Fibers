@@ -96,18 +96,6 @@ select {
   }
 }
 
-/* Flatten every rounded corner on small screens — square edges throughout. */
-@media (max-width: 640px) {
-  :root {
-    --ff-radius-pill: 0px;
-    --ff-radius-card: 0px;
-    --ff-radius-card-lg: 0px;
-    --ff-radius-inner: 0px;
-    --ff-radius-note: 0px;
-    --ff-radius-btn: 0px;
-  }
-}
-
 /*
   Lets a card-like element (border + radius + its own padding) span edge to
   edge on small screens instead of floating as a boxed rectangle inside the
@@ -226,23 +214,6 @@ select {
 
 .btn-full {
   width: 100%;
-}
-
-@media (max-width: 640px) {
-  .btn-primary,
-  .btn-azure,
-  .btn-secondary {
-    padding: 14px 27px;
-    border: 1px solid rgba(255, 255, 255, 0.25);
-  }
-
-  .btn-secondary {
-    border-color: rgba(22, 53, 115, 0.18);
-  }
-
-  .btn-pill {
-    padding: 9px 19px;
-  }
 }
 
 @media (prefers-reduced-motion: reduce) {
