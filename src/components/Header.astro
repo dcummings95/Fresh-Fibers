@@ -53,9 +53,11 @@ function isActive(href: string, path: string) {
       data-nav-toggle
     >
       <span class="visually-hidden">Menu</span>
-      <svg width="22" height="22" viewBox="0 0 22 22" fill="none" aria-hidden="true">
-        <path d="M3 6h16M3 11h16M3 16h16" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
-      </svg>
+      <span class="hamburger" aria-hidden="true">
+        <span class="line"></span>
+        <span class="line"></span>
+        <span class="line"></span>
+      </span>
     </button>
 
     <div class="nav-links" id="primary-nav-links" data-nav-links>
@@ -368,6 +370,49 @@ function isActive(href: string, path: string) {
     cursor: pointer;
   }
 
+  .hamburger {
+    position: relative;
+    width: 20px;
+    height: 15px;
+  }
+
+  .hamburger .line {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    border-radius: 1px;
+    background: currentColor;
+    transition: transform 0.25s ease, opacity 0.2s ease, top 0.25s ease;
+  }
+
+  .hamburger .line:nth-child(1) {
+    top: 0;
+  }
+
+  .hamburger .line:nth-child(2) {
+    top: 6.5px;
+  }
+
+  .hamburger .line:nth-child(3) {
+    top: 13px;
+  }
+
+  .nav-toggle[aria-expanded='true'] .line:nth-child(1) {
+    top: 6.5px;
+    transform: rotate(45deg);
+  }
+
+  .nav-toggle[aria-expanded='true'] .line:nth-child(2) {
+    opacity: 0;
+    transform: scaleX(0);
+  }
+
+  .nav-toggle[aria-expanded='true'] .line:nth-child(3) {
+    top: 6.5px;
+    transform: rotate(-45deg);
+  }
+
   .dropdown-toggle {
     display: none;
   }
@@ -402,17 +447,18 @@ function isActive(href: string, path: string) {
     .nav-links {
       display: none;
       position: absolute;
-      top: calc(100% + 10px);
+      top: 100%;
       right: 0;
       left: 0;
       flex-direction: column;
       align-items: stretch;
-      gap: 4px;
+      gap: 6px;
       margin-left: 0;
       background: var(--ff-surface);
-      border-radius: var(--ff-radius-card);
+      border-radius: 0 0 var(--ff-radius-card) var(--ff-radius-card);
       box-shadow: var(--ff-shadow-hover);
-      padding: 14px;
+      padding: 10px 16px 18px;
+      font-size: 17px;
       z-index: 20;
     }
 
@@ -421,13 +467,18 @@ function isActive(href: string, path: string) {
     }
 
     .nav-links a {
-      padding: 10px 12px;
+      padding: 13px 14px;
       border-radius: var(--ff-radius-btn);
     }
 
     .nav-links a.btn {
       justify-content: center;
-      margin-top: 6px;
+      margin-top: 10px;
+      padding: 15px 14px;
+    }
+
+    .nav-links a.phone {
+      padding: 13px 14px;
     }
 
     .nav-item {
@@ -445,8 +496,8 @@ function isActive(href: string, path: string) {
       grid-column: 2;
       align-items: center;
       justify-content: center;
-      width: 36px;
-      height: 36px;
+      width: 40px;
+      height: 40px;
       border: none;
       background: transparent;
       color: var(--ff-nav-text-muted);
@@ -482,8 +533,8 @@ function isActive(href: string, path: string) {
 
     .dropdown a {
       color: var(--ff-nav-text-muted);
-      font-size: 15px;
-      padding: 8px 12px;
+      font-size: 16px;
+      padding: 10px 12px;
     }
 
     .dropdown-all {
