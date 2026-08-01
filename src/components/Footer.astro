@@ -17,7 +17,7 @@ import logo from '../assets/images/logo.png';
         <p>Book online or call — free estimate, no pressure.</p>
         <div class="actions">
           <a href="/book" class="btn btn-azure">Book online</a>
-          <a href={`tel:${site.phoneTel}`} class="call-link">Call {site.phone}</a>
+          <a href={`tel:${site.phoneTel}`} class="btn btn-tertiary">Call Now</a>
         </div>
       </div>
     </div>
@@ -125,21 +125,6 @@ import logo from '../assets/images/logo.png';
     gap: 16px;
     align-items: center;
     flex-wrap: wrap;
-  }
-
-  .call-link {
-    display: inline-flex;
-    align-items: center;
-    color: var(--ff-on-navy);
-    font-weight: var(--ff-weight-semibold);
-    font-size: var(--ff-size-body);
-    text-decoration: none;
-  }
-
-  .call-link:hover {
-    text-decoration: underline;
-    text-underline-offset: 4px;
-    color: var(--ff-on-navy);
   }
 
   .inner {
