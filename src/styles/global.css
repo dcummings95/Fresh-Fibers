@@ -228,6 +228,23 @@ select {
   width: 100%;
 }
 
+@media (max-width: 640px) {
+  .btn-primary,
+  .btn-azure,
+  .btn-secondary {
+    padding: 14px 27px;
+    border: 1px solid rgba(255, 255, 255, 0.25);
+  }
+
+  .btn-secondary {
+    border-color: rgba(22, 53, 115, 0.18);
+  }
+
+  .btn-pill {
+    padding: 9px 19px;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,

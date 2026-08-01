@@ -141,6 +141,7 @@ import { services } from '../lib/services';
   .quote-form-card {
     min-width: 0;
     background: var(--ff-surface);
+    border: 1px solid var(--ff-border-soft);
     border-radius: var(--ff-radius-card-lg);
     padding: 40px;
     box-shadow: var(--ff-shadow-form);
@@ -205,6 +206,7 @@ import { services } from '../lib/services';
     font-size: var(--ff-size-body-sm);
     font-weight: var(--ff-weight-semibold);
     padding: 10px 18px;
+    border: 1.5px solid var(--ff-border-line);
     border-radius: var(--ff-radius-pill);
     background: var(--ff-bg);
     color: var(--ff-text-body);
@@ -213,6 +215,7 @@ import { services } from '../lib/services';
 
   .chip input:checked + span {
     background: var(--ff-navy-cta);
+    border-color: var(--ff-navy-cta);
     color: var(--ff-on-navy);
   }
 
@@ -254,7 +257,7 @@ import { services } from '../lib/services';
     font-size: var(--ff-size-body);
     color: var(--ff-text);
     background: var(--ff-bg);
-    border: none;
+    border: 1px solid var(--ff-border-line);
     border-radius: var(--ff-radius-btn);
   }
 
