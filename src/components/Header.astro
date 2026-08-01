@@ -368,6 +368,11 @@ function isActive(href: string, path: string) {
     color: var(--ff-navy);
     border-radius: 50%;
     cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .nav-toggle:active {
+    background: transparent;
   }
 
   .hamburger {
@@ -503,6 +508,11 @@ function isActive(href: string, path: string) {
       color: var(--ff-nav-text-muted);
       cursor: pointer;
       transition: transform var(--ff-transition), color var(--ff-transition);
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .dropdown-toggle:active {
+      background: transparent;
     }
 
     .nav-item.expanded .dropdown-toggle {
