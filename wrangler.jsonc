@@ -10,5 +10,18 @@
 	},
 	"observability": {
 		"enabled": true
+	},
+	"workers_dev": false,
+	"routes": [
+		{ "pattern": "getfreshfibers.com", "custom_domain": true }
+	],
+	"env": {
+		"dev": {
+			"name": "fresh-fibers-dev",
+			"workers_dev": false,
+			"routes": [
+				{ "pattern": "dev.getfreshfibers.com", "custom_domain": true }
+			]
+		}
 	}
 }
