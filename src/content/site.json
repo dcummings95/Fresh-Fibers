@@ -11,7 +11,7 @@
   "roomDefinitionSqFt": 200,
   "googleReviewUrl": "PLACEHOLDER",
   "googleBusinessProfileUrl": "PLACEHOLDER",
-  "web3formsAccessKey": "PLACEHOLDER",
+  "turnstileSitekey": "0x4AAAAAAEHY4MnFsIyRBZqx",
   "serviceAreas": [
     "Bangor, WI",
     "Cashton, WI",

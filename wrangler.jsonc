@@ -11,6 +11,16 @@
 	"observability": {
 		"enabled": true
 	},
+	"send_email": [
+		{ "name": "EMAIL", "remote": true }
+	],
+	"ratelimits": [
+		{
+			"name": "QUOTE_FORM_RATE_LIMITER",
+			"namespace_id": "1001",
+			"simple": { "limit": 3, "period": 60 }
+		}
+	],
 	"workers_dev": false,
 	"routes": [
 		{ "pattern": "getfreshfibers.com", "custom_domain": true }
@@ -21,6 +31,16 @@
 			"workers_dev": false,
 			"routes": [
 				{ "pattern": "dev.getfreshfibers.com", "custom_domain": true }
+			],
+			"send_email": [
+				{ "name": "EMAIL" }
+			],
+			"ratelimits": [
+				{
+					"name": "QUOTE_FORM_RATE_LIMITER",
+					"namespace_id": "1002",
+					"simple": { "limit": 3, "period": 60 }
+				}
 			]
 		}
 	}

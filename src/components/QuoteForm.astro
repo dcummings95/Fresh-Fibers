@@ -7,12 +7,9 @@ import { services } from '../lib/services';
   <form
     id="quote-form"
     method="POST"
-    action="https://api.web3forms.com/submit"
+    action="/api/quote"
     novalidate
   >
-    <input type="hidden" name="access_key" value={site.web3formsAccessKey} />
-    <input type="hidden" name="subject" value={`New quote request — ${site.name}`} />
-    <input type="hidden" name="from_name" value={`${site.name} website`} />
     <input type="checkbox" name="botcheck" class="visually-hidden" tabindex="-1" autocomplete="off" aria-hidden="true" />
 
     <div class="field-group">
@@ -70,6 +67,8 @@ import { services } from '../lib/services';
       ></textarea>
     </div>
 
+    <div id="turnstile-container" data-turnstile></div>
+
     <button type="submit" class="btn btn-primary btn-full submit-btn">Send my free estimate request</button>
     <p class="disclaimer">No obligation. I'll only use this to get back to you about your job.</p>
     <p class="error-message" data-form-error role="alert"></p>
@@ -86,12 +85,26 @@ import { services } from '../lib/services';
   </div>
 </div>
 
-<script is:inline define:vars={{ phone: site.phone }}>
+<script is:inline src="https://challenges.cloudflare.com/turnstile/v0/api.js?onload=onloadTurnstileCallback" async defer></script>
+
+<script is:inline define:vars={{ phone: site.phone, turnstileSitekey: site.turnstileSitekey }}>
   const form = document.getElementById('quote-form');
   const confirmation = document.querySelector('[data-confirmation]');
   const errorEl = document.querySelector('[data-form-error]');
   const firstNameEl = document.querySelector('[data-first-name]');
   const resetBtn = document.querySelector('[data-form-reset]');
+  const turnstileContainer = document.getElementById('turnstile-container');
+
+  let turnstileWidgetId = null;
+
+  window.onloadTurnstileCallback = function () {
+    if (turnstileContainer && window.turnstile) {
+      turnstileWidgetId = window.turnstile.render(turnstileContainer, {
+        sitekey: turnstileSitekey,
+        action: 'quote_request',
+      });
+    }
+  };
 
   if (form && confirmation) {
     form.addEventListener('submit', async (e) => {
@@ -120,12 +133,18 @@ import { services } from '../lib/services';
         } else {
           throw new Error(json.message || 'Submission failed');
         }
-      } catch {
+      } catch (err) {
         if (errorEl) {
-          errorEl.textContent = `Something went wrong sending that. Please call or text instead — ${phone}.`;
+          errorEl.textContent = err instanceof Error && err.message && err.message !== 'Submission failed'
+            ? err.message
+            : `Something went wrong sending that. Please call or text instead — ${phone}.`;
         }
       } finally {
         if (submitBtn) submitBtn.disabled = false;
+        // Turnstile tokens are single-use — reset so a retry gets a fresh one.
+        if (window.turnstile && turnstileWidgetId !== null) {
+          window.turnstile.reset(turnstileWidgetId);
+        }
       }
     });
 
