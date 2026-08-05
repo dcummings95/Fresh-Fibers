@@ -9,7 +9,7 @@ import { services, getPricing } from '../../lib/services';
 
 const title = `Carpet, Upholstery & Tile Cleaning Services | ${site.name} — Winona, MN`;
 const description =
-  'Carpet, upholstery, area rug, tile & grout, pet odor, and auto & boat interior cleaning around Winona, MN — one person, one truck, published pricing.';
+  'Carpet, upholstery, area rug, tile & grout, and pet odor cleaning around Winona, MN — one person, one truck, published pricing.';
 ---
 
 <Base title={title} description={description}>
@@ -34,6 +34,7 @@ const description =
         return (
           <ServiceCard
             href={`/services/${service.route}`}
+            slug={service.slug}
             title={service.navLabel}
             description={service.cardDescription}
             photoLabel={service.photoLabel}

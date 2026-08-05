@@ -2,13 +2,17 @@
 import { Image } from 'astro:assets';
 import Base from '../layouts/Base.astro';
 import Placeholder from '../components/Placeholder.astro';
+import ServicePhoto from '../components/ServicePhoto.astro';
 import BeforeAfterSlider from '../components/BeforeAfterSlider.astro';
 import ReviewCard from '../components/ReviewCard.astro';
 import Callout from '../components/Callout.astro';
 import site from '../content/site.json';
 import reviewsData from '../content/reviews.json';
 import { services } from '../lib/services';
+import { servicePhotos } from '../lib/photos';
 import heroPhoto from '../assets/images/ff-hero.jpg';
+
+const carpetPhotos = servicePhotos.carpet;
 
 const title = `Carpet & Upholstery Cleaning in the Driftless Region | ${site.name}`;
 const description = `${site.ownerName} cleans carpets, rugs, and upholstery for homes across the Driftless Region — Winona, La Crosse, and the towns between. Published pricing, free estimates, ${site.guaranteeDays}-day guarantee.`;
@@ -51,7 +55,14 @@ const avatarColors = ['var(--ff-navy-cta)', 'var(--ff-azure)', 'var(--ff-accent-
     <div class="services-grid">
       {services.map((service) => (
         <a href={`/services/${service.route}`} class="service-tile">
-          <Placeholder label={service.photoLabel} dimensions="600 × 400px" aspectRatio="3 / 2" rounded={false} />
+          <ServicePhoto
+            slug={service.slug}
+            label={service.photoLabel}
+            alt={`${service.navLabel} in the Driftless Region`}
+            dimensions="600 × 400px"
+            aspectRatio="3 / 2"
+            rounded={false}
+          />
           <div class="tile-body">
             <div class="tile-title">{service.navLabel}</div>
             <p>{service.homeDescription}</p>
@@ -114,11 +125,19 @@ const avatarColors = ['var(--ff-navy-cta)', 'var(--ff-azure)', 'var(--ff-accent-
     <div class="section-head">
       <div>
         <h2>Before &amp; after</h2>
-        <p>Drag the slider to compare. Real jobs from Winona to La Crosse — photos coming soon.</p>
+        <p>Drag the slider to compare. Real jobs from Winona to La Crosse.</p>
       </div>
       <a href="/work" class="btn btn-tertiary">See more work <span class="arrow">→</span></a>
     </div>
-    <BeforeAfterSlider />
+    <BeforeAfterSlider
+      beforeImage={carpetPhotos.before}
+      afterImage={carpetPhotos.after}
+      beforePosition={carpetPhotos.beforePosition}
+      afterPosition={carpetPhotos.afterPosition}
+      beforeLabel="BEFORE · Carpet cleaning"
+      afterLabel="AFTER · Carpet cleaning"
+      alt="carpet cleaning"
+    />
   </section>
 
   <section class="reviews-band">

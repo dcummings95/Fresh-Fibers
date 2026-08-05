@@ -1,7 +1,7 @@
 ---
 import Base from './Base.astro';
 import Breadcrumb from '../components/Breadcrumb.astro';
-import Placeholder from '../components/Placeholder.astro';
+import ServicePhoto from '../components/ServicePhoto.astro';
 import PricingTable from '../components/PricingTable.astro';
 import PricingNote from '../components/PricingNote.astro';
 import Callout from '../components/Callout.astro';
@@ -10,6 +10,7 @@ import site from '../content/site.json';
 import { getService, getPricing } from '../lib/services';
 import { formatPrice } from '../lib/format';
 import { buildServiceSchema } from '../lib/schema';
+import { servicePhotos } from '../lib/photos';
 
 interface Props {
   slug: string;
@@ -19,6 +20,7 @@ const { slug } = Astro.props;
 const service = getService(slug);
 const pricing = getPricing(service.pricingFile);
 const firstPrice = pricing.rows.find((r) => r.price !== null)?.price ?? 0;
+const photo = servicePhotos[slug] ?? {};
 
 const title = `${service.navLabel} | ${site.name} — Winona, MN`;
 const schema = buildServiceSchema(service.navLabel, service.lead);
@@ -48,7 +50,14 @@ const schema = buildServiceSchema(service.navLabel, service.lead);
         </div>
         <p class="lead">{service.lead}</p>
       </div>
-      <Placeholder label={service.photoLabel} dimensions="900 × 675px" aspectRatio="4 / 3" />
+      <ServicePhoto
+        slug={slug}
+        label={service.photoLabel}
+        alt={`${service.navLabel} in Winona, MN`}
+        dimensions="900 × 675px"
+        aspectRatio="4 / 3"
+        loading="eager"
+      />
     </div>
   </Fragment>
 
@@ -93,7 +102,15 @@ const schema = buildServiceSchema(service.navLabel, service.lead);
       </div>
       <a href="/work" class="btn btn-tertiary">See all before &amp; afters <span class="arrow">→</span></a>
     </div>
-    <BeforeAfterSlider />
+    <BeforeAfterSlider
+      beforeImage={photo.before}
+      afterImage={photo.after}
+      beforePosition={photo.beforePosition}
+      afterPosition={photo.afterPosition}
+      beforeLabel={`BEFORE · ${service.navLabel}`}
+      afterLabel={`AFTER · ${service.navLabel}`}
+      alt={service.navLabel}
+    />
   </section>
 
   <section class="faq-band">

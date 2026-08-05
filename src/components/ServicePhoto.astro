@@ -1,0 +1,46 @@
+---
+import { Image } from 'astro:assets';
+import Placeholder from './Placeholder.astro';
+import { servicePhotos } from '../lib/photos';
+
+interface Props {
+  slug: string;
+  label: string;
+  alt: string;
+  dimensions?: string;
+  aspectRatio?: string;
+  rounded?: boolean;
+  loading?: 'eager' | 'lazy';
+}
+
+const { slug, label, alt, dimensions, aspectRatio = '4 / 3', rounded = true, loading = 'lazy' } = Astro.props;
+const hero = servicePhotos[slug]?.hero;
+---
+
+{hero ? (
+  <Image
+    src={hero}
+    alt={alt}
+    class:list={['service-photo', { rounded }]}
+    style={`aspect-ratio: ${aspectRatio}`}
+    width={900}
+    height={675}
+    loading={loading}
+  />
+) : (
+  <Placeholder label={label} dimensions={dimensions} aspectRatio={aspectRatio} rounded={rounded} />
+)}
+
+<style>
+  .service-photo {
+    display: block;
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+  }
+
+  .service-photo.rounded {
+    border-radius: var(--ff-radius-note);
+    box-shadow: var(--ff-shadow-card);
+  }
+</style>

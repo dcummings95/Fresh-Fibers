@@ -1,5 +1,79 @@
 ---
-import ServicePage from '../../layouts/ServicePage.astro';
+import Base from '../../layouts/Base.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import Callout from '../../components/Callout.astro';
+import site from '../../content/site.json';
+
+const title = `Auto & Boat Interior Cleaning — Coming Soon | ${site.name}`;
+const description = `Auto and boat interior cleaning is coming soon to ${site.name}. Reach out to be the first to know when it's available.`;
 ---
 
-<ServicePage slug="auto-boat" />
+<Base title={title} description={description}>
+  <Fragment slot="hero">
+    <Breadcrumb
+      items={[
+        { label: 'Home', href: '/' },
+        { label: 'Services', href: '/services' },
+        { label: 'Auto & boat interiors' },
+      ]}
+    />
+    <div class="hero-copy">
+      <div class="eyebrow">Auto & boat interiors</div>
+      <h1>Coming <span class="accent">soon.</span></h1>
+      <p class="lead">
+        I'm gearing up to offer auto and boat interior cleaning — getting the right equipment
+        lined up so it's done to the same standard as everything else. Not booking this one yet,
+        but reach out and I'll let you know as soon as it's ready.
+      </p>
+      <div class="cta-row">
+        <a href="/contact" class="btn btn-primary">Get notified</a>
+        <a href={`tel:${site.phoneTel}`} class="btn btn-tertiary">Call Now</a>
+      </div>
+    </div>
+  </Fragment>
+
+  <section class="container callout-section">
+    <Callout title="In the meantime">
+      Carpet, upholstery, area rug, tile & grout, and pet odor cleaning are all up and running with
+      published pricing.
+      <div slot="action"><a href="/services" class="btn btn-primary">See current services</a></div>
+    </Callout>
+  </section>
+</Base>
+
+<style>
+  .hero-copy {
+    max-width: 600px;
+    padding: 28px 0 0;
+  }
+
+  .hero-copy h1 {
+    font-size: var(--ff-size-h1);
+    line-height: 1.03;
+    margin: 18px 0 20px;
+    letter-spacing: var(--ff-tracking-display);
+  }
+
+  .lead {
+    font-size: var(--ff-size-body);
+    line-height: 1.6;
+    color: var(--ff-text-body);
+    margin: 0 0 28px;
+  }
+
+  .cta-row {
+    display: flex;
+    gap: 18px;
+    align-items: center;
+  }
+
+  @media (max-width: 640px) {
+    .hero-copy h1 {
+      font-size: 40px;
+    }
+  }
+
+  .callout-section {
+    padding: 64px var(--ff-gutter) 96px;
+  }
+</style>

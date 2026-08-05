@@ -1,9 +1,10 @@
 ---
-import Placeholder from './Placeholder.astro';
+import ServicePhoto from './ServicePhoto.astro';
 import { formatPrice } from '../lib/format';
 
 interface Props {
   href: string;
+  slug: string;
   title: string;
   description: string;
   photoLabel: string;
@@ -12,11 +13,11 @@ interface Props {
   unit: string;
 }
 
-const { href, title, description, photoLabel, priceLabel, price, unit } = Astro.props;
+const { href, slug, title, description, photoLabel, priceLabel, price, unit } = Astro.props;
 ---
 
 <a href={href} class="service-card">
-  <Placeholder label={photoLabel} aspectRatio="3 / 2" rounded={false} />
+  <ServicePhoto slug={slug} label={photoLabel} alt={title} aspectRatio="3 / 2" rounded={false} />
   <div class="body">
     <div class="title">{title}</div>
     <p class="description">{description}</p>
