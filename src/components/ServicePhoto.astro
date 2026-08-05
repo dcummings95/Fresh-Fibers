@@ -11,10 +11,21 @@ interface Props {
   aspectRatio?: string;
   rounded?: boolean;
   loading?: 'eager' | 'lazy';
+  variant?: 'hero' | 'homeTile';
 }
 
-const { slug, label, alt, dimensions, aspectRatio = '4 / 3', rounded = true, loading = 'lazy' } = Astro.props;
-const hero = servicePhotos[slug]?.hero;
+const {
+  slug,
+  label,
+  alt,
+  dimensions,
+  aspectRatio = '4 / 3',
+  rounded = true,
+  loading = 'lazy',
+  variant = 'hero',
+} = Astro.props;
+const photo = servicePhotos[slug];
+const hero = (variant === 'homeTile' ? photo?.homeTile : undefined) ?? photo?.hero;
 ---
 
 {hero ? (

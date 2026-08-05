@@ -8,6 +8,8 @@ function img(name: string): ImageMetadata | undefined {
 
 export interface ServicePhoto {
   hero?: ImageMetadata;
+  /** Overrides `hero` for the homepage services-grid tile, when it should show a different photo than the service page hero. */
+  homeTile?: ImageMetadata;
   before?: ImageMetadata;
   after?: ImageMetadata;
   /** CSS object-position for the before photo, when its framing needs a nudge to line up with the after photo. */
@@ -18,18 +20,21 @@ export interface ServicePhoto {
 
 export const servicePhotos: Record<string, ServicePhoto> = {
   carpet: {
-    hero: img('carpet_after_1.jpg'),
+    hero: img('carpet_midway_clean_1.jpg'),
+    homeTile: img('carpet_midway_clean_2.jpg'),
     before: img('carpet_before_1.jpg'),
     after: img('carpet_after_1.jpg'),
     beforePosition: 'center 20%',
   },
   upholstery: {
-    hero: img('upholsterty_after_1.jpg'),
+    hero: img('upholstery_before_after_split.jpg'),
+    homeTile: img('upholstery_before_after_split.jpg'),
     before: img('upholstery_before_1.jpg'),
     after: img('upholsterty_after_1.jpg'),
   },
   'pet-odor': {
-    hero: img('pet_stain_after_1.jpg'),
+    hero: img('pet_stain_before_after_split.jpg'),
+    homeTile: img('pet_stain_before_after_split.jpg'),
     before: img('pet_stain_before_1.jpg'),
     after: img('pet_stain_after_1.jpg'),
   },
