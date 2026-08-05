@@ -41,7 +41,7 @@ function isActive(href: string, path: string) {
 <header class="site-header">
   <nav class="pill-nav" aria-label="Primary">
     <a href="/" class="logo">
-      <Image src={logo} width={54} height={54} alt={`${site.name} logo`} />
+      <Image src={logo} width={64} height={64} alt={`${site.name} logo`} />
       <span class="brand">{site.name}</span>
     </a>
 
@@ -184,7 +184,10 @@ function isActive(href: string, path: string) {
 
 <style>
   .site-header {
-    padding: 20px 0 0;
+    width: 100vw;
+    margin-left: calc(50% - 50vw);
+    background: var(--ff-surface);
+    box-shadow: var(--ff-shadow-nav);
   }
 
   .pill-nav {
@@ -192,31 +195,30 @@ function isActive(href: string, path: string) {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 13px 15px 13px 22px;
-    background: var(--ff-surface);
-    border-radius: var(--ff-radius-pill);
-    box-shadow: var(--ff-shadow-nav);
+    max-width: var(--ff-container);
+    margin: 0 auto;
+    padding: 24px var(--ff-gutter);
   }
 
   .logo {
     display: flex;
     align-items: center;
-    gap: 13px;
+    gap: 15px;
     flex-shrink: 0;
     white-space: nowrap;
     text-decoration: none;
   }
 
   .logo img {
-    width: 54px;
-    height: 54px;
+    width: 64px;
+    height: 64px;
     object-fit: contain;
   }
 
   .brand {
     font-family: var(--ff-font-display);
     font-weight: var(--ff-weight-semibold);
-    font-size: 23px;
+    font-size: 27px;
     color: var(--ff-navy);
     letter-spacing: var(--ff-tracking-tight);
   }
@@ -224,12 +226,12 @@ function isActive(href: string, path: string) {
   .nav-links {
     display: flex;
     align-items: center;
-    gap: 18px;
-    font-size: var(--ff-size-caption);
+    gap: 28px;
+    font-size: 17px;
     color: var(--ff-nav-text);
     font-weight: var(--ff-weight-medium);
     white-space: nowrap;
-    margin-left: 28px;
+    margin-left: 40px;
   }
 
   .nav-links a {
@@ -423,15 +425,8 @@ function isActive(href: string, path: string) {
   }
 
   @media (max-width: 940px) {
-    .site-header {
-      padding: 0;
-    }
-
     .pill-nav {
-      margin-inline: calc(-1 * var(--ff-gutter));
       padding: 18px var(--ff-gutter);
-      border-radius: 0;
-      box-shadow: none;
     }
 
     .logo img {
