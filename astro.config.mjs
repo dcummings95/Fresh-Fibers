@@ -18,5 +18,7 @@ export default defineConfig({
 
   redirects: hasReviewUrl ? { '/review': siteData.googleReviewUrl } : {},
 
-  adapter: cloudflare(),
+  adapter: cloudflare({
+    imageService: 'compile',
+  }),
 });
