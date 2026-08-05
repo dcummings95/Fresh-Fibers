@@ -73,17 +73,17 @@ const avatarColors = ['var(--ff-navy-cta)', 'var(--ff-azure)', 'var(--ff-accent-
     <h2>How it works</h2>
     <p class="how-lead">Three easy steps. No sales pitch, no surprises.</p>
     <div class="steps">
-      <div>
+      <div class="step-card">
         <div class="step-number">1</div>
         <div class="step-title">Reach out</div>
         <p>Book online or give me a call or text. Tell me a bit about what needs cleaning.</p>
       </div>
-      <div>
+      <div class="step-card">
         <div class="step-number">2</div>
         <div class="step-title">I confirm your time</div>
         <p>I'll text you back to lock in a time that works, and give you a straight-up quote.</p>
       </div>
-      <div>
+      <div class="step-card">
         <div class="step-number">3</div>
         <div class="step-title">I clean, you relax</div>
         <p>I show up when I said I would and don't leave until you're happy with the job.</p>
@@ -314,11 +314,17 @@ const avatarColors = ['var(--ff-navy-cta)', 'var(--ff-azure)', 'var(--ff-accent-
     box-shadow: var(--ff-shadow-card);
     overflow: hidden;
     text-decoration: none;
-    transition: box-shadow var(--ff-transition);
+    transition: box-shadow var(--ff-transition), transform var(--ff-transition);
   }
 
   .service-tile:hover {
     box-shadow: var(--ff-shadow-hover);
+  }
+
+  @media (hover: hover) {
+    .service-tile:hover {
+      transform: translateY(var(--ff-lift-hover));
+    }
   }
 
   .tile-body {
@@ -389,13 +395,23 @@ const avatarColors = ['var(--ff-navy-cta)', 'var(--ff-azure)', 'var(--ff-accent-
   .steps {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 40px;
+    gap: 28px;
   }
 
   @media (max-width: 700px) {
     .steps {
       grid-template-columns: 1fr;
     }
+  }
+
+  .step-card {
+    /* Resting elevation only — these aren't links, so no hover state:
+       a lift-on-hover here would read as a click affordance that
+       doesn't exist. */
+    background: var(--ff-surface);
+    border-radius: var(--ff-radius-card);
+    box-shadow: var(--ff-shadow-card);
+    padding: 32px 28px;
   }
 
   .step-number {

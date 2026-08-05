@@ -44,11 +44,6 @@ const description = `Request a free carpet, upholstery, rug, tile, pet odor, or 
           </div>
         </div>
       </div>
-
-      <div class="guarantee-card">
-        <div class="badge">{site.guaranteeDays}-day guarantee</div>
-        <p>Not happy within {site.guaranteeDays} days? I'll come back and re-clean the area — no charge, no hassle.</p>
-      </div>
     </aside>
   </section>
 </Base>
@@ -137,12 +132,18 @@ const description = `Request a free carpet, upholstery, rug, tile, pet odor, or 
     font-weight: var(--ff-weight-bold);
     font-size: 20px;
     text-decoration: none;
-    transition: background var(--ff-transition);
+    transition: background var(--ff-transition), transform var(--ff-transition);
   }
 
   .call-button:hover {
     background: var(--ff-azure-hover);
     color: var(--ff-on-navy);
+  }
+
+  @media (hover: hover) {
+    .call-button:hover {
+      transform: translateY(var(--ff-lift-hover));
+    }
   }
 
   .call-hours {

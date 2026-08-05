@@ -156,23 +156,43 @@ select {
   text-decoration: none;
   border: none;
   cursor: pointer;
-  transition: background var(--ff-transition);
+  transition: background var(--ff-transition), box-shadow var(--ff-transition), transform var(--ff-transition);
   white-space: nowrap;
 }
 
 .btn-primary {
   background: var(--ff-navy-cta);
   color: var(--ff-on-navy);
+  /* No resting shadow: a solid navy fill already reads as prominent
+     through color/contrast alone, it doesn't need a cast shadow too.
+     No local --ff-shadow-color override either, on either state —
+     that override was compensating for the old navy-tinted shadow
+     blending into this button's navy edge, but the shadow now casts
+     onto the shared page background (not onto the button), so a
+     darker override just made this button's shadow objectively
+     heavier than everyone else's on the same ground. Since the base
+     --ff-shadow-color moved to a warm neutral, that original
+     dark-on-dark blending problem is gone — the override was fixing
+     a bug that no longer exists. */
 }
 
 .btn-primary:hover {
   background: var(--ff-navy-cta-hover);
   color: var(--ff-on-navy);
+  /* Same rung as btn-tertiary's hover (--ff-shadow-card): the fill
+     darken already carries part of the "you're on me" signal here,
+     so the shadow doesn't need to escalate further than tertiary's
+     does for the same delta to read as equivalent. */
+  box-shadow: var(--ff-shadow-card);
 }
 
 .btn-azure {
   background: var(--ff-azure);
   color: var(--ff-on-navy);
+  /* No shadow, same as btn-primary: solid fill already reads as
+     prominent. Doubly true here — this sits on a dark navy panel, and
+     --ff-shadow-color is calibrated for light/cream surfaces, so a
+     cast shadow wouldn't have any contrast to show up against anyway. */
 }
 
 .btn-azure:hover {
@@ -193,14 +213,34 @@ select {
 .btn-tertiary {
   background: var(--ff-surface);
   color: var(--ff-navy-cta);
-  border: 1.5px solid var(--ff-navy-cta);
-  padding: 13.5px 26.5px;
-  box-shadow: var(--ff-shadow-card);
+  /* Reuses --ff-shadow-color rather than the brand navy: the border
+     is a structural boundary, not a color statement, so it shares
+     the same warm-neutral family as the shadow instead of competing
+     with the navy button text. */
+  border: 1px solid rgb(var(--ff-shadow-color) / 18%);
+  padding: 14px 27px;
+  /* No resting shadow, same call as btn-primary: the border already
+     does the boundary job at rest, so a shadow on top of it was just
+     adding a second, competing definition cue. Shadow only shows up
+     on hover, same as primary. */
 }
 
 .btn-tertiary:hover {
   background: var(--ff-band-blue);
   color: var(--ff-navy-cta);
+  box-shadow: var(--ff-shadow-card);
+}
+
+/* Lift only on devices where hover means something. On touch, :hover
+   sticks after a tap until the next tap elsewhere — background/shadow
+   staying on for a moment reads as a quick flash, but a button left
+   floating above its own position reads as broken. */
+@media (hover: hover) {
+  .btn-primary:hover,
+  .btn-azure:hover,
+  .btn-tertiary:hover {
+    transform: translateY(var(--ff-lift-hover));
+  }
 }
 
 .btn-tertiary .arrow {

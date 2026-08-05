@@ -81,11 +81,47 @@
   --ff-radius-btn:   8px;   /* buttons (9px on form submit) */
   --ff-radius-card-mobile: 12px; /* content cards on mobile — kept off the global flatten so they stay softly rounded and inset */
 
-  /* ---- Shadow (all tinted navy, never neutral gray) ------- */
-  --ff-shadow-nav:  0 6px 20px rgba(22,53,115,.08); /* floating nav bar */
-  --ff-shadow-card: 0 4px 14px rgba(22,53,115,.05); /* resting card */
-  --ff-shadow-hover:0 12px 30px rgba(22,53,115,.13);/* card hover lift */
-  --ff-shadow-form: 0 6px 22px rgba(22,53,115,.06); /* form card */
+  /* ---- Shadow ----------------------------------------------
+     Elevation is a numeric ladder (1 = barest lift → 4 = strongest),
+     kept separate from color. Each rung layers two shadows: a tight,
+     low-opacity "contact" shadow that reads as a crisp edge up close,
+     plus a soft, wide "ambient" shadow that reads as depth from a
+     distance — elevating an element grows both layers together,
+     which is what makes a lift feel physical instead of a blur
+     filter. Use these instead of a border wherever an element needs
+     to visually separate from the surface behind it.
+
+     --ff-shadow-color is the one thing that varies by surface: a
+     warm, near-black RGB triplet — darkened toward the page's warm
+     cream, not the brand navy blue, so shadows read as shadows and
+     not a blue glow.
+
+     Solid, saturated fills (a filled navy button, say) don't need a
+     resting shadow at all — the fill's own contrast against the page
+     already reads as "important/raised".
+
+     Hover states escalate by the same one-rung delta regardless of
+     which element it is: hover only has to say "you're on me", not
+     re-communicate the element's importance (that's already said at
+     rest, by fill vs. border). A resting-shadowless element still
+     only climbs one rung on hover, same as a resting-rung-1 element
+     climbing to rung 2 — the jump is proportionate, not the target. */
+  --ff-shadow-color: 43 38 32; /* warm near-black, default for shadows on light/cream surfaces */
+
+  --ff-elevation-1: 0 1px 2px rgb(var(--ff-shadow-color) / 5%),  0 2px 8px rgb(var(--ff-shadow-color) / 5%);
+  --ff-elevation-2: 0 1px 3px rgb(var(--ff-shadow-color) / 6%),  0 6px 20px rgb(var(--ff-shadow-color) / 8%);
+  --ff-elevation-3: 0 3px 6px rgb(var(--ff-shadow-color) / 8%),  0 14px 32px rgb(var(--ff-shadow-color) / 14%);
+  --ff-elevation-4: 0 6px 14px rgb(var(--ff-shadow-color) / 10%),0 28px 56px rgb(var(--ff-shadow-color) / 20%);
+
+  /* Semantic aliases — name the *role*, not the state, so bumping an
+     element to a heavier rung reads as an explicit elevation change
+     rather than borrowing another role's token. */
+  --ff-shadow-subtle: var(--ff-elevation-1); /* callouts — a nudge off the page, not a floating card */
+  --ff-shadow-card:   var(--ff-elevation-2); /* resting cards, photos, nav bar, form card, button hover */
+  --ff-shadow-hover:  var(--ff-elevation-3); /* card/tile hover, dropdown panels — no button uses this rung */
+  --ff-shadow-lg:     var(--ff-elevation-4); /* strongest — reserved for modals/popovers */
+  --ff-shadow-hover-solid: var(--ff-elevation-3-strong); /* brief hover pop for solid/dark-filled buttons only */
+
   --ff-focus-ring:  0 0 0 3px rgba(11,111,184,.18); /* azure-tinted form focus ring */
 
   /* ---- Layout --------------------------------------------- */
@@ -95,4 +131,11 @@
 
   /* ---- Motion --------------------------------------------- */
   --ff-transition: .15s;  /* buttons, hover lifts — ease default */
+  --ff-lift-hover: -3px;  /* shared hover-lift distance for elevated interactive elements */
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --ff-lift-hover: 0px; /* neutralize the hover lift itself, not just its transition speed */
+  }
 }
