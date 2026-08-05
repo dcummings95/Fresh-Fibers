@@ -1,6 +1,20 @@
 ---
 import site from '../content/site.json';
 import { services } from '../lib/services';
+
+interface DetailFieldConfig {
+  label: string;
+  type: 'text' | 'number';
+  placeholder: string;
+}
+
+const detailFieldConfig: Record<string, DetailFieldConfig> = {
+  carpet: { label: 'How many rooms?', type: 'number', placeholder: 'e.g. 3' },
+  upholstery: { label: 'What pieces?', type: 'text', placeholder: 'e.g. sofa + 2 chairs' },
+  rugs: { label: 'How many rugs, and about what size?', type: 'text', placeholder: 'e.g. 2 rugs, about 5x8 ft' },
+  tile: { label: 'Approx. how many sq ft?', type: 'number', placeholder: 'e.g. 150' },
+  'pet-odor': { label: 'How many areas need treatment?', type: 'number', placeholder: 'e.g. 2' },
+};
 ---
 
 <div class="quote-form-card">
@@ -18,10 +32,30 @@ import { services } from '../lib/services';
       <div class="chips">
         {services.map((service) => (
           <label class="chip">
-            <input type="checkbox" name="services" value={service.navLabel} />
+            <input type="checkbox" name="services" value={service.navLabel} data-slug={service.slug} />
             <span>{service.navLabel}</span>
           </label>
         ))}
+      </div>
+      <div class="service-details">
+        {services.map((service) => {
+          const cfg = detailFieldConfig[service.slug];
+          if (!cfg) return null;
+          const fieldId = `detail_${service.slug}`;
+          return (
+            <div class="field service-detail" data-detail-for={service.slug} hidden>
+              <label for={fieldId}>{cfg.label} <span class="optional">(optional)</span></label>
+              <input
+                id={fieldId}
+                name={fieldId}
+                type={cfg.type}
+                inputmode={cfg.type === 'number' ? 'numeric' : undefined}
+                min={cfg.type === 'number' ? 1 : undefined}
+                placeholder={cfg.placeholder}
+              />
+            </div>
+          );
+        })}
       </div>
     </div>
 
@@ -63,13 +97,16 @@ import { services } from '../lib/services';
         id="message"
         name="message"
         rows="4"
-        placeholder="How many rooms or pieces? Any tough spots, pet stains, or something set-in? A photo texted over helps a lot."
+        placeholder="Anything else? Tough spots, pet stains, or something set-in — a photo texted over helps a lot."
       ></textarea>
     </div>
 
     <div id="turnstile-container" data-turnstile></div>
 
-    <button type="submit" class="btn btn-primary btn-full submit-btn">Send my free estimate request</button>
+    <button type="submit" class="btn btn-primary btn-full submit-btn">
+      <span class="btn-label">Send my free estimate request</span>
+      <span class="btn-spinner" aria-hidden="true"></span>
+    </button>
     <p class="disclaimer">No obligation. I'll only use this to get back to you about your job.</p>
     <p class="error-message" data-form-error role="alert"></p>
   </form>
@@ -97,6 +134,19 @@ import { services } from '../lib/services';
 
   let turnstileWidgetId = null;
 
+  const serviceCheckboxes = form ? form.querySelectorAll('input[name="services"]') : [];
+
+  function syncServiceDetails() {
+    serviceCheckboxes.forEach((checkbox) => {
+      const slug = checkbox.dataset.slug;
+      const detailEl = form.querySelector(`[data-detail-for="${slug}"]`);
+      if (detailEl) detailEl.hidden = !checkbox.checked;
+    });
+  }
+
+  serviceCheckboxes.forEach((checkbox) => checkbox.addEventListener('change', syncServiceDetails));
+  syncServiceDetails();
+
   window.onloadTurnstileCallback = function () {
     if (turnstileContainer && window.turnstile) {
       turnstileWidgetId = window.turnstile.render(turnstileContainer, {
@@ -112,7 +162,11 @@ import { services } from '../lib/services';
       if (errorEl) errorEl.textContent = '';
 
       const submitBtn = form.querySelector('button[type="submit"]');
-      if (submitBtn) submitBtn.disabled = true;
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.classList.add('is-loading');
+        submitBtn.setAttribute('aria-busy', 'true');
+      }
 
       const data = new FormData(form);
       const name = String(data.get('name') || '').trim();
@@ -140,7 +194,11 @@ import { services } from '../lib/services';
             : `Something went wrong sending that. Please call or text instead — ${phone}.`;
         }
       } finally {
-        if (submitBtn) submitBtn.disabled = false;
+        if (submitBtn) {
+          submitBtn.disabled = false;
+          submitBtn.classList.remove('is-loading');
+          submitBtn.removeAttribute('aria-busy');
+        }
         // Turnstile tokens are single-use — reset so a retry gets a fresh one.
         if (window.turnstile && turnstileWidgetId !== null) {
           window.turnstile.reset(turnstileWidgetId);
@@ -152,6 +210,7 @@ import { services } from '../lib/services';
       form.reset();
       form.hidden = false;
       confirmation.hidden = true;
+      syncServiceDetails();
     });
   }
 </script>
@@ -243,6 +302,16 @@ import { services } from '../lib/services';
     outline-offset: 2px;
   }
 
+  .service-details {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .service-detail {
+    margin-top: 14px;
+  }
+
   .grid-2 {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -293,10 +362,48 @@ import { services } from '../lib/services';
   }
 
   .submit-btn {
+    position: relative;
     padding: 17px;
     font-size: 19px;
     border-radius: var(--ff-radius-btn);
     margin-top: 4px;
+  }
+
+  .submit-btn:disabled {
+    cursor: default;
+    opacity: 0.85;
+  }
+
+  .submit-btn .btn-label {
+    display: inline-block;
+  }
+
+  .submit-btn.is-loading .btn-label {
+    visibility: hidden;
+  }
+
+  .btn-spinner {
+    display: none;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 20px;
+    height: 20px;
+    margin: -10px 0 0 -10px;
+    border: 2.5px solid rgba(251, 248, 242, 0.35);
+    border-top-color: currentColor;
+    border-radius: 50%;
+    animation: btn-spinner-rotate 0.7s linear infinite;
+  }
+
+  .submit-btn.is-loading .btn-spinner {
+    display: block;
+  }
+
+  @keyframes btn-spinner-rotate {
+    to {
+      transform: rotate(360deg);
+    }
   }
 
   .disclaimer {

@@ -1,6 +1,7 @@
 import type { APIRoute } from 'astro';
 import { env } from 'cloudflare:workers';
 import site from '../../content/site.json';
+import { services } from '../../lib/services';
 
 export const prerender = false;
 
@@ -42,18 +43,25 @@ export const POST: APIRoute = async ({ request }) => {
     const area = String(data.get('area') ?? '').trim();
     const bestTime = String(data.get('best_time') ?? '').trim();
     const message = String(data.get('message') ?? '').trim();
-    const services = data.getAll('services').map(String);
+    const selectedServiceLabels = data.getAll('services').map(String);
 
     if (!name || !phone || !email || !area) {
       return jsonResponse({ success: false, message: 'Please fill in all required fields.' }, 400);
     }
+
+    const serviceLines = services
+      .filter((service) => selectedServiceLabels.includes(service.navLabel))
+      .map((service) => {
+        const detail = String(data.get(`detail_${service.slug}`) ?? '').trim();
+        return detail ? `${service.navLabel} (${detail})` : service.navLabel;
+      });
 
     const lines = [
       `Name: ${name}`,
       `Phone: ${phone}`,
       `Email: ${email}`,
       `Area: ${area}`,
-      services.length ? `Services: ${services.join(', ')}` : null,
+      serviceLines.length ? `Services: ${serviceLines.join(', ')}` : null,
       bestTime ? `Best time to reach: ${bestTime}` : null,
       message ? `Details: ${message}` : null,
     ].filter((line): line is string => line !== null);
