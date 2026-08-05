@@ -125,7 +125,7 @@
   --ff-focus-ring:  0 0 0 3px rgba(11,111,184,.18); /* azure-tinted form focus ring */
 
   /* ---- Layout --------------------------------------------- */
-  --ff-container: 1180px; /* max content width */
+  --ff-container: 1280px; /* max content width */
   --ff-gutter:    32px;   /* horizontal page padding */
   --ff-gap-lg:    56px;   /* two-column section gap */
 
