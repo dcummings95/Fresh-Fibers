@@ -9,6 +9,11 @@
 
 html {
   -webkit-text-size-adjust: 100%;
+  /* Matches the header band color so any sliver of iOS rubber-band
+     bounce at the top of the page reads as a continuation of the
+     band, not a mismatched flash. */
+  background: var(--ff-band-blue);
+  overscroll-behavior-y: none;
 }
 
 body {
@@ -18,6 +23,7 @@ body {
   font-family: var(--ff-font-body);
   font-size: var(--ff-size-body);
   line-height: var(--ff-leading-body);
+  overscroll-behavior-y: none;
 }
 
 img,
