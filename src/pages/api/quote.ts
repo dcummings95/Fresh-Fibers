@@ -25,7 +25,7 @@ export const POST: APIRoute = async ({ request }) => {
       const { success } = await env.QUOTE_FORM_RATE_LIMITER.limit({ key: ip });
       if (!success) {
         return jsonResponse(
-          { success: false, message: 'Too many requests — please wait a minute and try again, or call/text instead.' },
+          { success: false, message: 'Too many requests. Please wait a minute and try again, or call/text instead.' },
           429,
         );
       }
@@ -34,7 +34,7 @@ export const POST: APIRoute = async ({ request }) => {
     const turnstileToken = String(data.get('cf-turnstile-response') ?? '');
     const verified = await verifyTurnstile(turnstileToken, ip);
     if (!verified) {
-      return jsonResponse({ success: false, message: 'Verification failed — please try again.' }, 403);
+      return jsonResponse({ success: false, message: 'Verification failed. Please try again.' }, 403);
     }
 
     const name = String(data.get('name') ?? '').trim();
@@ -74,7 +74,7 @@ export const POST: APIRoute = async ({ request }) => {
       to: site.email,
       from: { email: FROM_ADDRESS, name: `${site.name} website` },
       replyTo: email,
-      subject: `New quote request — ${name}`,
+      subject: `New quote request: ${name}`,
       text: lines.join('\n'),
       html: `<p>${lines.map(escapeHtml).join('</p><p>')}</p>`,
     });

@@ -2,10 +2,10 @@
   "service": "upholstery",
   "label": "Upholstery Cleaning",
   "rows": [
-    { "label": "Sofa", "detail": "up to 3 seats — $40 per seat", "price": 120, "unit": null },
-    { "label": "Loveseat", "detail": "2 seats — $40 per seat", "price": 80, "unit": null },
+    { "label": "Sofa", "detail": "up to 3 seats, $40 per seat", "price": 120, "unit": null },
+    { "label": "Loveseat", "detail": "2 seats, $40 per seat", "price": 80, "unit": null },
     { "label": "Sectional", "detail": "most run 5–7 seats", "price": 40, "unit": "/ seat" },
-    { "label": "Recliner or armchair", "detail": "1 seat — extra folds and crevices take more work", "price": 60, "unit": null },
+    { "label": "Recliner or armchair", "detail": "1 seat, extra folds and crevices take more work", "price": 60, "unit": null },
     { "label": "Dining chair", "detail": "per seat", "price": 15, "unit": null },
     { "label": "Mattress", "detail": "size and condition vary", "price": null, "unit": null, "quoteLabel": "Quoted" },
     { "label": "Stain-guard protector", "detail": "per seat or cushion, helps it stay clean longer", "price": 20, "unit": "/ seat", "addOn": true }

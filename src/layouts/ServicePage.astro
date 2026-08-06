@@ -22,7 +22,7 @@ const pricing = getPricing(service.pricingFile);
 const firstPrice = pricing.rows.find((r) => r.price !== null)?.price ?? 0;
 const photo = servicePhotos[slug] ?? {};
 
-const title = `${service.navLabel} | ${site.name} — Winona, MN`;
+const title = `${service.navLabel} | ${site.name}, Winona, MN`;
 const schema = buildServiceSchema(service.navLabel, service.lead);
 ---
 

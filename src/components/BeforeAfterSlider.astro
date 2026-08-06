@@ -36,14 +36,14 @@ const {
 >
   <div class="layer after">
     {afterImage ? (
-      <Image src={afterImage} alt={`After — ${alt}`} class="photo" draggable="false" style={`object-position: ${afterPosition}`} />
+      <Image src={afterImage} alt={`After: ${alt}`} class="photo" draggable="false" style={`object-position: ${afterPosition}`} />
     ) : (
       <span>{afterLabel}</span>
     )}
   </div>
   <div class="layer before" data-ba-before>
     {beforeImage ? (
-      <Image src={beforeImage} alt={`Before — ${alt}`} class="photo" draggable="false" style={`object-position: ${beforePosition}`} />
+      <Image src={beforeImage} alt={`Before: ${alt}`} class="photo" draggable="false" style={`object-position: ${beforePosition}`} />
     ) : (
       <span>{beforeLabel}</span>
     )}

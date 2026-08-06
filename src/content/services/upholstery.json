@@ -6,13 +6,13 @@
   "eyebrow": "Upholstery cleaning",
   "h1Plain": "Furniture that feels ",
   "h1Accent": "fresh again.",
-  "lead": "A deep, fabric-safe clean that lifts out body oils, dust, and spills — gentle enough for delicate upholstery.",
+  "lead": "A deep, fabric-safe clean that lifts out body oils, dust, and spills, gentle enough for delicate upholstery.",
   "startingAtLabel": "Starting at",
   "startingAtUnit": "per sofa",
   "photoLabel": "UPHOLSTERY PHOTO",
   "cardPriceLabel": "from",
   "cardUnit": "/ sofa",
-  "cardDescription": "Sofas, sectionals, chairs, and mattresses deep-cleaned safe for the fabric — leaves them soft, not stiff.",
+  "cardDescription": "Sofas, sectionals, chairs, and mattresses deep-cleaned safe for the fabric, leaves them soft, not stiff.",
   "homeDescription": "Sofas, chairs, and cushions cleaned gently so they look and smell fresh.",
   "whatsIncluded": [
     { "label": "Fabric check & spot test", "description": "I check the fabric type and test a hidden spot so the clean is safe for your piece." },
@@ -24,8 +24,8 @@
     { "q": "How long until it's dry?", "a": "Usually 4 to 6 hours with good airflow. Thick cushions can take a little longer than carpet." },
     { "q": "Is it safe for my fabric?", "a": "I test a hidden spot first and match the method to the fabric. Delicate pieces get a gentler clean." },
     { "q": "Can you get pet smells out?", "a": "Most of the time, yes. For heavy pet odor I'll add an enzyme treatment and tell you what to expect." },
-    { "q": "Do you clean leather?", "a": "I clean and condition finished leather too — it's a different process, so just mention it when you request your estimate." }
+    { "q": "Do you clean leather?", "a": "I clean and condition finished leather too. It's a different process, so just mention it when you request your estimate." }
   ],
   "ctaHeadline": "Book your upholstery cleaning",
-  "beforeAfterCopy": "Real upholstery jobs from around Winona — photos coming soon."
+  "beforeAfterCopy": "Real upholstery jobs from around Winona. Photos coming soon."
 }

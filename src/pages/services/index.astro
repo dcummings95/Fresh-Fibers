@@ -7,9 +7,9 @@ import HubLinks from '../../components/HubLinks.astro';
 import site from '../../content/site.json';
 import { services, getPricing } from '../../lib/services';
 
-const title = `Carpet, Upholstery & Tile Cleaning Services | ${site.name} — Winona, MN`;
+const title = `Carpet, Upholstery & Tile Cleaning Services | ${site.name}, Winona, MN`;
 const description =
-  'Carpet, upholstery, area rug, tile & grout, and pet odor cleaning around Winona, MN — one person, one truck, published pricing.';
+  'Carpet, upholstery, area rug, tile & grout, and pet odor cleaning around Winona, MN: one person, one truck, published pricing.';
 ---
 
 <Base title={title} description={description}>
@@ -22,7 +22,7 @@ const description =
         <a href="/estimate" class="btn btn-primary">Free estimate</a>
         <a href={`tel:${site.phoneTel}`} class="btn btn-tertiary">Call Now</a>
       </div>
-      <p class="lead">No rotating crews, no upsells — just an honest job, priced upfront.</p>
+      <p class="lead">No rotating crews, no upsells, just an honest job, priced upfront.</p>
     </div>
   </Fragment>
 
@@ -49,7 +49,7 @@ const description =
 
   <section class="container bundle-section">
     <Callout title={`Save about ${site.bundleDiscountPercent}% by bundling more than one`}>
-      Getting carpets and furniture done in the same visit saves me setup time — and I pass that
+      Getting carpets and furniture done in the same visit saves me setup time, and I pass that
       along. Just mention it and I'll work it into your estimate.
       <div slot="action"><a href="/estimate" class="btn btn-primary">Free bundle estimate</a></div>
     </Callout>
@@ -62,7 +62,7 @@ const description =
         <div>
           <div class="step-number">1</div>
           <div class="step-title">Tell me what you need</div>
-          <p>Reach out online, or call and text me a couple photos. I'll give you an honest estimate — free, no pressure.</p>
+          <p>Reach out online, or call and text me a couple photos. I'll give you an honest estimate: free, no pressure.</p>
         </div>
         <div>
           <div class="step-number">2</div>
@@ -72,7 +72,7 @@ const description =
         <div>
           <div class="step-number">3</div>
           <div class="step-title">You're covered {site.guaranteeDays} days</div>
-          <p>Not right within {site.guaranteeDays} days? I'll come back and re-clean the area — no charge, no hassle.</p>
+          <p>Not right within {site.guaranteeDays} days? I'll come back and re-clean the area, no charge, no hassle.</p>
         </div>
       </div>
     </div>

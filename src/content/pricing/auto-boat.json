@@ -6,7 +6,7 @@
     { "label": "SUV or truck", "detail": "more seats & cargo space", "price": 179, "unit": null },
     { "label": "Third-row seating", "detail": "add-on", "price": 40, "unit": null, "addOn": true },
     { "label": "Heavy pet hair removal", "detail": "add-on", "price": null, "unit": null, "quoteLabel": "+$40–60" },
-    { "label": "Boat interior", "detail": "priced per foot — send length and photos", "price": null, "unit": null, "quoteLabel": "Quoted" }
+    { "label": "Boat interior", "detail": "priced per foot, send length and photos", "price": null, "unit": null, "quoteLabel": "Quoted" }
   ],
   "footnote": null
 }

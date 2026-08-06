@@ -8,8 +8,8 @@ import HubLinks from '../components/HubLinks.astro';
 import site from '../content/site.json';
 import { services, getPricing } from '../lib/services';
 
-const title = `Carpet Cleaning Cost & Pricing | ${site.name} — Winona, MN`;
-const description = `See exactly what carpet, upholstery, rug, tile, and pet odor cleaning costs around Winona, MN. Published, upfront pricing — no hidden fees.`;
+const title = `Carpet Cleaning Cost & Pricing | ${site.name}, Winona, MN`;
+const description = `See exactly what carpet, upholstery, rug, tile, and pet odor cleaning costs around Winona, MN. Published, upfront pricing, no hidden fees.`;
 ---
 
 <Base title={title} description={description}>
@@ -23,7 +23,7 @@ const description = `See exactly what carpet, upholstery, rug, tile, and pet odo
         <a href={`tel:${site.phoneTel}`} class="btn btn-tertiary">Call Now</a>
       </div>
       <p class="lead">
-        Real, published prices for every service — the same numbers I start from when I write up your job.
+        Real, published prices for every service: the same numbers I start from when I write up your job.
       </p>
     </div>
   </Fragment>
@@ -65,7 +65,7 @@ const description = `See exactly what carpet, upholstery, rug, tile, and pet odo
 
   <section class="container cta-section">
     <Callout title="Get a real number for your job">
-      Send a few details — number of rooms, what needs cleaning — and I'll give you an honest,
+      Send a few details (number of rooms, what needs cleaning) and I'll give you an honest,
       firm number before I start any work.
       <div slot="action"><a href="/estimate" class="btn btn-primary">Free estimate</a></div>
     </Callout>

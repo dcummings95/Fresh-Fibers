@@ -5,5 +5,5 @@
     { "label": "Floor tile & grout", "detail": "per sq ft", "price": 1.25, "unit": "/ sq ft" },
     { "label": "Grout sealing", "detail": "add-on, recommended after cleaning", "price": 0.50, "unit": "/ sq ft", "addOn": true }
   ],
-  "footnote": "Most small rooms land right around the $99 visit minimum — a typical bathroom floor (about 40 sq ft) usually comes out there."
+  "footnote": "Most small rooms land right around the $99 visit minimum, a typical bathroom floor (about 40 sq ft) usually comes out there."
 }

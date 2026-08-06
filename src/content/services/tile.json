@@ -21,11 +21,11 @@
     { "label": "Optional grout sealing", "description": "A sealer keeps dirt out of the porous grout so it stays clean longer." }
   ],
   "faq": [
-    { "q": "Will the grout look new?", "a": "It'll look dramatically better. Grout that's stained rather than just dirty may not go all the way back to white — I'll tell you before I start." },
-    { "q": "Should I get the grout sealed?", "a": "If your grout's unsealed, yes — it keeps dirt from soaking back in and makes the clean last much longer." },
-    { "q": "Can you clean shower tile too?", "a": "Yes — showers, backsplashes, and floors. Vertical tile takes a bit more time but cleans up well." },
+    { "q": "Will the grout look new?", "a": "It'll look dramatically better. Grout that's stained rather than just dirty may not go all the way back to white. I'll tell you before I start." },
+    { "q": "Should I get the grout sealed?", "a": "If your grout's unsealed, yes. It keeps dirt from soaking back in and makes the clean last much longer." },
+    { "q": "Can you clean shower tile too?", "a": "Yes, showers, backsplashes, and floors. Vertical tile takes a bit more time but cleans up well." },
     { "q": "How long until I can walk on it?", "a": "The floor's walkable within an hour or two. If I seal the grout, give it a full day before heavy traffic." }
   ],
   "ctaHeadline": "Book your tile cleaning",
-  "beforeAfterCopy": "Real tile jobs from around Winona — photos coming soon."
+  "beforeAfterCopy": "Real tile jobs from around Winona. Photos coming soon."
 }

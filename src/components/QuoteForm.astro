@@ -28,7 +28,7 @@ const detailFieldConfig: Record<string, DetailFieldConfig> = {
 
     <div class="field-group">
       <div class="label">What do you need cleaned?</div>
-      <div class="hint">Pick all that apply — bundling more than one usually saves about {site.bundleDiscountPercent}%.</div>
+      <div class="hint">Pick all that apply. Bundling more than one usually saves about {site.bundleDiscountPercent}%.</div>
       <div class="chips">
         {services.map((service) => (
           <label class="chip">
@@ -97,7 +97,7 @@ const detailFieldConfig: Record<string, DetailFieldConfig> = {
         id="message"
         name="message"
         rows="4"
-        placeholder="Anything else? Tough spots, pet stains, or something set-in — a photo texted over helps a lot."
+        placeholder="Anything else? Tough spots, pet stains, or something set-in. A photo texted over helps a lot."
       ></textarea>
     </div>
 
@@ -113,7 +113,7 @@ const detailFieldConfig: Record<string, DetailFieldConfig> = {
 
   <div class="confirmation" data-confirmation hidden>
     <div class="check">✓</div>
-    <h2>Got it — thanks, <span data-first-name>there</span>!</h2>
+    <h2>Got it, thanks, <span data-first-name>there</span>!</h2>
     <p>Your request came through. I'll look it over and text or call you back with an honest estimate, usually within a few hours during business hours.</p>
     <div class="actions">
       <a href={`tel:${site.phoneTel}`} class="btn btn-primary">Rather talk now? Call me</a>
@@ -191,7 +191,7 @@ const detailFieldConfig: Record<string, DetailFieldConfig> = {
         if (errorEl) {
           errorEl.textContent = err instanceof Error && err.message && err.message !== 'Submission failed'
             ? err.message
-            : `Something went wrong sending that. Please call or text instead — ${phone}.`;
+            : `Something went wrong sending that. Please call or text instead: ${phone}.`;
         }
       } finally {
         if (submitBtn) {
