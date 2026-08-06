@@ -12,13 +12,13 @@ html {
   /* Matches the header band color so any sliver of iOS rubber-band
      bounce at the top of the page reads as a continuation of the
      band, not a mismatched flash. */
-  background: var(--ff-band-blue);
+  background-color: var(--ff-band-blue) !important;
   overscroll-behavior-y: none;
 }
 
 body {
   margin: 0;
-  background: var(--ff-bg);
+  background-color: var(--ff-bg); 
   color: var(--ff-text);
   font-family: var(--ff-font-body);
   font-size: var(--ff-size-body);
