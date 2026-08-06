@@ -43,6 +43,9 @@ const extraSchemas = structuredData ? (Array.isArray(structuredData) ? structure
     ))}
   </head>
   <body>
+    <div class="chrome-tint chrome-tint-top" aria-hidden="true"></div>
+    <div class="chrome-tint chrome-tint-bottom" aria-hidden="true"></div>
+
     <div class="top-band">
       <div class="container">
         <Header currentPath={Astro.url.pathname} />
@@ -63,5 +66,29 @@ const extraSchemas = structuredData ? (Array.isArray(structuredData) ? structure
     background: var(--ff-band-blue);
     padding-top: env(safe-area-inset-top);
     padding-bottom: 56px;
+  }
+
+  /* iOS 26 Safari tints its toolbar chrome by sampling the
+     background-color of fixed/sticky elements at the viewport edges
+     (theme-color is no longer read at all). These carry no content —
+     they only exist to give Safari a color to sample there. */
+  .chrome-tint {
+    position: fixed;
+    left: 0;
+    right: 0;
+    pointer-events: none;
+    z-index: -1;
+  }
+
+  .chrome-tint-top {
+    top: 0;
+    height: env(safe-area-inset-top);
+    background: var(--ff-band-blue);
+  }
+
+  .chrome-tint-bottom {
+    bottom: 0;
+    height: env(safe-area-inset-bottom);
+    background: var(--ff-navy-deep);
   }
 </style>
