@@ -51,7 +51,7 @@
   --ff-font-serif:   'Zilla Slab', Georgia, serif;      /* ITALIC accent phrases ONLY (500 italic) */
   --ff-font-body:    'Karla', system-ui, sans-serif;    /* everything else (400/700) */
 
-  --ff-size-h1:        60px; /* page hero (54px on Book) */
+  --ff-size-h1:        60px; /* page hero (54px on Estimate) */
   --ff-size-h2:        38px; /* section headings (40px on navy bands) */
   --ff-size-h3:        30px; /* sub-headings / booking card title */
   --ff-size-card-title:25px; /* service card / grid title */

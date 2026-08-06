@@ -13,10 +13,10 @@ import logo from '../assets/images/logo.png';
         <p>Not happy within {site.guaranteeDays} days of your cleaning? Call me and I'll come back and re-clean the area — no charge, no hassle.</p>
       </div>
       <div class="panel bleed-sm">
-        <h3>Book a time</h3>
-        <p>Book online or call — free estimate, no pressure.</p>
+        <h3>Get your free estimate</h3>
+        <p>Request one online or give me a call — no pressure, no obligation.</p>
         <div class="actions">
-          <a href="/book" class="btn btn-azure">Book online</a>
+          <a href="/estimate" class="btn btn-azure">Free estimate</a>
           <a href={`tel:${site.phoneTel}`} class="btn btn-tertiary">Call Now</a>
         </div>
       </div>
@@ -34,7 +34,7 @@ import logo from '../assets/images/logo.png';
     <div class="links">
       <a href={`tel:${site.phoneTel}`} class="phone">{site.phone}</a>
       <span class="dot">·</span>
-      <a href="/book" class="book-link">Book online</a>
+      <a href="/estimate" class="estimate-link">Free estimate</a>
     </div>
   </div>
 </footer>
@@ -172,7 +172,7 @@ import logo from '../assets/images/logo.png';
     color: var(--ff-on-navy-muted);
   }
 
-  .book-link {
+  .estimate-link {
     color: var(--ff-accent-on-navy);
     text-decoration: none;
     font-weight: var(--ff-weight-semibold);

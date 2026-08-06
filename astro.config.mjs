@@ -16,7 +16,10 @@ export default defineConfig({
   site: siteData.url,
   integrations: [sitemap()],
 
-  redirects: hasReviewUrl ? { '/review': siteData.googleReviewUrl } : {},
+  redirects: {
+    '/book': '/estimate',
+    ...(hasReviewUrl ? { '/review': siteData.googleReviewUrl } : {}),
+  },
 
   adapter: cloudflare({
     imageService: 'compile',
