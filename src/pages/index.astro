@@ -10,7 +10,7 @@ import site from '../content/site.json';
 import reviewsData from '../content/reviews.json';
 import { services } from '../lib/services';
 import { servicePhotos } from '../lib/photos';
-import heroPhoto from '../assets/images/ff-hero.jpg';
+import heroPhoto from '../assets/images/Various/carpet_midway_clean_4.jpg';
 
 const carpetPhotos = servicePhotos.carpet;
 
@@ -40,7 +40,7 @@ const avatarColors = ['var(--ff-navy-cta)', 'var(--ff-azure)', 'var(--ff-accent-
           </span>
         </p>
       </div>
-      <Image src={heroPhoto} alt={`${site.ownerName} cleaning a carpet for a customer in the Driftless Region`} class="hero-photo" width={1000} height={800} loading="eager" fetchpriority="high" />
+      <Image src={heroPhoto} alt={`Carpet cleaning mid-job in a customer's home in the Driftless Region`} class="hero-photo" width={1000} height={800} loading="eager" fetchpriority="high" />
     </div>
   </Fragment>
 
@@ -211,10 +211,6 @@ const avatarColors = ['var(--ff-navy-cta)', 'var(--ff-azure)', 'var(--ff-accent-
       gap: 28px;
       padding: 28px 0 0;
     }
-
-    .hero-copy h1 {
-      font-size: 44px;
-    }
   }
 
   .hero-photo {
@@ -222,14 +218,21 @@ const avatarColors = ['var(--ff-navy-cta)', 'var(--ff-azure)', 'var(--ff-accent-
     height: auto;
     aspect-ratio: 5 / 4;
     object-fit: cover;
+    object-position: center 68%;
     border-radius: var(--ff-radius-note);
   }
 
   .hero-copy h1 {
-    font-size: 64px;
-    line-height: 1.02;
-    margin: 20px 0 22px;
+    font-size: var(--ff-size-h1);
+    line-height: 1.03;
+    margin: 18px 0 24px;
     letter-spacing: var(--ff-tracking-display);
+  }
+
+  @media (max-width: 860px) {
+    .hero-copy h1 {
+      font-size: 40px;
+    }
   }
 
   .lead {
