@@ -21,7 +21,7 @@ const extraSchemas = structuredData ? (Array.isArray(structuredData) ? structure
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <meta name="theme-color" content="#dfeaf3" />
     <title>{title}</title>
     <meta name="description" content={description} />
@@ -60,6 +60,7 @@ const extraSchemas = structuredData ? (Array.isArray(structuredData) ? structure
 <style is:global>
   .top-band {
     background: var(--ff-band-blue);
+    padding-top: env(safe-area-inset-top);
     padding-bottom: 56px;
   }
 </style>
