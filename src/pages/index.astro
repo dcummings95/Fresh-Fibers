@@ -1,7 +1,6 @@
 ---
 import { Image } from 'astro:assets';
 import Base from '../layouts/Base.astro';
-import Placeholder from '../components/Placeholder.astro';
 import ServicePhoto from '../components/ServicePhoto.astro';
 import BeforeAfterSlider from '../components/BeforeAfterSlider.astro';
 import ReviewCard from '../components/ReviewCard.astro';
@@ -11,6 +10,7 @@ import reviewsData from '../content/reviews.json';
 import { services } from '../lib/services';
 import { servicePhotos } from '../lib/photos';
 import heroPhoto from '../assets/images/Various/carpet_midway_clean_4.jpg';
+import augieVan from '../assets/images/Various/augie_van.jpeg';
 
 const carpetPhotos = servicePhotos.carpet;
 
@@ -105,7 +105,7 @@ const avatarColors = ['var(--ff-navy-cta)', 'var(--ff-azure)', 'var(--ff-accent-
 
   <section class="about-band">
     <div class="container about-inner">
-      <Placeholder label={`PHOTO OF ${site.ownerName.toUpperCase()}`} dimensions="640 × 640px, with the van" aspectRatio="1 / 1" />
+      <Image src={augieVan} alt={`${site.ownerName} with the Fresh Fibers van`} class="about-photo" width={640} height={640} />
       <div>
         <h2 class="on-navy">One local, doing it right.</h2>
         <p class="on-navy-body">
@@ -475,6 +475,17 @@ const avatarColors = ['var(--ff-navy-cta)', 'var(--ff-azure)', 'var(--ff-accent-
     .about-inner {
       grid-template-columns: 1fr;
     }
+  }
+
+  .about-photo {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    object-position: right center;
+    border-radius: var(--ff-radius-note);
+    box-shadow: var(--ff-shadow-card);
   }
 
   .on-navy {

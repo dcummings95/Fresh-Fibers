@@ -1,8 +1,9 @@
 ---
+import { Image } from 'astro:assets';
 import Base from '../layouts/Base.astro';
 import Breadcrumb from '../components/Breadcrumb.astro';
-import Placeholder from '../components/Placeholder.astro';
 import site from '../content/site.json';
+import augieVan from '../assets/images/Various/augie_van.jpeg';
 
 const title = `About ${site.ownerName} | ${site.name}, Winona, MN`;
 const description = `${site.name} is a one-person, owner-operated carpet and upholstery cleaning business in Winona, MN. No subcontractors, no rotating crews, just ${site.ownerName}.`;
@@ -26,7 +27,7 @@ const description = `${site.name} is a one-person, owner-operated carpet and uph
   </Fragment>
 
   <section class="container story-section">
-    <Placeholder label={`PHOTO OF ${site.ownerName.toUpperCase()}`} dimensions="640 × 640px, with the van" aspectRatio="1 / 1" />
+    <Image src={augieVan} alt={`${site.ownerName} with the Fresh Fibers van`} class="story-photo" width={640} height={640} />
     <div class="story-copy">
       <h2>How this started</h2>
       <p>
@@ -103,6 +104,17 @@ const description = `${site.name} is a one-person, owner-operated carpet and uph
     grid-template-columns: 0.9fr 1.1fr;
     gap: var(--ff-gap-lg);
     align-items: center;
+  }
+
+  .story-photo {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    object-position: right center;
+    border-radius: var(--ff-radius-note);
+    box-shadow: var(--ff-shadow-card);
   }
 
   @media (max-width: 780px) {
