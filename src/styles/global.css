@@ -22,7 +22,19 @@ html {
 
 body {
   margin: 0;
-  background-color: var(--ff-bg); 
+  /* Without a height floor, any page shorter than the viewport left a
+     gap below the footer where html's raw background showed through
+     instead of the footer's navy. min-height plus flex (paired with
+     `main { flex: 1 }` in Base.astro) pins the footer to the real
+     bottom of the viewport regardless of content length, instead of
+     relying on a fallback color to paper over the gap. dvh (not vh)
+     tracks Safari's dynamic toolbar so this doesn't underflow when
+     the toolbar is expanded. */
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--ff-bg);
   color: var(--ff-text);
   font-family: var(--ff-font-body);
   font-size: var(--ff-size-body);

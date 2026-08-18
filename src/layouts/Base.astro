@@ -66,6 +66,17 @@ const extraSchemas = structuredData ? (Array.isArray(structuredData) ? structure
     background: var(--ff-band-blue);
     padding-top: env(safe-area-inset-top);
     padding-bottom: 56px;
+    flex-shrink: 0;
+  }
+
+  /* Grows to absorb leftover space so the footer lands on the real
+     bottom of the viewport on short pages, instead of floating above
+     a gap. min-height: 0 keeps it from refusing to shrink below its
+     content size, which flex items default to and which would defeat
+     the min-height: 100dvh on body for pages taller than the viewport. */
+  main {
+    flex: 1 0 auto;
+    min-height: 0;
   }
 
   /* iOS 26 Safari tints its toolbar chrome by sampling the
