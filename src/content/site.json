@@ -44,6 +44,5 @@
   "serviceAreaNote": "Roughly within 60 miles of Winona. If you're close and not on the list, just ask.",
   "hours": "Mon–Sat, 7:00 AM – 6:00 PM",
   "hoursShort": "Mon–Sat 7–6",
-  "guaranteeDays": 30,
-  "bundleDiscountPercent": 10
+  "guaranteeDays": 30
 }

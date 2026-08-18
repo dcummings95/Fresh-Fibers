@@ -86,14 +86,16 @@ function isActive(href: string, path: string) {
               </svg>
             </button>
             <div class="dropdown" id={`nav-dropdown-${index}`}>
-              {item.dropdown.map((sub) => (
-                <a href={sub.href} class:list={{ active: currentPath === sub.href }}>
-                  {sub.label}
+              <div class="dropdown-inner">
+                {item.dropdown.map((sub) => (
+                  <a href={sub.href} class:list={{ active: currentPath === sub.href }}>
+                    {sub.label}
+                  </a>
+                ))}
+                <a href={item.href} class="dropdown-all">
+                  {item.viewAllLabel} <span class="arrow">→</span>
                 </a>
-              ))}
-              <a href={item.href} class="dropdown-all">
-                {item.viewAllLabel} <span class="arrow">→</span>
-              </a>
+              </div>
             </div>
           </div>
         ) : (
@@ -300,6 +302,14 @@ function isActive(href: string, path: string) {
     top: calc(100% + 8px);
     left: 50%;
     min-width: 210px;
+    opacity: 0;
+    visibility: hidden;
+    transform: translate(-50%, -6px);
+    transition: opacity var(--ff-transition), transform var(--ff-transition), visibility var(--ff-transition);
+    z-index: 30;
+  }
+
+  .dropdown-inner {
     display: flex;
     flex-direction: column;
     gap: 2px;
@@ -307,11 +317,6 @@ function isActive(href: string, path: string) {
     border-radius: var(--ff-radius-card);
     box-shadow: var(--ff-shadow-hover);
     padding: 10px;
-    opacity: 0;
-    visibility: hidden;
-    transform: translate(-50%, -6px);
-    transition: opacity var(--ff-transition), transform var(--ff-transition), visibility var(--ff-transition);
-    z-index: 30;
   }
 
   @media (min-width: 941px) {
@@ -521,19 +526,26 @@ function isActive(href: string, path: string) {
       opacity: 1;
       visibility: visible;
       transform: none;
-      background: transparent;
-      border: none;
-      box-shadow: none;
-      padding: 0 0 0 14px;
       min-width: 0;
-      max-height: 0;
-      overflow: hidden;
-      transition: max-height var(--ff-transition);
+      display: grid;
+      grid-template-rows: 0fr;
+      transition: grid-template-rows 0.3s ease;
     }
 
     .nav-item.expanded .dropdown {
-      max-height: 400px;
+      grid-template-rows: 1fr;
+    }
+
+    .dropdown-inner {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      background: transparent;
+      border-radius: 0;
+      box-shadow: none;
       padding: 4px 0 6px 14px;
+      min-height: 0;
+      overflow: hidden;
     }
 
     .dropdown a {

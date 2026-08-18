@@ -33,7 +33,11 @@ const avatarColors = ['var(--ff-navy-cta)', 'var(--ff-azure)', 'var(--ff-accent-
         <p class="lead">
           I'm {site.ownerName}, cleaning homes around
           <span class="location-carousel">
-            <span class="location-sizer" aria-hidden="true">{site.serviceAreas[0]}</span>
+            <span class="location-sizer" aria-hidden="true">
+              {site.serviceAreas.map((area) => (
+                <span class="sizer-item">{area}</span>
+              ))}
+            </span>
             {site.serviceAreas.map((area, i) => (
               <span class:list={['location-item', { 'is-active': i === 0 }]}>{area}</span>
             ))}
@@ -257,7 +261,12 @@ const avatarColors = ['var(--ff-navy-cta)', 'var(--ff-azure)', 'var(--ff-accent-
   }
 
   .location-sizer {
+    display: grid;
     visibility: hidden;
+  }
+
+  .sizer-item {
+    grid-area: 1 / 1;
     white-space: nowrap;
     font-weight: var(--ff-weight-semibold);
   }
