@@ -1,0 +1,12 @@
+{
+  "service": "commercial",
+  "label": "Commercial Cleaning",
+  "rows": [
+    { "label": "Carpet", "detail": "offices, retail, common areas — volume discounts for larger spaces confirmed at walkthrough", "price": 0.30, "unit": "/ sq ft", "approx": true },
+    { "label": "Office task chairs", "detail": "fabric desk & task chairs, per chair", "price": 15, "unit": "/ chair" },
+    { "label": "Commercial tile & grout", "detail": "volume discounts on larger floors, confirmed at walkthrough", "price": 1.25, "unit": "/ sq ft" },
+    { "label": "Stain-guard protector", "detail": "high-traffic areas, helps carpet stay clean longer", "price": 0.15, "unit": "/ sq ft", "addOn": true },
+    { "label": "Recurring service discount", "detail": "scheduled quarterly or semi-annual cleanings", "price": null, "unit": null, "quoteLabel": "10% off" }
+  ],
+  "footnote": "Free on-site walkthrough for a firm quote. Evening and weekend appointments available so cleaning never interrupts business hours."
+}

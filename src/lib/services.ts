@@ -30,6 +30,8 @@ export interface ServiceContent {
   faq: FaqItem[];
   ctaHeadline: string;
   beforeAfterCopy: string;
+  /** Suppresses the residential "$99 minimum / room definition" note, for services priced on a different model. */
+  hidePricingNote?: boolean;
 }
 
 export interface PricingRow {

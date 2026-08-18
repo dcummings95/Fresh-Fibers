@@ -1,0 +1,32 @@
+{
+  "slug": "commercial",
+  "route": "commercial",
+  "pricingFile": "commercial",
+  "navLabel": "Commercial cleaning",
+  "eyebrow": "Commercial cleaning",
+  "h1Plain": "Carpet and tile care for ",
+  "h1Accent": "your business.",
+  "lead": "Free on-site walkthrough for a firm quote, with evening and weekend appointments so cleaning never interrupts business hours.",
+  "startingAtLabel": "Starting at",
+  "startingAtUnit": "per sq ft",
+  "photoLabel": "COMMERCIAL CLEANING PHOTO",
+  "cardPriceLabel": "from",
+  "cardUnit": "/ sq ft",
+  "cardDescription": "Carpet, tile & grout, and task chair cleaning for offices, retail, and common areas, scheduled around business hours.",
+  "homeDescription": "Keep the office looking as sharp as the storefront.",
+  "whatsIncluded": [
+    { "label": "Free walkthrough", "description": "I walk the space first so the quote is firm before any work starts." },
+    { "label": "After-hours scheduling", "description": "Evening and weekend appointments, so cleaning never interrupts business." },
+    { "label": "Volume pricing", "description": "Larger spaces get a discount off the starting rate, confirmed at your walkthrough, and recurring accounts save 10% more." },
+    { "label": "Task chairs & tile included", "description": "Fabric task chairs and tile & grout floors are priced right alongside the carpet." }
+  ],
+  "faq": [
+    { "q": "How is commercial pricing different from residential?", "a": "It's priced per sq ft starting at $0.30, with discounts for larger spaces confirmed at your walkthrough, instead of a per-room rate."},
+    { "q": "Can you work around our business hours?", "a": "Yes, evening and weekend appointments are available so cleaning doesn't interrupt your day." },
+    { "q": "Do you offer a discount for recurring service?", "a": "Yes, scheduled quarterly or semi-annual cleanings get 10% off." },
+    { "q": "What's included in the walkthrough?", "a": "I measure the space, look at the carpet and tile condition, and give you a firm quote before any work starts. No charge." }
+  ],
+  "ctaHeadline": "Book your commercial cleaning",
+  "beforeAfterCopy": "Real commercial jobs from around Winona. Photos coming soon.",
+  "hidePricingNote": true
+}
