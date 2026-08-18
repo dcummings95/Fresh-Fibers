@@ -9,10 +9,14 @@
 
 html {
   -webkit-text-size-adjust: 100%;
-  /* Matches the header band color so any sliver of iOS rubber-band
-     bounce at the top of the page reads as a continuation of the
-     band, not a mismatched flash. */
-  background-color: var(--ff-band-blue) !important;
+  /* A flat background here only ever matched the top edge. On any page
+     shorter than the viewport (or if overscroll-behavior-y ever fails
+     to fully suppress rubber-banding), the gap below the footer showed
+     this same pale color instead of navy. Splitting it top/bottom and
+     pinning it to the viewport (not the scrollable page) via `fixed`
+     means whichever edge is exposed always reads as a continuation of
+     the real header/footer band there, not a mismatched flash. */
+  background: linear-gradient(to bottom, var(--ff-band-blue) 50%, var(--ff-navy-deep) 50%) fixed !important;
   overscroll-behavior-y: none;
 }
 
