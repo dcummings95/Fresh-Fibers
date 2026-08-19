@@ -41,6 +41,14 @@ const extraSchemas = structuredData ? (Array.isArray(structuredData) ? structure
     {extraSchemas.map((schema) => (
       <script is:inline type="application/ld+json" set:html={JSON.stringify(schema)} />
     ))}
+
+    <script is:inline async src="https://www.googletagmanager.com/gtag/js?id=G-4RWZLQL22K"></script>
+    <script is:inline>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-4RWZLQL22K');
+    </script>
   </head>
   <body>
     <div class="chrome-tint chrome-tint-bottom" aria-hidden="true"></div>
