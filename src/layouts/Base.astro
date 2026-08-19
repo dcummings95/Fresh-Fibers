@@ -43,12 +43,15 @@ const extraSchemas = structuredData ? (Array.isArray(structuredData) ? structure
     ))}
   </head>
   <body>
-    <div class="chrome-tint chrome-tint-top" aria-hidden="true"></div>
     <div class="chrome-tint chrome-tint-bottom" aria-hidden="true"></div>
 
     <div class="top-band">
+      <div class="header-sticky">
+        <div class="container">
+          <Header currentPath={Astro.url.pathname} />
+        </div>
+      </div>
       <div class="container">
-        <Header currentPath={Astro.url.pathname} />
         <slot name="hero" />
       </div>
     </div>
@@ -64,9 +67,19 @@ const extraSchemas = structuredData ? (Array.isArray(structuredData) ? structure
 <style is:global>
   .top-band {
     background: var(--ff-band-blue);
-    padding-top: env(safe-area-inset-top);
     padding-bottom: 56px;
     flex-shrink: 0;
+  }
+
+  /* Real, visible sticky chrome (not a contentless decoy) for Safari's
+     iOS 26 toolbar-tint sampler to key off — see chrome-tint comment
+     below for why a decoy alone proved unreliable on real hardware. */
+  .header-sticky {
+    position: sticky;
+    top: 0;
+    z-index: 15;
+    background: var(--ff-band-blue);
+    padding-top: env(safe-area-inset-top);
   }
 
   /* Grows to absorb leftover space so the footer lands on the real
@@ -81,8 +94,13 @@ const extraSchemas = structuredData ? (Array.isArray(structuredData) ? structure
 
   /* iOS 26 Safari tints its toolbar chrome by sampling the
      background-color of fixed/sticky elements at the viewport edges
-     (theme-color is no longer read at all). These carry no content —
-     they only exist to give Safari a color to sample there. */
+     (theme-color is no longer read at all). The footer has no
+     always-visible real element to anchor to at the bottom edge, so
+     this decoy still carries no content — it only exists to give
+     Safari a color to sample there. The top edge instead uses the
+     real sticky header (.header-sticky above), since reports suggest
+     Safari's sampling of contentless decoy elements is unreliable
+     compared to genuine visible chrome. */
   .chrome-tint {
     position: fixed;
     left: 0;
@@ -91,15 +109,14 @@ const extraSchemas = structuredData ? (Array.isArray(structuredData) ? structure
     z-index: 10;
   }
 
-  .chrome-tint-top {
-    top: 0;
-    height: env(safe-area-inset-top);
-    background: var(--ff-band-blue);
-  }
-
+  /* min-height floor: on devices with no inset (e.g. iPhone SE, no
+     home indicator/notch), env(safe-area-inset-*) resolves to 0 and
+     the tint collapses below Safari's sampling threshold, falling
+     through to body's cream background instead of the intended
+     band color. The floor keeps it sampleable everywhere. */
   .chrome-tint-bottom {
     bottom: 0;
-    height: env(safe-area-inset-bottom);
+    height: max(env(safe-area-inset-bottom), 8px);
     background: var(--ff-navy-deep);
   }
 </style>
