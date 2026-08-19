@@ -26,6 +26,13 @@ const detailFieldConfig: Record<string, DetailFieldConfig> = {
   >
     <input type="checkbox" name="botcheck" class="visually-hidden" tabindex="-1" autocomplete="off" aria-hidden="true" />
 
+    <input type="hidden" name="gclid" data-ad-field="gclid" />
+    <input type="hidden" name="fbclid" data-ad-field="fbclid" />
+    <input type="hidden" name="msclkid" data-ad-field="msclkid" />
+    <input type="hidden" name="utm_source" data-ad-field="utm_source" />
+    <input type="hidden" name="utm_medium" data-ad-field="utm_medium" />
+    <input type="hidden" name="utm_campaign" data-ad-field="utm_campaign" />
+
     <div class="field-group">
       <div class="label">What do you need cleaned?</div>
       <div class="hint">Pick all that apply.</div>
@@ -126,6 +133,18 @@ const detailFieldConfig: Record<string, DetailFieldConfig> = {
 
 <script is:inline define:vars={{ phone: site.phone, turnstileSitekey: site.turnstileSitekey }}>
   const form = document.getElementById('quote-form');
+
+  // Populate hidden ad-attribution fields from the query string so a lead
+  // created from an ad click keeps the click id/UTM params it arrived with.
+  if (form) {
+    const params = new URLSearchParams(window.location.search);
+    form.querySelectorAll('[data-ad-field]').forEach((input) => {
+      const key = input.dataset.adField;
+      const value = params.get(key);
+      if (value) input.value = value;
+    });
+  }
+
   const confirmation = document.querySelector('[data-confirmation]');
   const errorEl = document.querySelector('[data-form-error]');
   const firstNameEl = document.querySelector('[data-first-name]');

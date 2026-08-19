@@ -2,6 +2,16 @@ import type { APIRoute } from 'astro';
 import { env } from 'cloudflare:workers';
 import site from '../../content/site.json';
 import { services } from '../../lib/services';
+import { createLead, type AdAttribution } from '../../lib/leads';
+
+const AD_ATTRIBUTION_FIELDS: (keyof AdAttribution)[] = [
+  'gclid',
+  'fbclid',
+  'msclkid',
+  'utm_source',
+  'utm_medium',
+  'utm_campaign',
+];
 
 export const prerender = false;
 
@@ -49,12 +59,38 @@ export const POST: APIRoute = async ({ request }) => {
       return jsonResponse({ success: false, message: 'Please fill in all required fields.' }, 400);
     }
 
-    const serviceLines = services
-      .filter((service) => selectedServiceLabels.includes(service.navLabel))
-      .map((service) => {
-        const detail = String(data.get(`detail_${service.slug}`) ?? '').trim();
-        return detail ? `${service.navLabel} (${detail})` : service.navLabel;
-      });
+    const selectedServices = services.filter((service) => selectedServiceLabels.includes(service.navLabel));
+    const serviceDetails: Record<string, string> = {};
+    const serviceLines = selectedServices.map((service) => {
+      const detail = String(data.get(`detail_${service.slug}`) ?? '').trim();
+      if (detail) serviceDetails[service.slug] = detail;
+      return detail ? `${service.navLabel} (${detail})` : service.navLabel;
+    });
+
+    const adAttribution: AdAttribution = {};
+    for (const field of AD_ATTRIBUTION_FIELDS) {
+      const value = String(data.get(field) ?? '').trim();
+      if (value) adAttribution[field] = value;
+    }
+
+    if (env.DB) {
+      try {
+        await createLead(env.DB, {
+          name,
+          phone,
+          email,
+          area,
+          servicesRequested: selectedServices.map((service) => service.navLabel),
+          serviceDetails,
+          bestTime,
+          message,
+          adAttribution,
+          ipAddress: ip,
+        });
+      } catch (err) {
+        console.error('failed to persist lead', err);
+      }
+    }
 
     const lines = [
       `Name: ${name}`,

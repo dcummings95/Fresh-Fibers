@@ -21,6 +21,13 @@
 			"simple": { "limit": 3, "period": 60 }
 		}
 	],
+	"d1_databases": [
+		{
+			"binding": "DB",
+			"database_name": "fresh-fibers-db",
+			"database_id": "5794a98d-a655-4070-8060-23efd4f0758b"
+		}
+	],
 	"workers_dev": false,
 	"routes": [
 		{ "pattern": "getfreshfibers.com", "custom_domain": true }
@@ -40,6 +47,13 @@
 					"name": "QUOTE_FORM_RATE_LIMITER",
 					"namespace_id": "1002",
 					"simple": { "limit": 3, "period": 60 }
+				}
+			],
+			"d1_databases": [
+				{
+					"binding": "DB",
+					"database_name": "fresh-fibers-db-dev",
+					"database_id": "0ee50a8e-60fa-4d5c-a86e-be247d83e597"
 				}
 			]
 		}
