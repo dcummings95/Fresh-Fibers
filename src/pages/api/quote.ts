@@ -16,6 +16,9 @@ const AD_ATTRIBUTION_FIELDS: (keyof AdAttribution)[] = [
 export const prerender = false;
 
 const FROM_ADDRESS = 'notifications@getfreshfibers.com';
+// freshfibersllc@gmail.com is not accessible during dev/testing — route
+// quote notifications to a dev inbox instead. Switch back once handed off.
+const NOTIFICATION_TO_ADDRESS = 'freshfibersdev@gmail.com';
 const TURNSTILE_ACTION = 'quote_request';
 const ALLOWED_HOSTNAMES = new Set(['getfreshfibers.com', 'dev.getfreshfibers.com', 'localhost', '127.0.0.1']);
 
@@ -107,7 +110,7 @@ export const POST: APIRoute = async ({ request }) => {
     }
 
     await env.EMAIL.send({
-      to: site.email,
+      to: NOTIFICATION_TO_ADDRESS,
       from: { email: FROM_ADDRESS, name: `${site.name} website` },
       replyTo: email,
       subject: `New quote request: ${name}`,
