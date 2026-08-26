@@ -1,10 +1,12 @@
 ---
+import { Image } from 'astro:assets';
 import Base from '../layouts/Base.astro';
 import Breadcrumb from '../components/Breadcrumb.astro';
 import ReviewCard from '../components/ReviewCard.astro';
 import Callout from '../components/Callout.astro';
 import site from '../content/site.json';
 import reviewsData from '../content/reviews.json';
+import winonaBridge from '../assets/images/Various/winona_bridge.jpg';
 
 const title = `Reviews | ${site.name}, Winona, MN`;
 const description = `Read what neighbors around Winona, MN are saying about ${site.name}'s carpet, upholstery, and rug cleaning.`;
@@ -23,6 +25,9 @@ const avatarColors = ['var(--ff-navy-cta)', 'var(--ff-azure)', 'var(--ff-accent-
         <a href="/estimate" class="btn btn-azure">Free estimate</a>
         <a href={`tel:${site.phoneTel}`} class="btn btn-tertiary">Call Now</a>
       </div>
+    </div>
+    <div class="hero-photo-shape">
+      <Image src={winonaBridge} alt="The bridge over the Mississippi in Winona, MN" width={1080} height={864} fit="cover" widths={[540, 720, 1080, 1440, 1800, 2160]} sizes="(min-width: 861px) 54vw, 100vw" loading="eager" fetchpriority="high" />
     </div>
   </Fragment>
 
@@ -58,8 +63,16 @@ const avatarColors = ['var(--ff-navy-cta)', 'var(--ff-azure)', 'var(--ff-accent-
 
 <style>
   .hero-copy {
+    position: relative;
+    z-index: 1;
     max-width: 600px;
     padding: 28px 0 48px;
+  }
+
+  @media (min-width: 861px) {
+    .hero-copy {
+      max-width: 540px;
+    }
   }
 
   .hero-copy h1 {

@@ -1,4 +1,5 @@
 ---
+import { Image } from 'astro:assets';
 import Base from '../layouts/Base.astro';
 import Breadcrumb from '../components/Breadcrumb.astro';
 import PricingTable from '../components/PricingTable.astro';
@@ -7,6 +8,7 @@ import Callout from '../components/Callout.astro';
 import HubLinks from '../components/HubLinks.astro';
 import site from '../content/site.json';
 import { services, getPricing } from '../lib/services';
+import pricingPhoto from '../assets/images/Various/pet_stain_before_after_split.jpg';
 
 const title = `Carpet Cleaning Cost & Pricing | ${site.name}, Winona, MN`;
 const description = `See exactly what carpet, upholstery, rug, tile, and pet odor cleaning costs around Winona, MN. Published, upfront pricing, no hidden fees.`;
@@ -25,6 +27,9 @@ const description = `See exactly what carpet, upholstery, rug, tile, and pet odo
         <a href="/estimate" class="btn btn-azure">Free estimate</a>
         <a href={`tel:${site.phoneTel}`} class="btn btn-tertiary">Call Now</a>
       </div>
+    </div>
+    <div class="hero-photo-shape">
+      <Image src={pricingPhoto} alt="Before and after pet stain removal on a carpet in the Driftless Region" width={1080} height={720} fit="cover" widths={[540, 720, 900, 1080, 1350, 1500]} sizes="(min-width: 861px) 54vw, 100vw" loading="eager" fetchpriority="high" />
     </div>
   </Fragment>
 
@@ -70,8 +75,17 @@ const description = `See exactly what carpet, upholstery, rug, tile, and pet odo
 
 <style>
   .hero-copy {
+    position: relative;
+    z-index: 1;
     max-width: 680px;
     padding: 28px 0 48px;
+  }
+
+  @media (min-width: 861px) {
+    .hero-copy {
+      max-width: 540px;
+      padding: 56px 0;
+    }
   }
 
   .hero-copy h1 {
