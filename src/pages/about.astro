@@ -4,25 +4,29 @@ import Base from '../layouts/Base.astro';
 import Breadcrumb from '../components/Breadcrumb.astro';
 import site from '../content/site.json';
 import augieVan from '../assets/images/Various/augie_van.jpeg';
+import vanPhoto from '../assets/images/Various/ff-van-passenger-side-long.jpg';
 
 const title = `About ${site.ownerName} | ${site.name}, Winona, MN`;
 const description = `${site.name} is a one-person, owner-operated carpet and upholstery cleaning business in Winona, MN. No subcontractors, no rotating crews, just ${site.ownerName}.`;
 ---
 
-<Base title={title} description={description}>
+<Base title={title} description={description} heroFlush>
   <Fragment slot="hero">
-    <Breadcrumb items={[{ label: 'Home', href: '/' }, { label: 'About' }]} />
+    <Breadcrumb theme="onNavy" items={[{ label: 'Home', href: '/' }, { label: 'About' }]} />
     <div class="hero-copy">
-      <div class="eyebrow">About {site.name}</div>
-      <h1>One person, one van, <span class="accent">no subcontractors.</span></h1>
-      <div class="cta-row">
-        <a href="/estimate" class="btn btn-primary">Free estimate</a>
-        <a href={`tel:${site.phoneTel}`} class="btn btn-tertiary">Call Now</a>
-      </div>
+      <div class="eyebrow accent-on-navy">About {site.name}</div>
+      <h1>One person, one van, <span class="accent accent-on-navy">no subcontractors.</span></h1>
       <p class="lead">
         Every job that gets booked, I'm the one who shows up and does the work, not a crew, not a
         stranger.
       </p>
+      <div class="cta-row">
+        <a href="/estimate" class="btn btn-azure">Free estimate</a>
+        <a href={`tel:${site.phoneTel}`} class="btn btn-tertiary">Call Now</a>
+      </div>
+    </div>
+    <div class="hero-photo-shape">
+      <Image src={vanPhoto} alt={`The ${site.name} van`} width={1000} height={750} loading="eager" fetchpriority="high" />
     </div>
   </Fragment>
 
@@ -68,11 +72,20 @@ const description = `${site.name} is a one-person, owner-operated carpet and uph
 
 <style>
   .hero-copy {
-    max-width: 640px;
-    padding: 28px 0 0;
+    position: relative;
+    z-index: 1;
+    padding: 28px 0 48px;
+  }
+
+  @media (min-width: 861px) {
+    .hero-copy {
+      max-width: 540px;
+      padding: 56px 0;
+    }
   }
 
   .hero-copy h1 {
+    color: var(--ff-on-navy);
     font-size: var(--ff-size-h1);
     line-height: 1.03;
     margin: 18px 0 24px;
@@ -88,8 +101,8 @@ const description = `${site.name} is a one-person, owner-operated carpet and uph
   .lead {
     font-size: var(--ff-size-body);
     line-height: 1.6;
-    color: var(--ff-text-body);
-    margin: 18px 0 0;
+    color: var(--ff-on-navy-soft);
+    margin: 0 0 18px;
   }
 
   @media (max-width: 640px) {

@@ -12,19 +12,19 @@ const title = `Carpet Cleaning Cost & Pricing | ${site.name}, Winona, MN`;
 const description = `See exactly what carpet, upholstery, rug, tile, and pet odor cleaning costs around Winona, MN. Published, upfront pricing, no hidden fees.`;
 ---
 
-<Base title={title} description={description}>
+<Base title={title} description={description} heroFlush>
   <Fragment slot="hero">
-    <Breadcrumb items={[{ label: 'Home', href: '/' }, { label: 'Pricing' }]} />
+    <Breadcrumb theme="onNavy" items={[{ label: 'Home', href: '/' }, { label: 'Pricing' }]} />
     <div class="hero-copy">
-      <div class="eyebrow">Published pricing</div>
-      <h1>What it actually <span class="accent">costs.</span></h1>
-      <div class="cta-row">
-        <a href="/estimate" class="btn btn-primary">Free estimate</a>
-        <a href={`tel:${site.phoneTel}`} class="btn btn-tertiary">Call Now</a>
-      </div>
+      <div class="eyebrow accent-on-navy">Published pricing</div>
+      <h1>What it actually <span class="accent accent-on-navy">costs.</span></h1>
       <p class="lead">
         Real, published prices for every service: the same numbers I start from when I write up your job.
       </p>
+      <div class="cta-row">
+        <a href="/estimate" class="btn btn-azure">Free estimate</a>
+        <a href={`tel:${site.phoneTel}`} class="btn btn-tertiary">Call Now</a>
+      </div>
     </div>
   </Fragment>
 
@@ -71,10 +71,11 @@ const description = `See exactly what carpet, upholstery, rug, tile, and pet odo
 <style>
   .hero-copy {
     max-width: 680px;
-    padding: 28px 0 0;
+    padding: 28px 0 48px;
   }
 
   .hero-copy h1 {
+    color: var(--ff-on-navy);
     font-size: var(--ff-size-h1);
     line-height: 1.03;
     margin: 18px 0 24px;
@@ -90,8 +91,8 @@ const description = `See exactly what carpet, upholstery, rug, tile, and pet odo
   .lead {
     font-size: var(--ff-size-body);
     line-height: 1.6;
-    color: var(--ff-text-body);
-    margin: 18px 0 0;
+    color: var(--ff-on-navy-soft);
+    margin: 0 0 18px;
   }
 
   @media (max-width: 640px) {

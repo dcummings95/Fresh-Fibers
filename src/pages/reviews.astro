@@ -12,17 +12,17 @@ const description = `Read what neighbors around Winona, MN are saying about ${si
 const avatarColors = ['var(--ff-navy-cta)', 'var(--ff-azure)', 'var(--ff-accent-on-navy)', 'var(--ff-accent-on-navy)', 'var(--ff-azure-hover)', 'var(--ff-navy-panel)'];
 ---
 
-<Base title={title} description={description}>
+<Base title={title} description={description} heroFlush>
   <Fragment slot="hero">
-    <Breadcrumb items={[{ label: 'Home', href: '/' }, { label: 'Reviews' }]} />
+    <Breadcrumb theme="onNavy" items={[{ label: 'Home', href: '/' }, { label: 'Reviews' }]} />
     <div class="hero-copy">
-      <div class="eyebrow">What neighbors say</div>
-      <h1>Reviews from around <span class="accent">Winona.</span></h1>
+      <div class="eyebrow accent-on-navy">What neighbors say</div>
+      <h1>Reviews from around <span class="accent accent-on-navy">Winona.</span></h1>
+      <p class="lead">Real feedback from real jobs.</p>
       <div class="cta-row">
-        <a href="/estimate" class="btn btn-primary">Free estimate</a>
+        <a href="/estimate" class="btn btn-azure">Free estimate</a>
         <a href={`tel:${site.phoneTel}`} class="btn btn-tertiary">Call Now</a>
       </div>
-      <p class="lead">Real feedback from real jobs.</p>
     </div>
   </Fragment>
 
@@ -59,10 +59,11 @@ const avatarColors = ['var(--ff-navy-cta)', 'var(--ff-azure)', 'var(--ff-accent-
 <style>
   .hero-copy {
     max-width: 600px;
-    padding: 28px 0 0;
+    padding: 28px 0 48px;
   }
 
   .hero-copy h1 {
+    color: var(--ff-on-navy);
     font-size: var(--ff-size-h1);
     line-height: 1.03;
     margin: 18px 0 24px;
@@ -78,8 +79,8 @@ const avatarColors = ['var(--ff-navy-cta)', 'var(--ff-azure)', 'var(--ff-accent-
   .lead {
     font-size: var(--ff-size-body);
     line-height: 1.6;
-    color: var(--ff-text-body);
-    margin: 18px 0 0;
+    color: var(--ff-on-navy-soft);
+    margin: 0 0 18px;
   }
 
   @media (max-width: 640px) {

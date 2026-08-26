@@ -8,9 +8,10 @@ const title = `Auto & Boat Interior Cleaning: Coming Soon | ${site.name}`;
 const description = `Auto and boat interior cleaning is coming soon to ${site.name}. Reach out to be the first to know when it's available.`;
 ---
 
-<Base title={title} description={description}>
+<Base title={title} description={description} heroFlush>
   <Fragment slot="hero">
     <Breadcrumb
+      theme="onNavy"
       items={[
         { label: 'Home', href: '/' },
         { label: 'Services', href: '/services' },
@@ -18,15 +19,15 @@ const description = `Auto and boat interior cleaning is coming soon to ${site.na
       ]}
     />
     <div class="hero-copy">
-      <div class="eyebrow">Auto & boat interiors</div>
-      <h1>Coming <span class="accent">soon.</span></h1>
+      <div class="eyebrow accent-on-navy">Auto & boat interiors</div>
+      <h1>Coming <span class="accent accent-on-navy">soon.</span></h1>
       <p class="lead">
         I'm gearing up to offer auto and boat interior cleaning, getting the right equipment
         lined up so it's done to the same standard as everything else. Not booking this one yet,
         but reach out and I'll let you know as soon as it's ready.
       </p>
       <div class="cta-row">
-        <a href="/estimate" class="btn btn-primary">Get notified</a>
+        <a href="/estimate" class="btn btn-azure">Get notified</a>
         <a href={`tel:${site.phoneTel}`} class="btn btn-tertiary">Call Now</a>
       </div>
     </div>
@@ -44,10 +45,11 @@ const description = `Auto and boat interior cleaning is coming soon to ${site.na
 <style>
   .hero-copy {
     max-width: 600px;
-    padding: 28px 0 0;
+    padding: 28px 0 48px;
   }
 
   .hero-copy h1 {
+    color: var(--ff-on-navy);
     font-size: var(--ff-size-h1);
     line-height: 1.03;
     margin: 18px 0 20px;
@@ -57,7 +59,7 @@ const description = `Auto and boat interior cleaning is coming soon to ${site.na
   .lead {
     font-size: var(--ff-size-body);
     line-height: 1.6;
-    color: var(--ff-text-body);
+    color: var(--ff-on-navy-soft);
     margin: 0 0 28px;
   }
 

@@ -1,8 +1,10 @@
 ---
+import { Image } from 'astro:assets';
 import Base from '../../layouts/Base.astro';
 import Breadcrumb from '../../components/Breadcrumb.astro';
 import HubLinks from '../../components/HubLinks.astro';
 import site from '../../content/site.json';
+import vanPhoto from '../../assets/images/Various/ff-van-driver-side-rear.jpg';
 
 const title = `Service Areas | ${site.name}, Winona, MN & La Crosse, WI`;
 const description = `${site.name} cleans carpets, upholstery, and rugs across ${site.serviceAreas.length} towns in the Driftless Region, from Winona, MN to La Crosse, WI.`;
@@ -15,17 +17,20 @@ const areasByState = site.serviceAreas.reduce((groups, area) => {
 }, {});
 ---
 
-<Base title={title} description={description}>
+<Base title={title} description={description} heroFlush>
   <Fragment slot="hero">
-    <Breadcrumb items={[{ label: 'Home', href: '/' }, { label: 'Service Areas' }]} />
+    <Breadcrumb theme="onNavy" items={[{ label: 'Home', href: '/' }, { label: 'Service Areas' }]} />
     <div class="hero-copy">
-      <div class="eyebrow">Where I work</div>
-      <h1>Serving the river valley, <span class="accent">bluff to bluff.</span></h1>
+      <div class="eyebrow accent-on-navy">Where I work</div>
+      <h1>Serving the river valley, <span class="accent accent-on-navy">bluff to bluff.</span></h1>
+      <p class="lead">{site.serviceAreaNote}</p>
       <div class="cta-row">
-        <a href="/estimate" class="btn btn-primary">Free estimate</a>
+        <a href="/estimate" class="btn btn-azure">Free estimate</a>
         <a href={`tel:${site.phoneTel}`} class="btn btn-tertiary">Call Now</a>
       </div>
-      <p class="lead">{site.serviceAreaNote}</p>
+    </div>
+    <div class="hero-photo-shape">
+      <Image src={vanPhoto} alt={`The ${site.name} van`} width={1000} height={750} loading="eager" fetchpriority="high" />
     </div>
   </Fragment>
 
@@ -55,11 +60,20 @@ const areasByState = site.serviceAreas.reduce((groups, area) => {
 
 <style>
   .hero-copy {
-    max-width: 640px;
-    padding: 28px 0 0;
+    position: relative;
+    z-index: 1;
+    padding: 28px 0 48px;
+  }
+
+  @media (min-width: 861px) {
+    .hero-copy {
+      max-width: 540px;
+      padding: 56px 0;
+    }
   }
 
   .hero-copy h1 {
+    color: var(--ff-on-navy);
     font-size: var(--ff-size-h1);
     line-height: 1.03;
     margin: 18px 0 24px;
@@ -75,8 +89,8 @@ const areasByState = site.serviceAreas.reduce((groups, area) => {
   .lead {
     font-size: var(--ff-size-body);
     line-height: 1.6;
-    color: var(--ff-text-body);
-    margin: 18px 0 0;
+    color: var(--ff-on-navy-soft);
+    margin: 0 0 18px;
   }
 
   @media (max-width: 640px) {

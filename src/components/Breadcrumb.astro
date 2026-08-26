@@ -6,12 +6,13 @@ interface Crumb {
 
 interface Props {
   items: Crumb[];
+  theme?: 'light' | 'onNavy';
 }
 
-const { items } = Astro.props;
+const { items, theme = 'light' } = Astro.props;
 ---
 
-<nav class="breadcrumb" aria-label="Breadcrumb">
+<nav class:list={['breadcrumb', { 'breadcrumb--on-navy': theme === 'onNavy' }]} aria-label="Breadcrumb">
   <ol>
     {items.map((item, i) => (
       <li>
@@ -59,5 +60,22 @@ const { items } = Astro.props;
 
   .sep {
     color: #a9bdd2;
+  }
+
+  .breadcrumb--on-navy ol {
+    color: var(--ff-on-navy-muted);
+  }
+
+  .breadcrumb--on-navy a {
+    color: var(--ff-on-navy-muted);
+  }
+
+  .breadcrumb--on-navy .current {
+    color: var(--ff-on-navy);
+  }
+
+  .breadcrumb--on-navy .sep {
+    color: var(--ff-on-navy-muted);
+    opacity: 0.6;
   }
 </style>

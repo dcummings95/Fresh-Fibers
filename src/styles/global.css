@@ -288,3 +288,35 @@ select {
     scroll-behavior: auto !important;
   }
 }
+
+/* ---- Hero photo shape ----
+   Shared by every navy hero that carries a photo (homepage, service
+   pages, and any other page that adds one): a full-bleed stacked block
+   on mobile, a curved wedge bled to the viewport edge on desktop. Set
+   object-position per image via an inline style where the default
+   center crop doesn't land right. */
+.hero-photo-shape {
+  aspect-ratio: 4 / 3;
+  border-top-left-radius: 56px;
+  overflow: hidden;
+  margin: 24px calc(-1 * var(--ff-gutter)) 0;
+}
+
+.hero-photo-shape img,
+.hero-photo-shape .service-photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+@media (min-width: 861px) {
+  .hero-photo-shape {
+    position: absolute;
+    inset: 0 0 0 auto;
+    width: 54%;
+    aspect-ratio: auto;
+    margin: 0;
+    border-top-left-radius: clamp(140px, 26vw, 420px);
+  }
+}

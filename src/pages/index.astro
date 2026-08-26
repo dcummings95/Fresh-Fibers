@@ -20,31 +20,31 @@ const description = `${site.ownerName} cleans carpets, rugs, and upholstery for 
 const avatarColors = ['var(--ff-navy-cta)', 'var(--ff-azure)', 'var(--ff-accent-on-navy)'];
 ---
 
-<Base title={title} description={description}>
+<Base title={title} description={description} heroFlush>
   <Fragment slot="hero">
-    <div class="hero-grid">
-      <div class="hero-copy">
-        <div class="eyebrow">Carpet &amp; upholstery cleaning · Driftless Region</div>
-        <h1>Cleaner carpets, <span class="accent">done right.</span></h1>
-        <div class="cta-row">
-          <a href="/estimate" class="btn btn-primary">Free estimate</a>
-          <a href={`tel:${site.phoneTel}`} class="btn btn-tertiary">Call Now</a>
-        </div>
-        <p class="lead">
-          I'm {site.ownerName}, cleaning homes around{' '}
-          <span class="location-carousel">
-            <span class="location-sizer" aria-hidden="true">
-              {site.serviceAreas.map((area) => (
-                <span class="sizer-item">{area}</span>
-              ))}
-            </span>
-            {site.serviceAreas.map((area, i) => (
-              <span class:list={['location-item', { 'is-active': i === 0 }]}>{area}</span>
+    <div class="hero-copy">
+      <div class="eyebrow accent-on-navy">Carpet &amp; upholstery cleaning · Driftless Region</div>
+      <h1>Cleaner carpets, <span class="accent accent-on-navy">done right.</span></h1>
+      <p class="lead">
+        I'm {site.ownerName}, cleaning homes around{' '}
+        <span class="location-carousel">
+          <span class="location-sizer" aria-hidden="true">
+            {site.serviceAreas.map((area) => (
+              <span class="sizer-item">{area}</span>
             ))}
           </span>
-        </p>
+          {site.serviceAreas.map((area, i) => (
+            <span class:list={['location-item', { 'is-active': i === 0 }]}>{area}</span>
+          ))}
+        </span>
+      </p>
+      <div class="cta-row">
+        <a href="/estimate" class="btn btn-azure">Free estimate</a>
+        <a href={`tel:${site.phoneTel}`} class="btn btn-tertiary">Call Now</a>
       </div>
-      <Image src={heroPhoto} alt={`Carpet cleaning mid-job in a customer's home in the Driftless Region`} class="hero-photo" width={1000} height={800} loading="eager" fetchpriority="high" />
+    </div>
+    <div class="hero-photo-shape">
+      <Image src={heroPhoto} alt={`Carpet cleaning mid-job in a customer's home in the Driftless Region`} style="object-position: center 68%" width={1000} height={800} loading="eager" fetchpriority="high" />
     </div>
   </Fragment>
 
@@ -200,34 +200,23 @@ const avatarColors = ['var(--ff-navy-cta)', 'var(--ff-azure)', 'var(--ff-accent-
 </script>
 
 <style>
-  .hero-grid {
-    display: grid;
-    grid-template-columns: 0.85fr 1.15fr;
-    gap: var(--ff-gap-lg);
-    align-items: center;
-    padding: 64px 0 0;
+  .hero-copy {
+    position: relative;
+    z-index: 1;
+    padding: 28px 0 0;
   }
 
-  @media (max-width: 860px) {
-    .hero-grid {
-      grid-template-columns: 1fr;
-      gap: 28px;
-      padding: 28px 0 0;
+  @media (min-width: 861px) {
+    .hero-copy {
+      max-width: 540px;
+      padding: 72px 0;
     }
   }
 
-  .hero-photo {
-    width: 100%;
-    height: auto;
-    aspect-ratio: 5 / 4;
-    object-fit: cover;
-    object-position: center 68%;
-    border-radius: var(--ff-radius-note);
-  }
-
   .hero-copy h1 {
-    font-size: var(--ff-size-h1);
-    line-height: 1.03;
+    color: var(--ff-on-navy);
+    font-size: 64px;
+    line-height: 1.02;
     margin: 18px 0 24px;
     letter-spacing: var(--ff-tracking-display);
   }
@@ -241,8 +230,8 @@ const avatarColors = ['var(--ff-navy-cta)', 'var(--ff-azure)', 'var(--ff-accent-
   .lead {
     font-size: var(--ff-size-body);
     line-height: 1.6;
-    color: var(--ff-text-body);
-    margin: 22px 0 0;
+    color: var(--ff-on-navy-soft);
+    margin: 0 0 22px;
     max-width: 400px;
   }
 
@@ -278,7 +267,7 @@ const avatarColors = ['var(--ff-navy-cta)', 'var(--ff-azure)', 'var(--ff-accent-
     left: 0;
     opacity: 0;
     white-space: nowrap;
-    color: var(--ff-azure);
+    color: var(--ff-accent-on-navy);
     font-weight: var(--ff-weight-semibold);
     transition: opacity 0.4s ease;
   }

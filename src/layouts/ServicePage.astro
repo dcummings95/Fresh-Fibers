@@ -26,36 +26,38 @@ const title = `${service.navLabel} | ${site.name}, Winona, MN`;
 const schema = buildServiceSchema(service.navLabel, service.lead);
 ---
 
-<Base title={title} description={service.cardDescription} structuredData={schema}>
+<Base title={title} description={service.cardDescription} structuredData={schema} heroFlush>
   <Fragment slot="hero">
     <Breadcrumb
+      theme="onNavy"
       items={[
         { label: 'Home', href: '/' },
         { label: 'Services', href: '/services' },
         { label: service.navLabel },
       ]}
     />
-    <div class="hero-grid">
-      <div class="hero-copy">
-        <div class="eyebrow">{service.eyebrow}</div>
-        <h1>{service.h1Plain}<span class="accent">{service.h1Accent}</span></h1>
-        <div class="starting-at">
-          <span class="starting-label">{service.startingAtLabel}</span>
-          <span class="starting-price">{formatPrice(firstPrice)}</span>
-          <span class="starting-unit">{service.startingAtUnit}</span>
-        </div>
-        <div class="cta-row">
-          <a href="/estimate" class="btn btn-primary">Free estimate</a>
-          <a href={`tel:${site.phoneTel}`} class="btn btn-tertiary">Call Now</a>
-        </div>
-        <p class="lead">{service.lead}</p>
+    <div class="hero-copy">
+      <div class="eyebrow accent-on-navy">{service.eyebrow}</div>
+      <h1>{service.h1Plain}<span class="accent accent-on-navy">{service.h1Accent}</span></h1>
+      <div class="starting-at">
+        <span class="starting-label">{service.startingAtLabel}</span>
+        <span class="starting-price">{formatPrice(firstPrice)}</span>
+        <span class="starting-unit">{service.startingAtUnit}</span>
       </div>
+      <p class="lead">{service.lead}</p>
+      <div class="cta-row">
+        <a href="/estimate" class="btn btn-azure">Free estimate</a>
+        <a href={`tel:${site.phoneTel}`} class="btn btn-tertiary">Call Now</a>
+      </div>
+    </div>
+    <div class="hero-photo-shape">
       <ServicePhoto
         slug={slug}
         label={service.photoLabel}
         alt={`${service.navLabel} in Winona, MN`}
         dimensions="900 × 675px"
         aspectRatio="4 / 3"
+        rounded={false}
         loading="eager"
       />
     </div>
@@ -134,23 +136,21 @@ const schema = buildServiceSchema(service.navLabel, service.lead);
 </Base>
 
 <style>
-  .hero-grid {
-    display: grid;
-    grid-template-columns: 1.05fr 0.95fr;
-    gap: var(--ff-gap-lg);
-    align-items: center;
-    padding: 28px 0 0;
+  .hero-copy {
+    position: relative;
+    z-index: 1;
+    padding: 20px 0 0;
   }
 
-  @media (max-width: 860px) {
-    .hero-grid {
-      grid-template-columns: 1fr;
-      gap: 24px;
-      padding: 20px 0 0;
+  @media (min-width: 861px) {
+    .hero-copy {
+      max-width: 540px;
+      padding: 56px 0;
     }
   }
 
   .hero-copy h1 {
+    color: var(--ff-on-navy);
     font-size: var(--ff-size-h1);
     line-height: 1.03;
     margin: 18px 0 20px;
@@ -160,8 +160,8 @@ const schema = buildServiceSchema(service.navLabel, service.lead);
   .lead {
     font-size: var(--ff-size-body);
     line-height: 1.6;
-    color: var(--ff-text-body);
-    margin: 20px 0 0;
+    color: var(--ff-on-navy-soft);
+    margin: 0 0 20px;
     max-width: 460px;
   }
 
@@ -181,14 +181,14 @@ const schema = buildServiceSchema(service.navLabel, service.lead);
   .starting-label,
   .starting-unit {
     font-size: var(--ff-size-body-sm);
-    color: var(--ff-text-muted);
+    color: var(--ff-on-navy-soft);
   }
 
   .starting-price {
     font-family: var(--ff-font-display);
     font-weight: var(--ff-weight-semibold);
     font-size: 36px;
-    color: var(--ff-navy);
+    color: var(--ff-on-navy);
   }
 
   .cta-row {

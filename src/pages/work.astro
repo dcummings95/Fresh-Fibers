@@ -10,17 +10,17 @@ const title = `Before & After Photos | ${site.name}, Winona, MN`;
 const description = `See real carpet, upholstery, rug, and tile cleaning results from ${site.name} around Winona, MN.`;
 ---
 
-<Base title={title} description={description}>
+<Base title={title} description={description} heroFlush>
   <Fragment slot="hero">
-    <Breadcrumb items={[{ label: 'Home', href: '/' }, { label: 'Before & After' }]} />
+    <Breadcrumb theme="onNavy" items={[{ label: 'Home', href: '/' }, { label: 'Before & After' }]} />
     <div class="hero-copy">
-      <div class="eyebrow">See the results</div>
-      <h1>Before &amp; <span class="accent">after.</span></h1>
+      <div class="eyebrow accent-on-navy">See the results</div>
+      <h1>Before &amp; <span class="accent accent-on-navy">after.</span></h1>
+      <p class="lead">Drag any slider to compare real jobs from around Winona.</p>
       <div class="cta-row">
-        <a href="/estimate" class="btn btn-primary">Free estimate</a>
+        <a href="/estimate" class="btn btn-azure">Free estimate</a>
         <a href={`tel:${site.phoneTel}`} class="btn btn-tertiary">Call Now</a>
       </div>
-      <p class="lead">Drag any slider to compare real jobs from around Winona.</p>
     </div>
   </Fragment>
 
@@ -51,10 +51,11 @@ const description = `See real carpet, upholstery, rug, and tile cleaning results
 <style>
   .hero-copy {
     max-width: 600px;
-    padding: 28px 0 0;
+    padding: 28px 0 48px;
   }
 
   .hero-copy h1 {
+    color: var(--ff-on-navy);
     font-size: var(--ff-size-h1);
     line-height: 1.03;
     margin: 18px 0 24px;
@@ -70,8 +71,8 @@ const description = `See real carpet, upholstery, rug, and tile cleaning results
   .lead {
     font-size: var(--ff-size-body);
     line-height: 1.6;
-    color: var(--ff-text-body);
-    margin: 18px 0 0;
+    color: var(--ff-on-navy-soft);
+    margin: 0 0 18px;
   }
 
   @media (max-width: 640px) {
