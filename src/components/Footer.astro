@@ -2,6 +2,40 @@
 import { Image } from 'astro:assets';
 import site from '../content/site.json';
 import logo from '../assets/images/logo.png';
+import { services } from '../lib/services';
+
+const serviceLinks = services.map((s) => ({ href: `/services/${s.route}`, label: s.navLabel }));
+const coreServiceLinks = serviceLinks.slice(0, 4);
+const moreServiceLinks = serviceLinks.slice(4);
+
+const linkColumns = [
+  {
+    heading: 'Services',
+    links: coreServiceLinks,
+  },
+  {
+    heading: 'Specialty Services',
+    links: [...moreServiceLinks, { href: '/services', label: 'All Services' }],
+  },
+  {
+    heading: 'Company',
+    links: [
+      { href: '/about', label: 'About' },
+      { href: '/work', label: 'Our Work' },
+      { href: '/reviews', label: 'Reviews' },
+      { href: '/areas', label: 'Service Areas' },
+    ],
+  },
+  {
+    heading: 'Get Started',
+    links: [
+      { href: '/pricing', label: 'Pricing' },
+      { href: '/estimate', label: 'Free Estimate' },
+      { href: `tel:${site.phoneTel}`, label: site.phone },
+      { href: `mailto:${site.email}`, label: site.email },
+    ],
+  },
+];
 ---
 
 <footer class="site-footer">
@@ -31,6 +65,32 @@ import logo from '../assets/images/logo.png';
         <div class="meta">Winona, MN · {site.hoursShort}</div>
       </div>
     </div>
+
+    <nav class="sitemap sitemap-desktop" aria-label="Footer">
+      {linkColumns.map((column) => (
+        <div class="sitemap-col">
+          <div class="sitemap-heading">{column.heading}</div>
+          <ul>
+            {column.links.map((link) => (
+              <li><a href={link.href}>{link.label}</a></li>
+            ))}
+          </ul>
+        </div>
+      ))}
+    </nav>
+
+    <nav class="sitemap sitemap-mobile" aria-label="Footer">
+      {linkColumns.map((column) => (
+        <details class="sitemap-col">
+          <summary class="sitemap-heading">{column.heading}</summary>
+          <ul>
+            {column.links.map((link) => (
+              <li><a href={link.href}>{link.label}</a></li>
+            ))}
+          </ul>
+        </details>
+      ))}
+    </nav>
   </div>
 
   <div class="container bottom-bar">
@@ -144,13 +204,19 @@ import logo from '../assets/images/logo.png';
   }
 
   .inner {
-    padding: 24px var(--ff-gutter) 32px;
+    padding: 48px var(--ff-gutter) 32px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 40px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
   }
 
   .brand-block {
     display: flex;
     align-items: center;
     gap: 11px;
+    flex-shrink: 0;
   }
 
   .legal-name {
@@ -164,6 +230,115 @@ import logo from '../assets/images/logo.png';
     font-size: var(--ff-size-micro);
     color: var(--ff-on-navy-muted);
     margin-top: 2px;
+  }
+
+  .sitemap-heading {
+    font-size: var(--ff-size-micro);
+    font-weight: var(--ff-weight-bold);
+    letter-spacing: var(--ff-tracking-eyebrow);
+    text-transform: uppercase;
+    color: var(--ff-accent-on-navy);
+    margin-bottom: 14px;
+    list-style: none;
+  }
+
+  .sitemap-heading::-webkit-details-marker {
+    display: none;
+  }
+
+  .sitemap-heading::marker {
+    content: '';
+  }
+
+  .sitemap-col ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .sitemap-col a {
+    font-size: var(--ff-size-body-sm);
+    color: var(--ff-on-navy-muted);
+    text-decoration: none;
+    transition: color var(--ff-transition);
+    overflow-wrap: anywhere;
+  }
+
+  .sitemap-col a:hover,
+  .sitemap-col a:focus-visible {
+    color: var(--ff-on-navy);
+  }
+
+  /* Desktop: static, always-expanded columns, evenly spaced */
+  .sitemap-desktop {
+    display: flex;
+    justify-content: space-between;
+    gap: 40px;
+    flex: 1;
+  }
+
+  .sitemap-desktop .sitemap-col {
+    flex: 0 0 auto;
+  }
+
+  .sitemap-mobile {
+    display: none;
+  }
+
+  @media (max-width: 780px) {
+    .inner {
+      flex-direction: column;
+      gap: 32px;
+    }
+
+    .sitemap-desktop {
+      display: none;
+    }
+
+    .sitemap-mobile {
+      display: block;
+      width: 100%;
+    }
+
+    .sitemap-mobile .sitemap-col {
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .sitemap-mobile .sitemap-col:last-child {
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .sitemap-mobile .sitemap-heading {
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 0;
+      padding: 16px 2px;
+    }
+
+    .sitemap-mobile .sitemap-heading::after {
+      content: '';
+      width: 8px;
+      height: 8px;
+      flex-shrink: 0;
+      border-right: 2px solid currentColor;
+      border-bottom: 2px solid currentColor;
+      transform: rotate(45deg);
+      transition: transform var(--ff-transition);
+    }
+
+    .sitemap-mobile .sitemap-col[open] .sitemap-heading::after {
+      transform: rotate(-135deg);
+    }
+
+    .sitemap-mobile .sitemap-col ul {
+      gap: 14px;
+      padding: 2px 2px 20px;
+    }
   }
 
   .bottom-bar {
