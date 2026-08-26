@@ -1,0 +1,148 @@
+---
+import Base from '../../layouts/Base.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import site from '../../content/site.json';
+
+const title = `Request received | ${site.name}, Winona, MN`;
+const description = `Your free estimate request has been sent to ${site.name}.`;
+
+const rawName = Astro.url.searchParams.get('name')?.trim() ?? '';
+const firstName = rawName.slice(0, 40);
+---
+
+<Base title={title} description={description} heroFlush noindex>
+  <Fragment slot="hero">
+    <Breadcrumb
+      theme="onNavy"
+      items={[{ label: 'Home', href: '/' }, { label: 'Free estimate', href: '/estimate' }, { label: 'Request received' }]}
+    />
+    <div class="hero-copy">
+      <div class="eyebrow accent-on-navy">Request received</div>
+      <h1>Got it, thanks<span class="accent accent-on-navy">{firstName ? `, ${firstName}!` : '!'}</span></h1>
+      <p class="lead">
+        Your request came through. I'll look it over and text or call you back with an honest estimate,
+        usually within a few hours during business hours.
+      </p>
+      <div class="cta-row">
+        <a href={`tel:${site.phoneTel}`} class="btn btn-azure">Rather talk now? Call {site.phone}</a>
+        <a href="/" class="btn btn-tertiary">Back to homepage</a>
+      </div>
+    </div>
+  </Fragment>
+
+  <section class="container next-section">
+    <h2>What happens next</h2>
+    <div class="steps">
+      <div class="step-card">
+        <div class="step-number">1</div>
+        <div class="step-title">I get back to you the same day</div>
+        <p>You'll hear from me with an honest estimate, usually within a few hours during business hours.</p>
+      </div>
+      <div class="step-card">
+        <div class="step-number">2</div>
+        <div class="step-title">We pick a time that works</div>
+        <p>A specific arrival window that works for your schedule.</p>
+      </div>
+      <div class="step-card">
+        <div class="step-number">3</div>
+        <div class="step-title">I confirm the price before I start</div>
+        <p>No surprises on the bill.</p>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .hero-copy {
+    position: relative;
+    z-index: 1;
+    max-width: 600px;
+    padding: 28px 0 48px;
+  }
+
+  @media (min-width: 861px) {
+    .hero-copy {
+      max-width: 560px;
+      padding: 56px 0;
+    }
+  }
+
+  .hero-copy h1 {
+    color: var(--ff-on-navy);
+    font-size: var(--ff-size-h1);
+    line-height: 1.03;
+    margin: 18px 0 24px;
+    letter-spacing: var(--ff-tracking-display);
+  }
+
+  .cta-row {
+    display: flex;
+    gap: 18px;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+
+  .lead {
+    font-size: var(--ff-size-body);
+    line-height: 1.6;
+    color: var(--ff-on-navy-soft);
+    margin: 0 0 18px;
+  }
+
+  @media (max-width: 640px) {
+    .hero-copy h1 {
+      font-size: 40px;
+    }
+  }
+
+  .next-section {
+    padding: 64px var(--ff-gutter) 80px;
+  }
+
+  .next-section h2 {
+    font-size: var(--ff-size-h2);
+    margin-bottom: 40px;
+  }
+
+  .steps {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px;
+  }
+
+  @media (max-width: 700px) {
+    .steps {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .step-card {
+    background: var(--ff-surface);
+    border-radius: var(--ff-radius-card);
+    box-shadow: var(--ff-shadow-card);
+    padding: 32px 28px;
+  }
+
+  .step-number {
+    font-family: var(--ff-font-display);
+    font-weight: var(--ff-weight-semibold);
+    font-size: 38px;
+    color: var(--ff-azure);
+    line-height: 1;
+    margin-bottom: 16px;
+  }
+
+  .step-title {
+    font-size: 21px;
+    font-weight: var(--ff-weight-bold);
+    color: var(--ff-text);
+    margin-bottom: 8px;
+  }
+
+  .steps p {
+    font-size: var(--ff-size-body);
+    line-height: 1.6;
+    color: var(--ff-text-muted);
+    margin: 0;
+  }
+</style>

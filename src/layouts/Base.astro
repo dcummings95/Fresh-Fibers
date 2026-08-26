@@ -10,9 +10,10 @@ interface Props {
   description: string;
   structuredData?: Record<string, unknown> | Record<string, unknown>[];
   heroFlush?: boolean;
+  noindex?: boolean;
 }
 
-const { title, description, structuredData, heroFlush = false } = Astro.props;
+const { title, description, structuredData, heroFlush = false, noindex = false } = Astro.props;
 
 const canonicalURL = new URL(Astro.url.pathname, site.url).toString();
 const localBusinessSchema = buildLocalBusinessSchema();
@@ -28,6 +29,7 @@ const extraSchemas = structuredData ? (Array.isArray(structuredData) ? structure
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonicalURL} />
+    {noindex && <meta name="robots" content="noindex, nofollow" />}
 
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
