@@ -2,7 +2,7 @@
   "service": "carpet",
   "label": "Carpet Cleaning",
   "rows": [
-    { "label": "1 room special", "detail": "this is our visit minimum, not a per-room rate", "price": 99, "unit": null },
+    { "label": "1 room special", "detail": "this is our visit minimum", "price": 99, "unit": null },
     { "label": "2 room special", "detail": null, "price": 129, "unit": null },
     { "label": "3 room special", "detail": null, "price": 159, "unit": null },
     { "label": "4 room special", "detail": null, "price": 185, "unit": null },

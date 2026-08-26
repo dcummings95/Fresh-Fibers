@@ -12,13 +12,13 @@
   "photoLabel": "UPHOLSTERY PHOTO",
   "cardPriceLabel": "from",
   "cardUnit": "/ sofa",
-  "cardDescription": "Sofas, sectionals, chairs, and mattresses deep-cleaned safe for the fabric, leaves them soft, not stiff.",
+  "cardDescription": "Sofas, sectionals, chairs, and mattresses deep-cleaned safe for the fabric, and left soft to the touch.",
   "homeDescription": "Sofas, chairs, and cushions cleaned gently so they look and smell fresh.",
   "whatsIncluded": [
     { "label": "Fabric check & spot test", "description": "I check the fabric type and test a hidden spot so the clean is safe for your piece." },
-    { "label": "Warm-water extraction", "description": "Lifts body oils, dust, and spills out of the fabric, not just off the surface." },
+    { "label": "Warm-water extraction", "description": "Draws body oils, dust, and spills out from deep within the fabric." },
     { "label": "Fabric-safe deodorizing", "description": "A gentle deodorizer leaves it smelling clean, never heavy or perfumed." },
-    { "label": "Dries soft, not stiff", "description": "Careful rinsing means cushions dry soft and are usually ready the same day." }
+    { "label": "Dries soft", "description": "Careful rinsing avoids leaving cushions stiff or crunchy, so they're soft and usually ready the same day." }
   ],
   "faq": [
     { "q": "How long until it's dry?", "a": "Usually 4 to 6 hours with good airflow. Thick cushions can take a little longer than carpet." },
