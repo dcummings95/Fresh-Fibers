@@ -72,7 +72,7 @@ const detailFieldConfig: Record<string, DetailFieldConfig> = {
         <input id="name" name="name" type="text" placeholder="First and last" required />
       </div>
       <div class="field">
-        <label for="phone">Phone <span class="optional">(text is fine)</span></label>
+        <label for="phone">Phone</label>
         <input id="phone" name="phone" type="tel" placeholder="Your phone number" required />
       </div>
     </div>
@@ -83,13 +83,8 @@ const detailFieldConfig: Record<string, DetailFieldConfig> = {
         <input id="email" name="email" type="email" placeholder="you@example.com" required />
       </div>
       <div class="field">
-        <label for="area">Service area</label>
-        <select id="area" name="area" required>
-          <option value="">Select your town</option>
-          {site.serviceAreas.map((area) => (
-            <option value={area}>{area}</option>
-          ))}
-        </select>
+        <label for="area">Your town</label>
+        <input id="area" name="area" type="text" placeholder="e.g. Winona, MN" required />
       </div>
     </div>
 
