@@ -101,24 +101,26 @@ const schema = buildServiceSchema(service.navLabel, service.lead);
     </section>
   )}
 
-  <section class="container before-after">
-    <div class="section-head">
-      <div>
-        <h2>See the difference</h2>
-        <p>Drag the slider to compare. {service.beforeAfterCopy}</p>
+  {!service.hideBeforeAfter && (
+    <section class="container before-after">
+      <div class="section-head">
+        <div>
+          <h2>See the difference</h2>
+          <p>Drag the slider to compare. {service.beforeAfterCopy}</p>
+        </div>
+        <a href="/work" class="btn btn-tertiary">See all before &amp; afters <span class="arrow">→</span></a>
       </div>
-      <a href="/work" class="btn btn-tertiary">See all before &amp; afters <span class="arrow">→</span></a>
-    </div>
-    <BeforeAfterSlider
-      beforeImage={photo.before}
-      afterImage={photo.after}
-      beforePosition={photo.beforePosition}
-      afterPosition={photo.afterPosition}
-      beforeLabel={`BEFORE · ${service.navLabel}`}
-      afterLabel={`AFTER · ${service.navLabel}`}
-      alt={service.navLabel}
-    />
-  </section>
+      <BeforeAfterSlider
+        beforeImage={photo.before}
+        afterImage={photo.after}
+        beforePosition={photo.beforePosition}
+        afterPosition={photo.afterPosition}
+        beforeLabel={`BEFORE · ${service.navLabel}`}
+        afterLabel={`AFTER · ${service.navLabel}`}
+        alt={service.navLabel}
+      />
+    </section>
+  )}
 
   <section class="faq-band">
     <div class="container">

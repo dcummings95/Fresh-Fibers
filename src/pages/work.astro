@@ -25,7 +25,7 @@ const description = `See real carpet, upholstery, rug, and tile cleaning results
   </Fragment>
 
   <section class="container gallery">
-    {services.map((service) => {
+    {services.filter((service) => !service.hideBeforeAfter).map((service) => {
       const photo = servicePhotos[service.slug] ?? {};
       return (
         <div class="gallery-item">

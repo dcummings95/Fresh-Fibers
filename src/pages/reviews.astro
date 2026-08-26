@@ -31,27 +31,36 @@ const avatarColors = ['var(--ff-navy-cta)', 'var(--ff-azure)', 'var(--ff-accent-
     </div>
   </Fragment>
 
-  <section class="container rating-section">
-    <span class="rating-number">{reviewsData.aggregateRating.toFixed(1)}</span>
-    <div>
-      <div class="stars">★★★★★</div>
-      <div class="rating-count">
-        {reviewsData.reviews.length} review{reviewsData.reviews.length === 1 ? '' : 's'}
-      </div>
-    </div>
-  </section>
+  {reviewsData.placeholder ? (
+    <section class="container coming-soon">
+      <p class="eyebrow">Reviews coming soon</p>
+      <p>We're just getting started! Check back soon for feedback from jobs around Winona.</p>
+    </section>
+  ) : (
+    <>
+      <section class="container rating-section">
+        <span class="rating-number">{reviewsData.aggregateRating.toFixed(1)}</span>
+        <div>
+          <div class="stars">★★★★★</div>
+          <div class="rating-count">
+            {reviewsData.reviews.length} review{reviewsData.reviews.length === 1 ? '' : 's'}
+          </div>
+        </div>
+      </section>
 
-  <section class="container review-grid">
-    {reviewsData.reviews.map((review, i) => (
-      <ReviewCard
-        name={review.name}
-        when={review.when}
-        rating={review.rating}
-        text={review.text}
-        avatarColor={avatarColors[i % avatarColors.length]}
-      />
-    ))}
-  </section>
+      <section class="container review-grid">
+        {reviewsData.reviews.map((review, i) => (
+          <ReviewCard
+            name={review.name}
+            when={review.when}
+            rating={review.rating}
+            text={review.text}
+            avatarColor={avatarColors[i % avatarColors.length]}
+          />
+        ))}
+      </section>
+    </>
+  )}
 
   <section class="container cta-section">
     <Callout title="Leave a quick review">
@@ -101,6 +110,22 @@ const avatarColors = ['var(--ff-navy-cta)', 'var(--ff-azure)', 'var(--ff-accent-
     .hero-copy h1 {
       font-size: 40px;
     }
+  }
+
+  .coming-soon {
+    padding: 56px var(--ff-gutter) 64px;
+    text-align: center;
+  }
+
+  .coming-soon .eyebrow {
+    color: var(--ff-navy-cta);
+    font-weight: var(--ff-weight-semibold);
+    margin-bottom: 8px;
+  }
+
+  .coming-soon p:not(.eyebrow) {
+    color: var(--ff-text-breadcrumb);
+    font-size: var(--ff-size-body);
   }
 
   .rating-section {

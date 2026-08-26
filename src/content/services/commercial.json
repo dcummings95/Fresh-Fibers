@@ -28,5 +28,6 @@
   ],
   "ctaHeadline": "Book your commercial cleaning",
   "beforeAfterCopy": "Real commercial jobs from around Winona. Photos coming soon.",
-  "hidePricingNote": true
+  "hidePricingNote": true,
+  "hideBeforeAfter": true
 }

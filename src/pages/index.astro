@@ -161,17 +161,25 @@ const avatarColors = ['var(--ff-navy-cta)', 'var(--ff-azure)', 'var(--ff-accent-
               <div class="reviews-sub">From neighbors across the region</div>
             </div>
           </div>
-          <div class="rating-block">
-            <span class="rating-number">{reviewsData.aggregateRating.toFixed(1)}</span>
-            <div class="stars">★★★★★</div>
-          </div>
+          {!reviewsData.placeholder && (
+            <div class="rating-block">
+              <span class="rating-number">{reviewsData.aggregateRating.toFixed(1)}</span>
+              <div class="stars">★★★★★</div>
+            </div>
+          )}
         </div>
-        <a href="/reviews" class="btn btn-tertiary see-all-reviews">See all reviews <span class="arrow">→</span></a>
-        <div class="review-cards">
-          {reviewsData.reviews.map((review, i) => (
-            <ReviewCard name={review.name} when={review.when} rating={review.rating} text={review.text} avatarColor={avatarColors[i % avatarColors.length]} />
-          ))}
-        </div>
+        {reviewsData.placeholder ? (
+          <p class="reviews-coming-soon">We're just getting started! Check back soon for feedback from jobs around the area.</p>
+        ) : (
+          <>
+            <a href="/reviews" class="btn btn-tertiary see-all-reviews">See all reviews <span class="arrow">→</span></a>
+            <div class="review-cards">
+              {reviewsData.reviews.map((review, i) => (
+                <ReviewCard name={review.name} when={review.when} rating={review.rating} text={review.text} avatarColor={avatarColors[i % avatarColors.length]} />
+              ))}
+            </div>
+          </>
+        )}
       </div>
     </div>
   </section>
@@ -597,6 +605,12 @@ const avatarColors = ['var(--ff-navy-cta)', 'var(--ff-azure)', 'var(--ff-accent-
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 20px;
+  }
+
+  .reviews-coming-soon {
+    grid-area: cards;
+    color: var(--ff-text-breadcrumb);
+    font-size: var(--ff-size-body);
   }
 
   @media (max-width: 780px) {

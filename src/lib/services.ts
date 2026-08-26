@@ -32,6 +32,8 @@ export interface ServiceContent {
   beforeAfterCopy: string;
   /** Suppresses the residential "$99 minimum / room definition" note, for services priced on a different model. */
   hidePricingNote?: boolean;
+  /** Hides the before/after slider section until real photos exist for this service. */
+  hideBeforeAfter?: boolean;
 }
 
 export interface PricingRow {
