@@ -26,6 +26,7 @@ const {
 } = Astro.props;
 const photo = servicePhotos[slug];
 const hero = (variant === 'homeTile' ? photo?.homeTile : undefined) ?? photo?.hero;
+const sizes = variant === 'homeTile' ? '(min-width: 781px) 33vw, 100vw' : '(min-width: 861px) 54vw, 100vw';
 ---
 
 {hero ? (
@@ -36,6 +37,9 @@ const hero = (variant === 'homeTile' ? photo?.homeTile : undefined) ?? photo?.he
     style={`aspect-ratio: ${aspectRatio}`}
     width={900}
     height={675}
+    fit="cover"
+    widths={[450, 600, 900, 1200, 1600, 1800]}
+    sizes={sizes}
     loading={loading}
   />
 ) : (
