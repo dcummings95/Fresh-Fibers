@@ -3,7 +3,7 @@
   "label": "Pet Stain & Odor Treatment",
   "rows": [
     { "label": "Surface treatment", "detail": "fiber-level rinse and deodorizer, stains and odor that haven't reached the pad", "price": 40, "unit": "/ room" },
-    { "label": "Severe: soaked into pad or subfloor", "detail": null, "price": null, "unit": null, "quoteLabel": "Quoted honestly, on site" }
+    { "label": "Severe: soaked into pad or subfloor", "detail": null, "price": null, "unit": null, "quoteLabel": "Quoted on site" }
   ],
   "footnote": "Treatments can only be done after the carpet/affected area has been cleaned."
 }

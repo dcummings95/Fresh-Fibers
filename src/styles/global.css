@@ -314,7 +314,12 @@ select {
   .hero-photo-shape {
     position: absolute;
     inset: 0 0 0 auto;
-    width: 54%;
+    /* 54vw tracks the viewport up to --ff-container's width, same as
+       before. Past that, .container stops growing (it's capped), so
+       the photo must too, or its left edge keeps sliding further left
+       than the text column's right edge shrinks to compensate,
+       eventually overlapping .hero-copy on very wide screens. */
+    width: min(54vw, calc((100vw - var(--ff-container)) / 2 + var(--ff-container) * 0.54));
     aspect-ratio: auto;
     margin: 0;
     border-top-left-radius: clamp(140px, 26vw, 420px);
