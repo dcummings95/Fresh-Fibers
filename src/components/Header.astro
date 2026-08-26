@@ -261,7 +261,13 @@ function isActive(href: string, path: string) {
     display: inline-flex;
     align-items: center;
     height: 100%;
-    padding-bottom: 3px;
+  }
+
+  @media (min-width: 941px) {
+    .nav-links > a:not(.phone):not(.btn),
+    .nav-item > a {
+      padding-bottom: 3px;
+    }
   }
 
   .nav-links > a:not(.phone):not(.btn)::after,
@@ -527,13 +533,13 @@ function isActive(href: string, path: string) {
       visibility: visible;
       transform: none;
       min-width: 0;
-      display: grid;
-      grid-template-rows: 0fr;
-      transition: grid-template-rows 0.3s ease;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease;
     }
 
     .nav-item.expanded .dropdown {
-      grid-template-rows: 1fr;
+      max-height: 600px;
     }
 
     .dropdown-inner {
