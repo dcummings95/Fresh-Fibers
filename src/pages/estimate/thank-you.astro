@@ -3,6 +3,8 @@ import Base from '../../layouts/Base.astro';
 import Breadcrumb from '../../components/Breadcrumb.astro';
 import site from '../../content/site.json';
 
+export const prerender = false;
+
 const title = `Request received | ${site.name}, Winona, MN`;
 const description = `Your free estimate request has been sent to ${site.name}.`;
 
