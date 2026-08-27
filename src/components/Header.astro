@@ -340,11 +340,19 @@ function isActive(href: string, path: string) {
     }
   }
 
+  /*
+   * The panel is offset from the trigger with padding rather than a `top` gap,
+   * so the hover target stays contiguous: the pointer never crosses dead space
+   * on its way down to an option. The side padding widens that corridor for
+   * diagonal travel toward the outer items.
+   */
   .dropdown {
     position: absolute;
-    top: calc(100% + 8px);
+    top: 100%;
     left: 50%;
-    min-width: 210px;
+    /* border-box: 210px of panel + 28px of corridor either side */
+    min-width: 266px;
+    padding: 8px 28px 12px;
     opacity: 0;
     visibility: hidden;
     transform: translate(-50%, -6px);
@@ -566,6 +574,7 @@ function isActive(href: string, path: string) {
     .dropdown {
       grid-column: 1 / -1;
       position: static;
+      padding: 0;
       opacity: 1;
       visibility: visible;
       transform: none;
