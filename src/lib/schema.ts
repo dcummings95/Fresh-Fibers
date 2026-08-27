@@ -18,8 +18,8 @@ export function buildLocalBusinessSchema() {
       {
         '@type': 'OpeningHoursSpecification',
         dayOfWeek: DAYS,
-        opens: '07:00',
-        closes: '18:00',
+        opens: '08:00',
+        closes: '19:00',
       },
     ],
   };

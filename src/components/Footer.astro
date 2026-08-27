@@ -288,7 +288,10 @@ const linkColumns = [
     display: none;
   }
 
-  @media (max-width: 780px) {
+  /* 1080px, not a smaller "tablet" number: the four desktop columns plus
+     the brand block genuinely need ~1080px of page width, so anything
+     lower leaves them overflowing the page rather than wrapping. */
+  @media (max-width: 1080px) {
     .inner {
       flex-direction: column;
       gap: 32px;

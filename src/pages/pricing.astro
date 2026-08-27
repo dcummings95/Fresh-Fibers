@@ -100,6 +100,7 @@ const description = `See exactly what carpet, upholstery, rug, tile, and pet odo
     display: flex;
     gap: 18px;
     align-items: center;
+    flex-wrap: wrap;
   }
 
   .lead {
@@ -163,6 +164,9 @@ const description = `See exactly what carpet, upholstery, rug, tile, and pet odo
     justify-content: space-between;
     gap: 16px;
     margin-bottom: 20px;
+    /* The heading and the nowrap "Full details" pill together exceed a
+       360px-wide phone; without wrapping they push the whole page sideways. */
+    flex-wrap: wrap;
   }
 
   .table-head h2 {

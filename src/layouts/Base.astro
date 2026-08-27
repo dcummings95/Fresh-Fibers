@@ -84,9 +84,7 @@ const extraSchemas = structuredData ? (Array.isArray(structuredData) ? structure
 
     <div class:list={['top-band', { 'top-band--flush': heroFlush }]}>
       <div class="header-sticky">
-        <div class="container">
-          <Header currentPath={Astro.url.pathname} />
-        </div>
+        <Header currentPath={Astro.url.pathname} />
       </div>
       <div class:list={['hero-slot', { 'hero-slot--navy': heroFlush }]}>
         <div class="container">
@@ -118,17 +116,18 @@ const extraSchemas = structuredData ? (Array.isArray(structuredData) ? structure
     padding-bottom: 0;
   }
 
-  /* Full-bleed navy backdrop for bold page heroes, breaking out of the
-     nested .container the same way .site-header does. position:relative
-     here is what lets a hero's own absolutely-positioned photo (nested
-     two levels down, inside .container) bleed to the true viewport
-     edge — absolute positioning skips the intervening static .container
-     and resolves against this element instead. */
+  /* Full-bleed navy backdrop for bold page heroes. It is already page-wide
+     on its own (a direct child of .top-band, itself a full-width flex item
+     of body), so it needs no `width: 100vw` breakout — and must not have
+     one: 100vw counts the classic desktop scrollbar, which would make this
+     ~8px wider than the page and put a horizontal scrollbar on every route.
+     position:relative here is what lets a hero's own absolutely-positioned
+     photo (nested two levels down, inside .container) bleed to the true
+     viewport edge — absolute positioning skips the intervening static
+     .container and resolves against this element instead. */
   .hero-slot--navy {
     position: relative;
     background: var(--ff-navy);
-    width: 100vw;
-    margin-left: calc(50% - 50vw);
     /* Establishes a new block-formatting context so a hero-content
        child's top margin (e.g. Breadcrumb's) can't collapse through
        this element and .container to push the whole navy band down,

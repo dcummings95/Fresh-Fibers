@@ -174,7 +174,7 @@ function isActive(href: string, path: string) {
     if (!trigger) return;
 
     trigger.addEventListener('click', (e) => {
-      const isTouchDesktopNav = window.matchMedia('(hover: none) and (min-width: 941px)').matches;
+      const isTouchDesktopNav = window.matchMedia('(hover: none) and (min-width: 1121px)').matches;
       if (!isTouchDesktopNav) return;
 
       if (!item.classList.contains('tap-open')) {
@@ -194,9 +194,13 @@ function isActive(href: string, path: string) {
 </script>
 
 <style>
+  /* Spans the page on its own — it is a direct child of .header-sticky,
+     which is a full-width flex item of body. It must NOT break out with
+     `width: 100vw`: 100vw includes the classic scrollbar's width, so on
+     any desktop browser that reserves one the header ends up ~8px wider
+     than the page and pushes a horizontal scrollbar onto every route.
+     .pill-nav below re-applies the .container max-width/gutter. */
   .site-header {
-    width: 100vw;
-    margin-left: calc(50% - 50vw);
     background: var(--ff-surface);
     box-shadow: var(--ff-shadow-card);
   }
@@ -272,7 +276,7 @@ function isActive(href: string, path: string) {
     height: 100%;
   }
 
-  @media (min-width: 941px) {
+  @media (min-width: 1121px) {
     .nav-links > a:not(.phone):not(.btn),
     .nav-item > a {
       padding-bottom: 3px;
@@ -316,7 +320,7 @@ function isActive(href: string, path: string) {
     display: none;
   }
 
-  @media (min-width: 941px) {
+  @media (min-width: 1121px) {
     .nav-chevron {
       display: inline-flex;
       margin-left: 5px;
@@ -370,7 +374,7 @@ function isActive(href: string, path: string) {
     padding: 10px;
   }
 
-  @media (min-width: 941px) {
+  @media (min-width: 1121px) {
     .nav-item:focus-within .dropdown,
     .nav-item.tap-open .dropdown {
       opacity: 1;
@@ -480,7 +484,7 @@ function isActive(href: string, path: string) {
     display: none;
   }
 
-  @media (max-width: 940px) {
+  @media (max-width: 1120px) {
     .pill-nav {
       padding: 18px var(--ff-gutter);
     }

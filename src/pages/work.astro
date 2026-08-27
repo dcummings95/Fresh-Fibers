@@ -66,6 +66,7 @@ const description = `See carpet, upholstery, rug, and tile cleaning results from
     display: flex;
     gap: 18px;
     align-items: center;
+    flex-wrap: wrap;
   }
 
   .lead {
@@ -100,6 +101,9 @@ const description = `See carpet, upholstery, rug, and tile cleaning results from
     justify-content: space-between;
     gap: 12px;
     margin-bottom: 16px;
+    /* Without this the nowrap "Full details" pill sets a ~356px min-content
+       floor on the whole grid column, which a 320-375px phone cannot fit. */
+    flex-wrap: wrap;
   }
 
   .item-head h2 {
