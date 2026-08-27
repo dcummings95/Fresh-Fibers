@@ -45,6 +45,8 @@ export const servicePhotos: Record<string, ServicePhoto> = {
   },
   tile: {
     hero: img('tile_midway_clean_1.jpg'),
+    before: img('tile_before_1.jpg'),
+    after: img('tile_after_1.jpg'),
   },
   commercial: {
     hero: img('carpet_midway_clean_5.jpg'),
