@@ -66,6 +66,15 @@ function isActive(href: string, path: string) {
           <div class="nav-item">
             <a href={item.href} class:list={{ active: isActive(item.href, currentPath) }}>
               {item.label}
+              <svg class="nav-chevron" width="10" height="10" viewBox="0 0 12 12" fill="none" aria-hidden="true">
+                <path
+                  d="M2.5 4.5L6 8l3.5-3.5"
+                  stroke="currentColor"
+                  stroke-width="1.6"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
             </a>
             <button
               type="button"
@@ -301,6 +310,34 @@ function isActive(href: string, path: string) {
 
   .nav-item {
     position: relative;
+  }
+
+  .nav-chevron {
+    display: none;
+  }
+
+  @media (min-width: 941px) {
+    .nav-chevron {
+      display: inline-flex;
+      margin-left: 5px;
+      color: var(--ff-text-muted);
+      transition: transform var(--ff-transition);
+    }
+
+    .nav-item > a.active .nav-chevron {
+      color: var(--ff-navy);
+    }
+
+    .nav-item:focus-within > a .nav-chevron,
+    .nav-item.tap-open > a .nav-chevron {
+      transform: rotate(180deg);
+    }
+
+    @media (hover: hover) {
+      .nav-item:hover > a .nav-chevron {
+        transform: rotate(180deg);
+      }
+    }
   }
 
   .dropdown {
