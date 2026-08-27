@@ -173,14 +173,25 @@ const extraSchemas = structuredData ? (Array.isArray(structuredData) ? structure
     z-index: 10;
   }
 
-  /* min-height floor: on devices with no inset (e.g. iPhone SE, no
+  /* Collapsed by default: everywhere except iOS Safari there is no
+     toolbar to tint, so the strip would just show as a stray navy bar
+     glued to the bottom of the viewport. */
+  .chrome-tint-bottom {
+    bottom: 0;
+    height: 0;
+  }
+
+  /* -webkit-touch-callout is iOS-WebKit-only, so this is the narrowest
+     honest gate for "a browser whose bottom chrome samples this".
+     min-height floor: on devices with no inset (e.g. iPhone SE, no
      home indicator/notch), env(safe-area-inset-*) resolves to 0 and
      the tint collapses below Safari's sampling threshold, falling
      through to body's cream background instead of the intended
-     band color. The floor keeps it sampleable everywhere. */
-  .chrome-tint-bottom {
-    bottom: 0;
-    height: max(env(safe-area-inset-bottom), 8px);
-    background: var(--ff-navy-deep);
+     band color. The floor keeps it sampleable on those devices. */
+  @supports (-webkit-touch-callout: none) {
+    .chrome-tint-bottom {
+      height: max(env(safe-area-inset-bottom), 8px);
+      background: var(--ff-navy-deep);
+    }
   }
 </style>
