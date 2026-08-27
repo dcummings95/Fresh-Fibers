@@ -1,6 +1,5 @@
 ---
 import ServicePhoto from './ServicePhoto.astro';
-import { formatPrice } from '../lib/format';
 
 interface Props {
   href: string;
@@ -8,12 +7,9 @@ interface Props {
   title: string;
   description: string;
   photoLabel: string;
-  priceLabel: string;
-  price: number;
-  unit: string;
 }
 
-const { href, slug, title, description, photoLabel, priceLabel, price, unit } = Astro.props;
+const { href, slug, title, description, photoLabel } = Astro.props;
 ---
 
 <a href={href} class="service-card">
@@ -22,11 +18,6 @@ const { href, slug, title, description, photoLabel, priceLabel, price, unit } = 
     <div class="title">{title}</div>
     <p class="description">{description}</p>
     <div class="footer">
-      <div class="price-line">
-        <span class="price-label">{priceLabel}</span>
-        <span class="price">{formatPrice(price)}</span>
-        <span class="unit">{unit}</span>
-      </div>
       <span class="view">View <span class="arrow">→</span></span>
     </div>
   </div>
@@ -92,28 +83,8 @@ const { href, slug, title, description, photoLabel, priceLabel, price, unit } = 
   .footer {
     display: flex;
     align-items: baseline;
-    justify-content: space-between;
-    gap: 12px;
+    justify-content: flex-end;
     padding-top: 18px;
-  }
-
-  .price-line {
-    display: flex;
-    align-items: baseline;
-    gap: 6px;
-  }
-
-  .price-label,
-  .unit {
-    font-size: var(--ff-size-caption);
-    color: var(--ff-text-tan);
-  }
-
-  .price {
-    font-family: var(--ff-font-display);
-    font-weight: var(--ff-weight-semibold);
-    font-size: 23px;
-    color: var(--ff-navy);
   }
 
   .view {

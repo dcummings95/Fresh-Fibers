@@ -22,8 +22,6 @@ export interface ServiceContent {
   startingAtLabel: string;
   startingAtUnit: string;
   photoLabel: string;
-  cardPriceLabel: string;
-  cardUnit: string;
   cardDescription: string;
   homeDescription: string;
   whatsIncluded: WhatsIncludedItem[];
