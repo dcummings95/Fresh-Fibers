@@ -10,6 +10,7 @@
   "heroPrice": { "row": "Floor tile & grout", "prefix": "Starting at", "suffix": "per sq ft" },
   "photoLabel": "TILE & GROUT PHOTO",
   "cardDescription": "High-pressure cleaning that lifts grime out of the grout lines, with optional sealing to keep it clean.",
+  "metaDescription": "Tile and grout cleaning around Winona, MN. High-pressure extraction lifts the grime a mop just pushes around, plus optional grout sealing. Published pricing.",
   "homeDescription": "Bring back the color that's been hiding in your floors.",
   "whatsIncluded": [
     { "label": "Pre-treat & dwell", "description": "A cleaning solution goes down first to break up grease and soap scum in the grout." },

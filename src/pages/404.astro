@@ -3,10 +3,10 @@ import Base from '../layouts/Base.astro';
 import site from '../content/site.json';
 
 const title = `Page Not Found | ${site.name}`;
-const description = `That page doesn't exist. Find services or get in touch with ${site.name}.`;
+const description = `That page doesn't exist. Head back to ${site.name}'s services, pricing, or contact page.`;
 ---
 
-<Base title={title} description={description} heroFlush>
+<Base title={title} description={description} heroFlush noindex>
   <Fragment slot="hero">
     <div class="hero-copy">
       <div class="eyebrow accent-on-navy">404</div>

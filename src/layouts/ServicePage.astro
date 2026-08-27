@@ -26,7 +26,7 @@ const title = `${service.navLabel} | ${site.name}, Winona, MN`;
 const schema = buildServiceSchema(service.navLabel, service.lead);
 ---
 
-<Base title={title} description={service.cardDescription} structuredData={schema} heroFlush>
+<Base title={title} description={service.metaDescription ?? service.cardDescription} structuredData={schema} heroFlush>
   <Fragment slot="hero">
     <Breadcrumb
       theme="onNavy"

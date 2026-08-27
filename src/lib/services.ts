@@ -33,6 +33,8 @@ export interface ServiceContent {
   heroPrice?: HeroPrice;
   photoLabel: string;
   cardDescription: string;
+  /** Purpose-built <meta name="description"> for the service page — geo-anchored, benefit-led. Falls back to cardDescription. */
+  metaDescription?: string;
   homeDescription: string;
   whatsIncluded: WhatsIncludedItem[];
   faq: FaqItem[];

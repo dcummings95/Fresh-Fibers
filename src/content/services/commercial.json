@@ -10,6 +10,7 @@
   "heroPrice": { "row": "Carpet", "prefix": "Starting at", "suffix": "per sq ft" },
   "photoLabel": "COMMERCIAL CLEANING PHOTO",
   "cardDescription": "Carpet, tile & grout, and task chair cleaning for offices, retail, and common areas, scheduled around business hours.",
+  "metaDescription": "Commercial carpet, tile, and task-chair cleaning around Winona, MN. Free on-site walkthrough, a firm quote up front, and evening or weekend scheduling.",
   "homeDescription": "Keep the office looking as sharp as the storefront.",
   "whatsIncluded": [
     { "label": "Free walkthrough", "description": "I walk the space first so the quote is firm before any work starts." },
