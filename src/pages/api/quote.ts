@@ -2,6 +2,7 @@ import type { APIRoute } from 'astro';
 import { env } from 'cloudflare:workers';
 import site from '../../content/site.json';
 import { services } from '../../lib/services';
+import { estimateFields, estimateFieldName } from '../../lib/estimate-fields';
 import { createLead, type AdAttribution } from '../../lib/leads';
 
 const AD_ATTRIBUTION_FIELDS: (keyof AdAttribution)[] = [
@@ -65,7 +66,15 @@ export const POST: APIRoute = async ({ request }) => {
     const selectedServices = services.filter((service) => selectedServiceLabels.includes(service.navLabel));
     const serviceDetails: Record<string, string> = {};
     const serviceLines = selectedServices.map((service) => {
-      const detail = String(data.get(`detail_${service.slug}`) ?? '').trim();
+      // Collapse a service's follow-up answers into one readable phrase, e.g.
+      // "Carpet Cleaning (3 rooms, 1 hallway/closet, full flight of stairs)".
+      const detail = (estimateFields[service.slug] ?? [])
+        .map((field) => {
+          const value = String(data.get(estimateFieldName(service.slug, field.key)) ?? '').trim();
+          return value ? field.summary(value) : null;
+        })
+        .filter((part): part is string => part !== null)
+        .join(', ');
       if (detail) serviceDetails[service.slug] = detail;
       return detail ? `${service.navLabel} (${detail})` : service.navLabel;
     });

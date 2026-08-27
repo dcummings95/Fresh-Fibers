@@ -1,20 +1,7 @@
 ---
 import site from '../content/site.json';
 import { services } from '../lib/services';
-
-interface DetailFieldConfig {
-  label: string;
-  type: 'text' | 'number';
-  placeholder: string;
-}
-
-const detailFieldConfig: Record<string, DetailFieldConfig> = {
-  carpet: { label: 'How many rooms?', type: 'number', placeholder: 'e.g. 3' },
-  upholstery: { label: 'What pieces?', type: 'text', placeholder: 'e.g. sofa + 2 chairs' },
-  rugs: { label: 'How many rugs, and about what size?', type: 'text', placeholder: 'e.g. 2 rugs, about 5x8 ft' },
-  tile: { label: 'Approx. how many sq ft?', type: 'number', placeholder: 'e.g. 150' },
-  'pet-odor': { label: 'How many areas need treatment?', type: 'number', placeholder: 'e.g. 2' },
-};
+import { estimateFields, estimateFieldName } from '../lib/estimate-fields';
 ---
 
 <div class="quote-form-card">
@@ -46,21 +33,36 @@ const detailFieldConfig: Record<string, DetailFieldConfig> = {
       </div>
       <div class="service-details">
         {services.map((service) => {
-          const cfg = detailFieldConfig[service.slug];
-          if (!cfg) return null;
-          const fieldId = `detail_${service.slug}`;
+          const fields = estimateFields[service.slug];
+          if (!fields) return null;
           return (
-            <div class="field service-detail" data-detail-for={service.slug} hidden>
-              <label for={fieldId}>{cfg.label} <span class="optional">(optional)</span></label>
-              <input
-                id={fieldId}
-                name={fieldId}
-                type={cfg.type}
-                inputmode={cfg.type === 'number' ? 'numeric' : undefined}
-                min={cfg.type === 'number' ? 1 : undefined}
-                placeholder={cfg.placeholder}
-              />
-            </div>
+            <fieldset class="service-detail" data-detail-for={service.slug} hidden>
+              <legend class="visually-hidden">{service.navLabel} details</legend>
+              {fields.map((field) => {
+                const fieldId = estimateFieldName(service.slug, field.key);
+                return (
+                  <div class:list={['field', field.wide && 'field-wide']}>
+                    <label for={fieldId}>{field.label} <span class="optional">(optional)</span></label>
+                    {field.type === 'select' ? (
+                      <select id={fieldId} name={fieldId}>
+                        {field.options?.map((option) => (
+                          <option value={option.value}>{option.label}</option>
+                        ))}
+                      </select>
+                    ) : (
+                      <input
+                        id={fieldId}
+                        name={fieldId}
+                        type={field.type}
+                        inputmode={field.type === 'number' ? 'numeric' : undefined}
+                        min={field.type === 'number' ? 1 : undefined}
+                        placeholder={field.placeholder}
+                      />
+                    )}
+                  </div>
+                );
+              })}
+            </fieldset>
           );
         })}
       </div>
@@ -302,7 +304,26 @@ const detailFieldConfig: Record<string, DetailFieldConfig> = {
   }
 
   .service-detail {
-    margin-top: 14px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px 18px;
+    margin: 14px 0 0;
+    padding: 0;
+    border: 0;
+  }
+
+  .service-detail[hidden] {
+    display: none;
+  }
+
+  .service-detail .field-wide {
+    grid-column: 1 / -1;
+  }
+
+  @media (max-width: 560px) {
+    .service-detail {
+      grid-template-columns: 1fr;
+    }
   }
 
   .grid-2 {
