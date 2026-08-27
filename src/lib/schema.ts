@@ -10,6 +10,8 @@ export function buildLocalBusinessSchema() {
     legalName: site.legalName,
     telephone: site.phone,
     url: site.url,
+    logo: new URL('/web-app-manifest-512x512.png', site.url).toString(),
+    image: new URL('/web-app-manifest-512x512.png', site.url).toString(),
     priceRange: '$$',
     areaServed: site.serviceAreas.map((name) => ({ '@type': 'City', name })),
     openingHoursSpecification: [

@@ -31,14 +31,24 @@ const extraSchemas = structuredData ? (Array.isArray(structuredData) ? structure
     <link rel="canonical" href={canonicalURL} />
     {noindex && <meta name="robots" content="noindex, nofollow" />}
 
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    {/* /favicon.ico is what Google's favicon crawler and older browsers fetch
+       by convention; the 96px PNG is the higher-resolution version modern
+       browsers prefer for tabs, bookmarks and the Android home screen. */}
+    <link rel="icon" href="/favicon.ico" sizes="32x32" />
+    <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180" />
+    <link rel="manifest" href="/site.webmanifest" />
 
     <meta property="og:type" content="website" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonicalURL} />
     <meta property="og:site_name" content={site.name} />
+    <meta property="og:image" content={new URL('/web-app-manifest-512x512.png', site.url).toString()} />
+    <meta property="og:image:width" content="512" />
+    <meta property="og:image:height" content="512" />
+    <meta property="og:image:alt" content={`${site.name} logo`} />
+    <meta name="twitter:card" content="summary" />
 
     <script is:inline type="application/ld+json" set:html={JSON.stringify(localBusinessSchema)} />
     {extraSchemas.map((schema) => (

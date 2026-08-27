@@ -1,0 +1,37 @@
+{
+  "name": "Fresh Fibers",
+  "short_name": "Fresh Fibers",
+  "description": "Carpet, upholstery, tile and area rug cleaning around Winona, La Crosse and Rochester.",
+  "id": "/",
+  "start_url": "/",
+  "scope": "/",
+  "icons": [
+    {
+      "src": "/web-app-manifest-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/web-app-manifest-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/maskable-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "/maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "theme_color": "#dfeaf3",
+  "background_color": "#dfeaf3",
+  "display": "standalone"
+}
