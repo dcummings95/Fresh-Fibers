@@ -7,7 +7,7 @@ import PricingNote from '../components/PricingNote.astro';
 import Callout from '../components/Callout.astro';
 import BeforeAfterSlider from '../components/BeforeAfterSlider.astro';
 import site from '../content/site.json';
-import { getService, getPricing } from '../lib/services';
+import { getService, getPricing, resolveHeroPrice } from '../lib/services';
 import { formatPrice } from '../lib/format';
 import { buildServiceSchema } from '../lib/schema';
 import { servicePhotos } from '../lib/photos';
@@ -19,7 +19,7 @@ interface Props {
 const { slug } = Astro.props;
 const service = getService(slug);
 const pricing = getPricing(service.pricingFile);
-const firstPrice = pricing.rows.find((r) => r.price !== null)?.price ?? 0;
+const heroPrice = resolveHeroPrice(service, pricing);
 const photo = servicePhotos[slug] ?? {};
 
 const title = `${service.navLabel} | ${site.name}, Winona, MN`;
@@ -39,11 +39,13 @@ const schema = buildServiceSchema(service.navLabel, service.lead);
     <div class="hero-copy">
       <div class="eyebrow accent-on-navy">{service.eyebrow}</div>
       <h1>{service.h1Plain}<span class="accent accent-on-navy">{service.h1Accent}</span></h1>
-      <div class="starting-at">
-        <span class="starting-label">{service.startingAtLabel}</span>
-        <span class="starting-price">{formatPrice(firstPrice)}</span>
-        <span class="starting-unit">{service.startingAtUnit}</span>
-      </div>
+      {heroPrice && (
+        <div class="hero-price">
+          {heroPrice.prefix && <span class="hero-price-affix">{heroPrice.prefix}</span>}
+          <span class="hero-price-amount">{formatPrice(heroPrice.price)}</span>
+          {heroPrice.suffix && <span class="hero-price-affix">{heroPrice.suffix}</span>}
+        </div>
+      )}
       <p class="lead">{service.lead}</p>
       <div class="cta-row">
         <a href="/estimate" class="btn btn-azure">Free estimate</a>
@@ -63,7 +65,13 @@ const schema = buildServiceSchema(service.navLabel, service.lead);
     </div>
   </Fragment>
 
-  <section class="container included-pricing">
+  {!service.hidePricingNote && (
+    <section class="container note-section">
+      <PricingNote />
+    </section>
+  )}
+
+  <section class:list={['container', 'included-pricing', { 'no-note': service.hidePricingNote }]}>
     <div class="pricing-col">
       <h2>Estimated pricing</h2>
       <PricingTable pricing={pricing} />
@@ -94,12 +102,6 @@ const schema = buildServiceSchema(service.navLabel, service.lead);
       </div>
     </div>
   </section>
-
-  {!service.hidePricingNote && (
-    <section class="container note-section">
-      <PricingNote />
-    </section>
-  )}
 
   {!service.hideBeforeAfter && (
     <section class="container before-after">
@@ -167,11 +169,23 @@ const schema = buildServiceSchema(service.navLabel, service.lead);
     max-width: 460px;
   }
 
-  .starting-at {
+  .hero-price {
     display: flex;
     align-items: baseline;
     gap: 10px;
     margin-bottom: 20px;
+  }
+
+  .hero-price-affix {
+    font-size: var(--ff-size-body-sm);
+    color: var(--ff-on-navy-soft);
+  }
+
+  .hero-price-amount {
+    font-family: var(--ff-font-display);
+    font-weight: var(--ff-weight-semibold);
+    font-size: 36px;
+    color: var(--ff-on-navy);
   }
 
   @media (max-width: 640px) {
@@ -180,31 +194,30 @@ const schema = buildServiceSchema(service.navLabel, service.lead);
     }
   }
 
-  .starting-label,
-  .starting-unit {
-    font-size: var(--ff-size-body-sm);
-    color: var(--ff-on-navy-soft);
-  }
-
-  .starting-price {
-    font-family: var(--ff-font-display);
-    font-weight: var(--ff-weight-semibold);
-    font-size: 36px;
-    color: var(--ff-on-navy);
-  }
-
   .cta-row {
     display: flex;
     gap: 18px;
     align-items: center;
   }
 
+  .note-section {
+    padding-top: 80px;
+  }
+
+  .note-section :global(.pricing-note) {
+    margin-top: 0;
+  }
+
   .included-pricing {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: var(--ff-gap-lg);
-    padding-top: 80px;
+    padding-top: 40px;
     padding-bottom: 40px;
+  }
+
+  .included-pricing.no-note {
+    padding-top: 80px;
   }
 
   @media (max-width: 860px) {
@@ -260,14 +273,6 @@ const schema = buildServiceSchema(service.navLabel, service.lead);
 
   .extra-note {
     margin-top: 16px;
-  }
-
-  .note-section {
-    padding-bottom: 40px;
-  }
-
-  .note-section :global(.pricing-note) {
-    margin-top: 0;
   }
 
   .before-after {
