@@ -82,10 +82,11 @@ const extraSchemas = structuredData ? (Array.isArray(structuredData) ? structure
   <body>
     <div class="chrome-tint chrome-tint-bottom" aria-hidden="true"></div>
 
+    <div class="header-sticky">
+      <Header currentPath={Astro.url.pathname} />
+    </div>
+
     <div class:list={['top-band', { 'top-band--flush': heroFlush }]}>
-      <div class="header-sticky">
-        <Header currentPath={Astro.url.pathname} />
-      </div>
       <div class:list={['hero-slot', { 'hero-slot--navy': heroFlush }]}>
         <div class="container">
           <slot name="hero" />
@@ -137,7 +138,10 @@ const extraSchemas = structuredData ? (Array.isArray(structuredData) ? structure
 
   /* Real, visible sticky chrome (not a contentless decoy) for Safari's
      iOS 26 toolbar-tint sampler to key off — see chrome-tint comment
-     below for why a decoy alone proved unreliable on real hardware. */
+     below for why a decoy alone proved unreliable on real hardware.
+     It sits as a direct flex child of body (not nested in .top-band) so
+     its sticky containing block is the whole page: the nav stays pinned
+     for the entire scroll, not just until the hero band scrolls past. */
   .header-sticky {
     position: sticky;
     top: 0;

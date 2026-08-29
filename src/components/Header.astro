@@ -191,6 +191,42 @@ function isActive(href: string, path: string) {
     if (e.target instanceof Element && e.target.closest('.nav-item')) return;
     document.querySelectorAll('.nav-item.tap-open').forEach((item) => item.classList.remove('tap-open'));
   });
+
+  // Condense the sticky header once the page has scrolled, so it takes up
+  // less room over the content. CSS only acts on this at desktop widths;
+  // the class is harmless on mobile.
+  //
+  // Separate enter/exit thresholds (hysteresis): condensing removes ~40px
+  // of header height, which on a short page pulls scrollY down a little.
+  // A single threshold sits right in that feedback path and flip-flops —
+  // the wide dead zone between 72 and 16 keeps the induced scroll shift
+  // from ever crossing back over the boundary.
+  const header = document.querySelector('.site-header');
+  if (header) {
+    let condensed = false;
+    let ticking = false;
+
+    const sync = () => {
+      ticking = false;
+      const y = window.scrollY;
+      if (!condensed && y > 72) {
+        condensed = true;
+        header.classList.add('scrolled');
+      } else if (condensed && y < 16) {
+        condensed = false;
+        header.classList.remove('scrolled');
+      }
+    };
+
+    const onScroll = () => {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(sync);
+    };
+
+    sync();
+    window.addEventListener('scroll', onScroll, { passive: true });
+  }
 </script>
 
 <style>
@@ -213,6 +249,7 @@ function isActive(href: string, path: string) {
     max-width: var(--ff-container);
     margin: 0 auto;
     padding: 24px var(--ff-gutter);
+    transition: padding 0.2s ease;
   }
 
   .logo {
@@ -228,6 +265,7 @@ function isActive(href: string, path: string) {
     width: 64px;
     height: 64px;
     object-fit: contain;
+    transition: width 0.2s ease, height 0.2s ease;
   }
 
   .brand {
@@ -236,6 +274,33 @@ function isActive(href: string, path: string) {
     font-size: 27px;
     color: var(--ff-navy);
     letter-spacing: var(--ff-tracking-tight);
+    transition: font-size 0.2s ease;
+  }
+
+  /* Condense the sticky nav once the page is scrolled (desktop only —
+     the mobile bar is already compact and the class is ignored there). */
+  @media (min-width: 1121px) {
+    .site-header.scrolled .pill-nav {
+      padding-top: 12px;
+      padding-bottom: 12px;
+    }
+
+    .site-header.scrolled .logo img {
+      width: 48px;
+      height: 48px;
+    }
+
+    .site-header.scrolled .brand {
+      font-size: 23px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .pill-nav,
+    .logo img,
+    .brand {
+      transition: none;
+    }
   }
 
   .nav-links {

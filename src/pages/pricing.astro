@@ -154,7 +154,9 @@ const description = `See exactly what carpet, upholstery, rug, tile, and pet odo
   }
 
   .table-block {
-    scroll-margin-top: 20px;
+    /* html sets scroll-padding-top for the sticky nav; this is just a
+       small extra gap above the jumped-to heading. */
+    scroll-margin-top: 8px;
     max-width: 640px;
   }
 

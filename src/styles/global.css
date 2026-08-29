@@ -9,6 +9,10 @@
 
 html {
   -webkit-text-size-adjust: 100%;
+  /* The nav is sticky for the whole scroll, so anchor jumps must clear it
+     — otherwise the target lands hidden behind the bar. Tuned to the
+     condensed (scrolled) header height plus a little breathing room. */
+  scroll-padding-top: 92px;
   /* A flat background here only ever matched the top edge. On any page
      shorter than the viewport (or if overscroll-behavior-y ever fails
      to fully suppress rubber-banding), the gap below the footer showed
