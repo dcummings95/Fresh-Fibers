@@ -17,9 +17,10 @@ const AD_ATTRIBUTION_FIELDS: (keyof AdAttribution)[] = [
 export const prerender = false;
 
 const FROM_ADDRESS = 'notifications@getfreshfibers.com';
-// freshfibersllc@gmail.com is not accessible during dev/testing — route
-// quote notifications to a dev inbox instead. Switch back once handed off.
-const NOTIFICATION_TO_ADDRESS = 'freshfibersdev@gmail.com';
+// Quote notifications go to the owner's inbox and the dev inbox both, so
+// nothing is missed while the CRM hand-off finishes. Drop the dev address
+// once the owner is reliably receiving and acting on these.
+const NOTIFICATION_TO_ADDRESSES = ['freshfibersllc@gmail.com', 'freshfibersdev@gmail.com'];
 const TURNSTILE_ACTION = 'quote_request';
 const ALLOWED_HOSTNAMES = new Set(['getfreshfibers.com', 'dev.getfreshfibers.com', 'localhost', '127.0.0.1']);
 
@@ -118,14 +119,28 @@ export const POST: APIRoute = async ({ request }) => {
       return jsonResponse({ success: false, message: 'Email is not configured.' }, 500);
     }
 
-    await env.EMAIL.send({
-      to: NOTIFICATION_TO_ADDRESS,
+    const notification = {
       from: { email: FROM_ADDRESS, name: `${site.name} website` },
       replyTo: email,
       subject: `New quote request: ${name}`,
       text: lines.join('\n'),
       html: `<p>${lines.map(escapeHtml).join('</p><p>')}</p>`,
-    });
+    };
+
+    // Send to each recipient independently so a delivery failure to one
+    // inbox (e.g. an address that isn't a verified destination yet) doesn't
+    // stop the notification reaching the others.
+    const sends = await Promise.allSettled(
+      NOTIFICATION_TO_ADDRESSES.map((to) => env.EMAIL.send({ to, ...notification })),
+    );
+    for (const result of sends) {
+      if (result.status === 'rejected') {
+        console.error('quote notification send failed', result.reason);
+      }
+    }
+    if (sends.every((result) => result.status === 'rejected')) {
+      return jsonResponse({ success: false, message: 'Something went wrong. Please call or text instead.' }, 500);
+    }
 
     return jsonResponse({ success: true });
   } catch (err) {
