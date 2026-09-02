@@ -5,16 +5,44 @@ import Breadcrumb from '../components/Breadcrumb.astro';
 import ReviewCard from '../components/ReviewCard.astro';
 import Callout from '../components/Callout.astro';
 import site from '../content/site.json';
-import reviewsData from '../content/reviews.json';
+import { getReviews } from '../lib/reviews';
 import winonaBridge from '../assets/images/Various/winona_bridge.jpg';
+
+// Server-rendered so reviews stay live. getReviews() serves from an edge
+// cache (6h fresh, stale-while-revalidate) so this stays fast.
+export const prerender = false;
+
+const ctx = (Astro.locals as { cfContext?: { waitUntil?: (p: Promise<unknown>) => void } }).cfContext;
+const reviewsData = await getReviews(ctx);
 
 const title = `Reviews | ${site.name}, Winona, MN`;
 const description = `Read what homeowners around Winona, MN and La Crosse, WI say about ${site.name} carpet, upholstery, and rug cleaning: on time, fair pricing, no upsells.`;
 
 const avatarColors = ['var(--ff-navy-cta)', 'var(--ff-azure)', 'var(--ff-accent-on-navy)', 'var(--ff-accent-on-navy)', 'var(--ff-azure-hover)', 'var(--ff-navy-panel)'];
+
+const reviewSchema = reviewsData
+  ? {
+      '@context': 'https://schema.org',
+      '@type': 'LocalBusiness',
+      '@id': `${site.url}/#business`,
+      name: site.name,
+      aggregateRating: {
+        '@type': 'AggregateRating',
+        ratingValue: reviewsData.aggregateRating,
+        reviewCount: reviewsData.totalCount,
+        bestRating: 5,
+      },
+      review: reviewsData.reviews.slice(0, 10).map((r) => ({
+        '@type': 'Review',
+        reviewRating: { '@type': 'Rating', ratingValue: r.rating, bestRating: 5 },
+        author: { '@type': 'Person', name: r.name },
+        reviewBody: r.text,
+      })),
+    }
+  : undefined;
 ---
 
-<Base title={title} description={description} heroFlush>
+<Base title={title} description={description} heroFlush structuredData={reviewSchema}>
   <Fragment slot="hero">
     <Breadcrumb theme="onNavy" items={[{ label: 'Home', href: '/' }, { label: 'Reviews' }]} />
     <div class="hero-copy">
@@ -31,7 +59,7 @@ const avatarColors = ['var(--ff-navy-cta)', 'var(--ff-azure)', 'var(--ff-accent-
     </div>
   </Fragment>
 
-  {reviewsData.placeholder ? (
+  {!reviewsData ? (
     <section class="container coming-soon">
       <p class="eyebrow">Reviews coming soon</p>
       <p>We're just getting started! Check back soon for feedback from jobs around Winona.</p>
@@ -43,7 +71,12 @@ const avatarColors = ['var(--ff-navy-cta)', 'var(--ff-azure)', 'var(--ff-accent-
         <div>
           <div class="stars">★★★★★</div>
           <div class="rating-count">
-            {reviewsData.reviews.length} review{reviewsData.reviews.length === 1 ? '' : 's'}
+            {reviewsData.totalCount} review{reviewsData.totalCount === 1 ? '' : 's'} on{' '}
+            {reviewsData.profileUrl ? (
+              <a href={reviewsData.profileUrl} target="_blank" rel="nofollow noopener">Google</a>
+            ) : (
+              'Google'
+            )}
           </div>
         </div>
       </section>
@@ -55,6 +88,8 @@ const avatarColors = ['var(--ff-navy-cta)', 'var(--ff-azure)', 'var(--ff-accent-
             when={review.when}
             rating={review.rating}
             text={review.text}
+            photoUrl={review.photoUrl}
+            href={review.href}
             avatarColor={avatarColors[i % avatarColors.length]}
           />
         ))}

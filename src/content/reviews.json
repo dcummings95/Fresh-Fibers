@@ -1,10 +1,42 @@
 {
-  "placeholder": true,
-  "note": "Sample reviews — replace with real Google reviews once the Business Profile is live. See googleReviewUrl in site.json.",
+  "placeholder": false,
+  "note": "Hardcoded from real Google reviews (captured 2026-09-01). 'date' is the review's actual post date (ISO) — the 'when' label is computed from it at render time so it stays accurate. Where 'date' is unknown, 'when' is a literal string. Homepage shows the first 3; /reviews shows all. Keep the 3 independent customers first. Switch to the live Featurable feed once Business Profile access is sorted (set featurableWidgetId in site.json); this file then reverts to offline fallback only.",
   "aggregateRating": 5.0,
+  "totalCount": 5,
   "reviews": [
-    { "name": "Sarah M.", "when": "2 weeks ago", "rating": 5, "text": "Augie got out a stain I was sure we'd live with forever. On time, friendly, and the carpets look great." },
-    { "name": "Dave R.", "when": "1 month ago", "rating": 5, "text": "Booked online at night and he confirmed the next morning. Easy to work with and my couch looks new." },
-    { "name": "Linda K.", "when": "1 month ago", "rating": 5, "text": "Fair price and no upselling. He explained what he was doing and left the rooms looking brand new." }
+    {
+      "name": "Melanie Voelker",
+      "date": "2026-08-30",
+      "when": "recently",
+      "rating": 5,
+      "text": "We are so pleased with how our carpets turned out. Augie was on time, professional, and thorough about explaining the process and what to expect. Our two kids kept getting in the way and he was great with them, even explaining what he was doing when they asked their lots and lots of questions. Our carpet has never felt so clean, and it looks impeccable."
+    },
+    {
+      "name": "Maria Jacquet",
+      "date": "2026-08-29",
+      "when": "recently",
+      "rating": 5,
+      "text": "I was ready to either pull out my hair or my carpet before I found this company. I took a chance and called Mr. Yanta, and he was very personable and understanding of my sad carpet situation, embarrassing as it was. My carpets look amazing. Thank you for your professionalism!"
+    },
+    {
+      "name": "Emmet O'Connell",
+      "date": "2026-09-01",
+      "when": "recently",
+      "rating": 5,
+      "text": "Augie was excellent, did great work, and was very knowledgeable."
+    },
+    {
+      "name": "Isaac Yanta",
+      "date": "2026-09-01",
+      "when": "recently",
+      "rating": 5,
+      "text": "Exceptional is definitely the word. My wife and I have five animals, including some puppies, so our house was more than a little stinky. After Augie and Fresh Fibers came by, it was like we just moved in again. They showed up on time, had the most competitive pricing in town, and even checked in a couple of days later to make sure we were satisfied with the job."
+    },
+    {
+      "name": "Dominic Cummings",
+      "when": "a few weeks ago",
+      "rating": 5,
+      "text": "Augie came over and cleaned our two bedrooms, hallway, living room, sunroom, and bathroom tile. Excellent is an understatement. He was extremely friendly and easy to work with on setting up a time and date."
+    }
   ]
 }

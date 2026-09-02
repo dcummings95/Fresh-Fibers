@@ -5,17 +5,31 @@ interface Props {
   rating: number;
   text: string;
   avatarColor?: string;
+  photoUrl?: string;
+  href?: string;
 }
 
-const { name, when, rating, text, avatarColor = 'var(--ff-navy-cta)' } = Astro.props;
+const { name, when, rating, text, avatarColor = 'var(--ff-navy-cta)', photoUrl, href } = Astro.props;
 const initial = name.trim().charAt(0).toUpperCase();
 ---
 
 <div class="review-card">
   <div class="head">
-    <div class="avatar" style={{ background: avatarColor }}>{initial}</div>
+    <div class="avatar" style={{ background: avatarColor }}>
+      {initial}
+      {photoUrl && (
+        <img
+          src={photoUrl}
+          alt=""
+          loading="lazy"
+          decoding="async"
+          referrerpolicy="no-referrer"
+          onerror="this.remove()"
+        />
+      )}
+    </div>
     <div class="who">
-      <div class="name">{name}</div>
+      <div class="name">{href ? <a href={href} target="_blank" rel="nofollow noopener">{name}</a> : name}</div>
       <div class="when">{when}</div>
     </div>
     <svg width="18" height="18" viewBox="0 0 48 48" aria-label="Posted on Google">
@@ -52,9 +66,11 @@ const initial = name.trim().charAt(0).toUpperCase();
   }
 
   .avatar {
+    position: relative;
     width: 40px;
     height: 40px;
     border-radius: 50%;
+    overflow: hidden;
     color: var(--ff-on-navy);
     display: flex;
     align-items: center;
@@ -62,6 +78,23 @@ const initial = name.trim().charAt(0).toUpperCase();
     font-weight: var(--ff-weight-bold);
     font-size: var(--ff-size-body);
     flex-shrink: 0;
+  }
+
+  .avatar img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .name a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .name a:hover {
+    text-decoration: underline;
   }
 
   .who {
