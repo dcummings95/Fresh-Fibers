@@ -55,24 +55,27 @@ const firstName = rawName.slice(0, 40);
 
   <script is:inline>
     (function () {
-      function fireConversion() {
-        if (typeof gtag === 'function') {
-          gtag('event', 'conversion', { send_to: 'AW-18373499400/wVfcCPXcqewcEIi0lblE' });
-        }
+      function fireLeadEvents() {
+        if (typeof gtag !== 'function') return;
+        // Google Ads: the conversion used for bidding + reporting.
+        gtag('event', 'conversion', { send_to: 'AW-18373499400/GYY7CJSdrewcEIi0lblE' });
+        // GA4: a real lead event so quote requests show up in GA4 reports and
+        // can be marked a key event / used for audiences. The form is
+        // JS-submitted, so GA4's automatic form_submit never fires for it.
+        gtag('event', 'generate_lead', { send_to: 'G-4RWZLQL22K' });
       }
-      // Only count a conversion when the quote form just redirected here. The
-      // form sets this flag immediately before navigating; clearing it means a
-      // reload, bookmark, or direct visit to this URL won't re-fire.
+      // Only fire when the quote form just redirected here — not on reload,
+      // bookmark, or a direct visit. The form sets this flag before navigating.
       try {
         if (sessionStorage.getItem('ff_quote_conversion') === 'pending') {
           sessionStorage.removeItem('ff_quote_conversion');
-          fireConversion();
+          fireLeadEvents();
         }
       } catch (err) {
         // sessionStorage blocked (private mode, etc.) — fall back to referrer.
         try {
           if (new URL(document.referrer).pathname.replace(/\/$/, '') === '/estimate') {
-            fireConversion();
+            fireLeadEvents();
           }
         } catch (err2) {}
       }
