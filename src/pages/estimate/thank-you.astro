@@ -52,6 +52,32 @@ const firstName = rawName.slice(0, 40);
       </div>
     </div>
   </section>
+
+  <script is:inline>
+    (function () {
+      function fireConversion() {
+        if (typeof gtag === 'function') {
+          gtag('event', 'conversion', { send_to: 'AW-18373499400/wVfcCPXcqewcEIi0lblE' });
+        }
+      }
+      // Only count a conversion when the quote form just redirected here. The
+      // form sets this flag immediately before navigating; clearing it means a
+      // reload, bookmark, or direct visit to this URL won't re-fire.
+      try {
+        if (sessionStorage.getItem('ff_quote_conversion') === 'pending') {
+          sessionStorage.removeItem('ff_quote_conversion');
+          fireConversion();
+        }
+      } catch (err) {
+        // sessionStorage blocked (private mode, etc.) — fall back to referrer.
+        try {
+          if (new URL(document.referrer).pathname.replace(/\/$/, '') === '/estimate') {
+            fireConversion();
+          }
+        } catch (err2) {}
+      }
+    })();
+  </script>
 </Base>
 
 <style>

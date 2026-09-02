@@ -184,6 +184,9 @@ import { estimateFields, estimateFieldName } from '../lib/estimate-fields';
         const json = await res.json().catch(() => ({}));
 
         if (res.ok && json.success) {
+          // Mark this as a genuine submission so the thank-you page fires the
+          // Google Ads conversion once — and not on reload or a direct visit.
+          try { sessionStorage.setItem('ff_quote_conversion', 'pending'); } catch (err) {}
           window.location.href = `/estimate/thank-you?name=${encodeURIComponent(first)}`;
           return;
         } else {
