@@ -9,7 +9,7 @@ import BeforeAfterSlider from '../components/BeforeAfterSlider.astro';
 import site from '../content/site.json';
 import { getService, getPricing, resolveHeroPrice } from '../lib/services';
 import { formatPrice } from '../lib/format';
-import { buildServiceSchema } from '../lib/schema';
+import { buildServiceSchema, buildFaqSchema } from '../lib/schema';
 import { servicePhotos } from '../lib/photos';
 
 interface Props {
@@ -23,7 +23,8 @@ const heroPrice = resolveHeroPrice(service, pricing);
 const photo = servicePhotos[slug] ?? {};
 
 const title = `${service.navLabel} | ${site.name}, Winona, MN`;
-const schema = buildServiceSchema(service.navLabel, service.lead);
+const schema: Record<string, unknown>[] = [buildServiceSchema(service.navLabel, service.lead)];
+if (service.faq.length > 0) schema.push(buildFaqSchema(service.faq));
 ---
 
 <Base title={title} description={service.metaDescription ?? service.cardDescription} structuredData={schema} heroFlush>

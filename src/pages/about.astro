@@ -5,6 +5,7 @@ import Breadcrumb from '../components/Breadcrumb.astro';
 import site from '../content/site.json';
 import augieVan from '../assets/images/Various/augie_van.jpeg';
 import vanPhoto from '../assets/images/Various/ff-van-passenger-side-long.jpg';
+import truckmountPhoto from '../assets/images/Various/ff_van_doors_open.jpg';
 
 const title = `About ${site.ownerName} | ${site.name}, Winona, MN`;
 const description = `${site.name} is a one-person carpet and upholstery cleaning business in Winona, MN, run by owner ${site.ownerName}. No subcontractors, no rotating crews.`;
@@ -46,6 +47,23 @@ const description = `${site.name} is a one-person carpet and upholstery cleaning
     </div>
   </section>
 
+  <section class="container truckmount-section">
+    <div class="truckmount-copy">
+      <h2>A real truckmount</h2>
+      <p>
+        The van runs a HydraMaster Titan 375, a true truckmount hot-water extraction system, the same class of
+        equipment the larger crews run. It heats water hotter and pulls a lot more vacuum than the rental
+        machines or portable extractors some smaller operations use, which means a deeper clean and carpet
+        that's dry again in hours instead of a day or two.
+      </p>
+      <p>
+        The whole system, tanks, heater, and vacuum, lives in the van, so nothing gets dragged through your
+        house but the hose and wand. Just the machine doing the work outside, and a clean, quiet job inside.
+      </p>
+    </div>
+    <Image src={truckmountPhoto} alt="The HydraMaster Titan 375 truckmount unit installed in the Fresh Fibers van" class="truckmount-photo" width={900} height={675} />
+  </section>
+
   <section class="container equipment-section">
     <h2>What that means for you</h2>
     <div class="points">
@@ -55,7 +73,7 @@ const description = `${site.name} is a one-person carpet and upholstery cleaning
       </div>
       <div class="point">
         <div class="point-title">Professional-grade truckmount system</div>
-        <p>I run a van-mounted hot-water extraction system, the same class of equipment the bigger crews use, just without the overhead.</p>
+        <p>A real HydraMaster truckmount, not a rental unit, hotter water and stronger vacuum for a deeper clean and a faster dry.</p>
       </div>
       <div class="point">
         <div class="point-title">Honest, upfront pricing</div>
@@ -149,6 +167,50 @@ const description = `${site.name} is a one-person carpet and upholstery cleaning
   }
 
   .story-copy p:last-child {
+    margin-bottom: 0;
+  }
+
+  .truckmount-section {
+    padding: 0 var(--ff-gutter) 72px;
+    display: grid;
+    grid-template-columns: 0.9fr 1.1fr;
+    gap: var(--ff-gap-lg);
+    align-items: center;
+  }
+
+  .truckmount-photo {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    border-radius: var(--ff-radius-note);
+    box-shadow: var(--ff-shadow-card);
+  }
+
+  @media (max-width: 780px) {
+    .truckmount-section {
+      grid-template-columns: 1fr;
+    }
+
+    .truckmount-section .truckmount-photo {
+      order: -1;
+    }
+  }
+
+  .truckmount-copy h2 {
+    font-size: var(--ff-size-h2);
+    margin-bottom: 20px;
+  }
+
+  .truckmount-copy p {
+    font-size: var(--ff-size-body-lg);
+    line-height: 1.7;
+    color: var(--ff-text-body);
+    margin: 0 0 18px;
+  }
+
+  .truckmount-copy p:last-child {
     margin-bottom: 0;
   }
 
