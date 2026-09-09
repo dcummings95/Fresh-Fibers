@@ -5,7 +5,7 @@ import Breadcrumb from '../components/Breadcrumb.astro';
 import ReviewCard from '../components/ReviewCard.astro';
 import Callout from '../components/Callout.astro';
 import site from '../content/site.json';
-import { getReviews } from '../lib/reviews';
+import { getReviews, sortByDate } from '../lib/reviews';
 import winonaBridge from '../assets/images/Various/winona_bridge.jpg';
 
 // Server-rendered so reviews stay live. getReviews() serves from an edge
@@ -14,6 +14,8 @@ export const prerender = false;
 
 const ctx = (Astro.locals as { cfContext?: { waitUntil?: (p: Promise<unknown>) => void } }).cfContext;
 const reviewsData = await getReviews(ctx);
+
+const sortedReviews = reviewsData ? sortByDate(reviewsData.reviews) : [];
 
 const title = `Reviews | ${site.name}, Winona, MN`;
 const description = `Read what homeowners around Winona, MN and La Crosse, WI say about ${site.name} carpet, upholstery, and rug cleaning: on time, fair pricing, no upsells.`;
@@ -32,7 +34,7 @@ const reviewSchema = reviewsData
         reviewCount: reviewsData.totalCount,
         bestRating: 5,
       },
-      review: reviewsData.reviews.slice(0, 10).map((r) => ({
+      review: sortedReviews.slice(0, 10).map((r) => ({
         '@type': 'Review',
         reviewRating: { '@type': 'Rating', ratingValue: r.rating, bestRating: 5 },
         author: { '@type': 'Person', name: r.name },
@@ -82,7 +84,7 @@ const reviewSchema = reviewsData
       </section>
 
       <section class="container review-grid">
-        {reviewsData.reviews.map((review, i) => (
+        {sortedReviews.map((review, i) => (
           <ReviewCard
             name={review.name}
             when={review.when}

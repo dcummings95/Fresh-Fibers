@@ -1,6 +1,6 @@
 {
   "placeholder": false,
-  "note": "Hardcoded from real Google reviews (captured 2026-09-01, Katie Lymburner added 2026-09-09). 'date' is the review's actual post date (ISO) — the 'when' label is computed from it at render time so it stays accurate. Where 'date' is unknown, 'when' is a literal string. Homepage shows the first 3; /reviews shows all. Keep the 3 independent customers first. Switch to the live Featurable feed once Business Profile access is sorted (set featurableWidgetId in site.json); this file then reverts to offline fallback only.",
+  "note": "Hardcoded from real Google reviews (captured 2026-09-01, Katie Lymburner added 2026-09-09). 'date' is the review's actual post date (ISO) — the 'when' label is formatted from it at render time as an absolute date (e.g. 'Aug 26, 2026'). Where 'date' is unknown, 'when' is a literal string. Both the homepage teaser and /reviews sort newest-first by 'date'. 'homepage: false' excludes a review from the homepage's top-3 teaser (used for Isaac Yanta and Dominic Cummings, who are close to the business, so they still show on /reviews but not the homepage); omit the field (or set true) to make a review homepage-eligible. Switch to the live Featurable feed once Business Profile access is sorted (set featurableWidgetId in site.json); this file then reverts to offline fallback only.",
   "aggregateRating": 5.0,
   "totalCount": 6,
   "reviews": [
@@ -36,6 +36,7 @@
       "name": "Isaac Yanta",
       "date": "2026-09-01",
       "when": "recently",
+      "homepage": false,
       "rating": 5,
       "text": "Exceptional is definitely the word. My wife and I have five animals, including some puppies, so our house was more than a little stinky. After Augie and Fresh Fibers came by, it was like we just moved in again. They showed up on time, had the most competitive pricing in town, and even checked in a couple of days later to make sure we were satisfied with the job."
     },
@@ -43,6 +44,7 @@
       "name": "Dominic Cummings",
       "date": "2026-08-26",
       "when": "a few weeks ago",
+      "homepage": false,
       "rating": 5,
       "text": "Augie came over and cleaned our two bedrooms, hallway, living room, sunroom, and bathroom tile. Excellent is an understatement. He was extremely friendly and easy to work with on setting up a time and date."
     }

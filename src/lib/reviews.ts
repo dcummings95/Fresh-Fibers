@@ -16,10 +16,22 @@ import fallback from '../content/reviews.json';
 export interface Review {
   name: string;
   when: string;
+  date?: string;
   rating: number;
   text: string;
   photoUrl?: string;
   href?: string;
+  /** false excludes this review from the homepage's top-3 teaser; still shown on /reviews. */
+  homepage?: boolean;
+}
+
+/** Newest first (by `date`); reviews without a known date sort to the end. */
+export function sortByDate(reviews: Review[]): Review[] {
+  return [...reviews].sort((a, b) => {
+    const aTime = a.date ? new Date(a.date).getTime() : -Infinity;
+    const bTime = b.date ? new Date(b.date).getTime() : -Infinity;
+    return bTime - aTime;
+  });
 }
 
 export interface ReviewsData {
@@ -59,11 +71,12 @@ function fallbackData(): ReviewsData | null {
     reviews: (Review & { date?: string })[];
   };
   return {
-    // Derive "when" from an ISO `date` when present so the relative label stays
-    // accurate as time passes; fall back to a literal `when` string otherwise.
+    // Derive "when" from an ISO `date` when present, formatted as an absolute
+    // date; fall back to a literal `when` string otherwise.
     reviews: f.reviews.map(({ date, ...r }) => ({
       ...r,
-      when: (date && relativeTime(date)) || r.when,
+      date,
+      when: (date && formatDate(date)) || r.when,
     })),
     aggregateRating: f.aggregateRating,
     totalCount: f.totalCount ?? f.reviews.length,
@@ -72,19 +85,12 @@ function fallbackData(): ReviewsData | null {
   };
 }
 
-function relativeTime(iso: string): string {
-  const then = new Date(iso).getTime();
-  if (!Number.isFinite(then)) return '';
-  const days = Math.floor((Date.now() - then) / 86_400_000);
-  if (days <= 0) return 'today';
-  if (days === 1) return 'yesterday';
-  if (days < 7) return `${days} days ago`;
-  const weeks = Math.floor(days / 7);
-  if (weeks < 5) return weeks === 1 ? 'a week ago' : `${weeks} weeks ago`;
-  const months = Math.floor(days / 30);
-  if (months < 12) return months <= 1 ? 'a month ago' : `${months} months ago`;
-  const years = Math.floor(days / 365);
-  return years === 1 ? 'a year ago' : `${years} years ago`;
+function formatDate(iso: string): string {
+  const d = new Date(iso);
+  if (Number.isNaN(d.getTime())) return '';
+  return new Intl.DateTimeFormat('en-US', { month: 'short', day: 'numeric', year: 'numeric', timeZone: 'UTC' }).format(
+    d,
+  );
 }
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
@@ -107,11 +113,13 @@ function normalize(json: any): ReviewsData | null {
       const text: string = String(r.comment ?? r.text ?? '').trim();
       const name: string = String(person.displayName ?? person.name ?? '').trim();
       if (!text || !name || !Number.isFinite(rating)) return null;
+      const date: string = r.createTime ?? r.createdAt ?? r.updateTime ?? '';
       return {
         name,
         rating: Math.max(1, Math.min(5, Math.round(rating))),
         text,
-        when: relativeTime(r.createTime ?? r.createdAt ?? r.updateTime ?? ''),
+        date,
+        when: formatDate(date),
         photoUrl: person.profilePhotoUrl ?? person.photoUrl ?? undefined,
         href: r.reviewUrl ?? r.url ?? undefined,
       };
