@@ -1,8 +1,8 @@
 {
   "placeholder": false,
-  "note": "Hardcoded from real Google reviews (captured 2026-09-01). 'date' is the review's actual post date (ISO) — the 'when' label is computed from it at render time so it stays accurate. Where 'date' is unknown, 'when' is a literal string. Homepage shows the first 3; /reviews shows all. Keep the 3 independent customers first. Switch to the live Featurable feed once Business Profile access is sorted (set featurableWidgetId in site.json); this file then reverts to offline fallback only.",
+  "note": "Hardcoded from real Google reviews (captured 2026-09-01, Katie Lymburner added 2026-09-09). 'date' is the review's actual post date (ISO) — the 'when' label is computed from it at render time so it stays accurate. Where 'date' is unknown, 'when' is a literal string. Homepage shows the first 3; /reviews shows all. Keep the 3 independent customers first. Switch to the live Featurable feed once Business Profile access is sorted (set featurableWidgetId in site.json); this file then reverts to offline fallback only.",
   "aggregateRating": 5.0,
-  "totalCount": 5,
+  "totalCount": 6,
   "reviews": [
     {
       "name": "Melanie Voelker",
@@ -26,6 +26,13 @@
       "text": "Augie was excellent, did great work, and was very knowledgeable."
     },
     {
+      "name": "Katie Lymburner",
+      "date": "2026-09-05",
+      "when": "recently",
+      "rating": 5,
+      "text": "I highly reccomend this floor cleaning expert; Augie is professional, diligent, and prompt! I am very happy with the results!"
+    },
+    {
       "name": "Isaac Yanta",
       "date": "2026-09-01",
       "when": "recently",
@@ -34,6 +41,7 @@
     },
     {
       "name": "Dominic Cummings",
+      "date": "2026-08-26",
       "when": "a few weeks ago",
       "rating": 5,
       "text": "Augie came over and cleaned our two bedrooms, hallway, living room, sunroom, and bathroom tile. Excellent is an understatement. He was extremely friendly and easy to work with on setting up a time and date."
