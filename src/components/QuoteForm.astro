@@ -20,6 +20,22 @@ import { estimateFields, estimateFieldName } from '../lib/estimate-fields';
     <input type="hidden" name="utm_medium" data-ad-field="utm_medium" />
     <input type="hidden" name="utm_campaign" data-ad-field="utm_campaign" />
 
+    {site.promo && (
+      <input
+        type="hidden"
+        name="promo_code"
+        value={site.promo.code}
+        id="promo-code-field"
+        data-promo-end={site.promo.endDate}
+      />
+    )}
+
+    {site.promo && (
+      <p class="promo-note" id="promo-note">
+        <strong>{site.promo.percentOff}% off</strong> your entire cleaning through {site.promo.endDateLabel} — applied automatically.
+      </p>
+    )}
+
     <div class="field-group">
       <div class="label">What do you need cleaned?</div>
       <div class="hint">Pick all that apply.</div>
@@ -137,6 +153,16 @@ import { estimateFields, estimateFieldName } from '../lib/estimate-fields';
 
   let turnstileWidgetId = null;
 
+  // Static pages don't rebuild on their own after the sale ends, so gate the
+  // promo field/note on the visitor's own clock rather than trusting the
+  // markup — a stale deploy shouldn't keep applying an expired code.
+  const promoField = document.getElementById('promo-code-field');
+  const promoEnd = promoField?.dataset.promoEnd;
+  if (promoField && promoEnd && new Date() > new Date(`${promoEnd}T23:59:59`)) {
+    promoField.remove();
+    document.getElementById('promo-note')?.remove();
+  }
+
   const serviceCheckboxes = form ? form.querySelectorAll('input[name="services"]') : [];
 
   function syncServiceDetails() {
@@ -239,6 +265,16 @@ import { estimateFields, estimateFieldName } from '../lib/estimate-fields';
 
   .field-group {
     margin-bottom: 8px;
+  }
+
+  .promo-note {
+    margin: 0;
+    padding: 12px 16px;
+    background: var(--ff-band-blue);
+    border: 1px solid rgba(22, 53, 115, 0.14);
+    border-radius: var(--ff-radius-btn);
+    font-size: var(--ff-size-caption);
+    color: var(--ff-text);
   }
 
   .label {

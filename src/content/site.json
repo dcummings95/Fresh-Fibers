@@ -60,5 +60,11 @@
   "serviceRadiusMiles": 60,
   "hours": "Mon–Sat, 8:00 AM – 7:00 PM",
   "hoursShort": "Mon–Sat 8–7",
-  "guaranteeDays": 30
+  "guaranteeDays": 30,
+  "promo": {
+    "code": "OCT15",
+    "percentOff": 15,
+    "endDate": "2026-10-15",
+    "endDateLabel": "October 15"
+  }
 }

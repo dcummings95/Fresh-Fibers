@@ -1,0 +1,64 @@
+---
+import site from '../content/site.json';
+
+const promo = site.promo;
+---
+
+{promo && (
+  <div class="announcement-bar" id="announcement-bar" data-promo-end={promo.endDate}>
+    <div class="announcement-inner">
+      <p>
+        <strong>{promo.percentOff}% off</strong> your entire cleaning through {promo.endDateLabel} — applied automatically to every estimate.
+      </p>
+      <a href="/estimate" class="announcement-cta">Get your free estimate →</a>
+    </div>
+  </div>
+)}
+
+<script>
+  // Server-rendered pages are static, so the sale doesn't disappear on its
+  // own after a rebuild — check the visitor's own clock and hide the bar
+  // once the promo end date has passed, no redeploy required.
+  const bar = document.getElementById('announcement-bar');
+  const endDate = bar?.dataset.promoEnd;
+  if (bar && endDate && new Date() > new Date(`${endDate}T23:59:59`)) {
+    bar.remove();
+  }
+</script>
+
+<style>
+  .announcement-bar {
+    background: var(--ff-navy-cta);
+    color: var(--ff-on-navy);
+  }
+
+  .announcement-inner {
+    max-width: var(--ff-container);
+    margin: 0 auto;
+    padding: 10px var(--ff-gutter);
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 6px 16px;
+    text-align: center;
+  }
+
+  .announcement-inner p {
+    margin: 0;
+    font-size: var(--ff-size-caption);
+  }
+
+  .announcement-cta {
+    color: var(--ff-on-navy);
+    font-weight: var(--ff-weight-bold);
+    font-size: var(--ff-size-caption);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    white-space: nowrap;
+  }
+
+  .announcement-cta:hover {
+    color: var(--ff-accent-on-navy);
+  }
+</style>

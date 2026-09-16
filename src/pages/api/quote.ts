@@ -58,6 +58,7 @@ export const POST: APIRoute = async ({ request }) => {
     const area = String(data.get('area') ?? '').trim();
     const bestTime = String(data.get('best_time') ?? '').trim();
     const message = String(data.get('message') ?? '').trim();
+    const promoCode = String(data.get('promo_code') ?? '').trim();
     const selectedServiceLabels = data.getAll('services').map(String);
 
     if (!name || !phone || !email || !area) {
@@ -111,6 +112,7 @@ export const POST: APIRoute = async ({ request }) => {
       `Email: ${email}`,
       `Area: ${area}`,
       serviceLines.length ? `Services: ${serviceLines.join(', ')}` : null,
+      promoCode ? `Promo code: ${promoCode} (site-wide sale — apply the discount to this quote)` : null,
       bestTime ? `Best time to reach: ${bestTime}` : null,
       message ? `Details: ${message}` : null,
     ].filter((line): line is string => line !== null);
