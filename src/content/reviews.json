@@ -1,8 +1,8 @@
 {
   "placeholder": false,
-  "note": "Hardcoded from real Google reviews (captured 2026-09-01, Katie Lymburner added 2026-09-09). 'date' is the review's actual post date (ISO) — the 'when' label is formatted from it at render time as an absolute date (e.g. 'Aug 26, 2026'). Where 'date' is unknown, 'when' is a literal string. Both the homepage teaser and /reviews sort newest-first by 'date'. 'homepage: false' excludes a review from the homepage's top-3 teaser (used for Isaac Yanta and Dominic Cummings, who are close to the business, so they still show on /reviews but not the homepage); omit the field (or set true) to make a review homepage-eligible. Switch to the live Featurable feed once Business Profile access is sorted (set featurableWidgetId in site.json); this file then reverts to offline fallback only.",
+  "note": "Hardcoded from real Google reviews (captured 2026-09-29 from the Business Profile). 'date' is the review's actual post date (ISO), derived from Google's relative timestamps — the 'when' label is formatted from it at render time as an absolute date (e.g. 'Sep 23, 2026'). Where 'date' is unknown, 'when' is a literal string. Both the homepage top-3 teaser and /reviews sort newest-first by 'date'; every review is eligible for both. Switch to the live Featurable feed by setting featurableWidgetId in site.json; this file then serves only as the offline fallback when Featurable is unreachable.",
   "aggregateRating": 5.0,
-  "totalCount": 6,
+  "totalCount": 8,
   "reviews": [
     {
       "name": "Melanie Voelker",
@@ -36,7 +36,6 @@
       "name": "Isaac Yanta",
       "date": "2026-09-01",
       "when": "recently",
-      "homepage": false,
       "rating": 5,
       "text": "Exceptional is definitely the word. My wife and I have five animals, including some puppies, so our house was more than a little stinky. After Augie and Fresh Fibers came by, it was like we just moved in again. They showed up on time, had the most competitive pricing in town, and even checked in a couple of days later to make sure we were satisfied with the job."
     },
@@ -44,9 +43,22 @@
       "name": "Dominic Cummings",
       "date": "2026-08-26",
       "when": "a few weeks ago",
-      "homepage": false,
       "rating": 5,
       "text": "Augie came over and cleaned our two bedrooms, hallway, living room, sunroom, and bathroom tile. Excellent is an understatement. He was extremely friendly and easy to work with on setting up a time and date."
+    },
+    {
+      "name": "Tricia Melfy",
+      "date": "2026-09-23",
+      "when": "recently",
+      "rating": 5,
+      "text": "Very professional, great service and result, timely and organized. I highly recommend fresh fibers for any carpet cleaning you may need!"
+    },
+    {
+      "name": "Cindy Mcfarland",
+      "date": "2026-09-23",
+      "when": "recently",
+      "rating": 5,
+      "text": "We bought a home and wanted to start off with clean carpets. Augie was able to get me in the very next day. He was friendly, fast and efficient. He made sure to explain everything to me and kept me informed as he moved from room to room. He knows his stuff! Our home smells wonderful and the carpets look fantastic. I highly recommend fresh fibers and will use them again!"
     }
   ]
 }

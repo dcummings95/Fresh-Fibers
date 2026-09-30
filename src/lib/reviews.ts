@@ -21,8 +21,6 @@ export interface Review {
   text: string;
   photoUrl?: string;
   href?: string;
-  /** false excludes this review from the homepage's top-3 teaser; still shown on /reviews. */
-  homepage?: boolean;
 }
 
 /** Newest first (by `date`); reviews without a known date sort to the end. */

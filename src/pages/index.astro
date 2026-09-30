@@ -22,7 +22,7 @@ const avatarColors = ['var(--ff-navy-cta)', 'var(--ff-azure)', 'var(--ff-accent-
 // Built into the static page at deploy time; the /reviews page is live.
 const reviewsData = await getReviews();
 const homeReviews = reviewsData
-  ? sortByDate(reviewsData.reviews.filter((r) => r.homepage !== false)).slice(0, 3)
+  ? sortByDate(reviewsData.reviews).slice(0, 3)
   : [];
 ---
 
