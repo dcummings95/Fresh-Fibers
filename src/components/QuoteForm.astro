@@ -2,6 +2,7 @@
 import site from '../content/site.json';
 import { services } from '../lib/services';
 import { estimateFields, estimateFieldName } from '../lib/estimate-fields';
+import { promo } from '../lib/promo';
 ---
 
 <div class="quote-form-card">
@@ -20,19 +21,9 @@ import { estimateFields, estimateFieldName } from '../lib/estimate-fields';
     <input type="hidden" name="utm_medium" data-ad-field="utm_medium" />
     <input type="hidden" name="utm_campaign" data-ad-field="utm_campaign" />
 
-    {site.promo && (
-      <input
-        type="hidden"
-        name="promo_code"
-        value={site.promo.code}
-        id="promo-code-field"
-        data-promo-end={site.promo.endDate}
-      />
-    )}
-
-    {site.promo && (
+    {promo && (
       <p class="promo-note" id="promo-note">
-        <strong>{site.promo.percentOff}% off</strong> your entire cleaning through {site.promo.endDateLabel} — applied automatically.
+        <strong>{promo.percentOff}% off</strong> your entire cleaning through {promo.endDateLabel}, applied automatically.
       </p>
     )}
 
@@ -53,35 +44,79 @@ import { estimateFields, estimateFieldName } from '../lib/estimate-fields';
           if (!fields) return null;
           return (
             <fieldset class="service-detail" data-detail-for={service.slug} hidden>
-              <legend class="visually-hidden">{service.navLabel} details</legend>
-              {fields.map((field) => {
-                const fieldId = estimateFieldName(service.slug, field.key);
-                return (
-                  <div class:list={['field', field.wide && 'field-wide']}>
-                    <label for={fieldId}>{field.label} <span class="optional">(optional)</span></label>
-                    {field.type === 'select' ? (
-                      <select id={fieldId} name={fieldId}>
-                        {field.options?.map((option) => (
-                          <option value={option.value}>{option.label}</option>
-                        ))}
-                      </select>
-                    ) : (
-                      <input
-                        id={fieldId}
-                        name={fieldId}
-                        type={field.type}
-                        inputmode={field.type === 'number' ? 'numeric' : undefined}
-                        min={field.type === 'number' ? 1 : undefined}
-                        placeholder={field.placeholder}
-                      />
-                    )}
-                  </div>
-                );
-              })}
+              <legend class="detail-legend">{service.navLabel}</legend>
+              <div class="detail-grid">
+                {fields.map((field) => {
+                  const fieldId = estimateFieldName(service.slug, field.key);
+                  if (field.type === 'checkbox') {
+                    return (
+                      <div class="field field-wide">
+                        <label class="checkbox" for={fieldId}>
+                          <input id={fieldId} name={fieldId} type="checkbox" value="yes" />
+                          <span class="checkbox-text">
+                            <span class="checkbox-label">{field.label}</span>
+                            {field.hint && <span class="checkbox-hint">{field.hint}</span>}
+                          </span>
+                        </label>
+                      </div>
+                    );
+                  }
+                  return (
+                    <div class:list={['field', field.wide && 'field-wide']}>
+                      <label for={fieldId}>{field.label}</label>
+                      {field.hint && <div class="field-hint">{field.hint}</div>}
+                      {field.type === 'select' ? (
+                        <select id={fieldId} name={fieldId}>
+                          {field.options?.map((option) => (
+                            <option value={option.value}>{option.label}</option>
+                          ))}
+                        </select>
+                      ) : (
+                        <input
+                          id={fieldId}
+                          name={fieldId}
+                          type="number"
+                          inputmode={field.decimal ? 'decimal' : 'numeric'}
+                          min="0"
+                          step={field.decimal ? 'any' : '1'}
+                          placeholder={field.placeholder}
+                        />
+                      )}
+                    </div>
+                  );
+                })}
+              </div>
             </fieldset>
           );
         })}
       </div>
+    </div>
+
+    <div class="estimate-panel" id="estimate-panel" aria-live="polite">
+      <div class="est-body" id="est-body">
+        <div class="est-head">Your estimate</div>
+        <ul class="est-lines" id="est-lines"></ul>
+
+        <div class="est-total-row" id="est-total-row">
+          <span class="est-total-label">Estimated total</span>
+          <span class="est-total" id="est-total">$0</span>
+        </div>
+
+        <div class="est-sub" id="est-minimum-note" hidden>
+          A visit starts at ${site.minimumVisit}, so a small job lands there instead of the item price above. That floor
+          covers the whole visit, so add something else and you're not paying it twice.
+        </div>
+
+        <div class="est-quote-only" id="est-quote-only" hidden>
+          <div class="est-quote-head" id="est-quote-head">Priced once I see them:</div>
+          <ul class="est-quote-list" id="est-quote-list"></ul>
+        </div>
+      </div>
+
+      <p class="est-disclaimer">
+        Built from my <a href="/pricing">published prices</a>. It's an estimate, not a bill. I confirm a firm price
+        before any work starts, and it doesn't change unless you ask for more.
+      </p>
     </div>
 
     <div class="grid-2">
@@ -132,6 +167,109 @@ import { estimateFields, estimateFieldName } from '../lib/estimate-fields';
   </form>
 </div>
 
+<script>
+  import { calculateEstimate, MINIMUM_VISIT } from '../lib/estimate-pricing';
+  import { isPromoActive } from '../lib/promo';
+  import { formatPrice } from '../lib/format';
+
+  const form = document.getElementById('quote-form') as HTMLFormElement | null;
+
+  if (form) {
+    // Pages are prerendered, so the sale's end date can't be enforced at build
+    // time, so check the visitor's own clock and drop the note once it's past.
+    if (!isPromoActive()) document.getElementById('promo-note')?.remove();
+
+    const serviceCheckboxes = Array.from(
+      form.querySelectorAll<HTMLInputElement>('input[name="services"]'),
+    );
+
+    const linesEl = document.getElementById('est-lines')!;
+    const totalRow = document.getElementById('est-total-row')!;
+    const totalEl = document.getElementById('est-total')!;
+    const minimumNote = document.getElementById('est-minimum-note')!;
+    const quoteOnlyEl = document.getElementById('est-quote-only')!;
+    const quoteOnlyHead = document.getElementById('est-quote-head')!;
+    const quoteOnlyList = document.getElementById('est-quote-list')!;
+
+    function syncServiceDetails() {
+      for (const checkbox of serviceCheckboxes) {
+        const detail = form!.querySelector<HTMLElement>(`[data-detail-for="${checkbox.dataset.slug}"]`);
+        if (detail) detail.hidden = !checkbox.checked;
+      }
+    }
+
+    function addLine(parent: HTMLElement, label: string, amount: string, className?: string) {
+      const li = document.createElement('li');
+      if (className) li.className = className;
+      const name = document.createElement('span');
+      name.textContent = label;
+      const value = document.createElement('span');
+      value.textContent = amount;
+      li.appendChild(name);
+      li.appendChild(value);
+      parent.appendChild(li);
+    }
+
+    function render() {
+      const data = new FormData(form!);
+      const values: Record<string, string> = {};
+      for (const [key, value] of data.entries()) {
+        if (typeof value === 'string') values[key] = value;
+      }
+      const slugs = serviceCheckboxes.filter((c) => c.checked).map((c) => c.dataset.slug ?? '');
+
+      const estimate = calculateEstimate(slugs, values);
+      const hasPricedWork = estimate.lines.length > 0;
+
+      linesEl.replaceChildren();
+      for (const line of estimate.lines) {
+        addLine(linesEl, line.label, formatPrice(line.amount));
+      }
+      // Shown as its own line so the column still adds up. Otherwise a small
+      // job's items visibly fail to reach the total sitting underneath them.
+      if (estimate.minimumApplied) {
+        addLine(linesEl, 'Visit minimum', formatPrice(MINIMUM_VISIT), 'est-minimum');
+      }
+      if (estimate.discount) {
+        addLine(
+          linesEl,
+          `${estimate.discount.percentOff}% off (code ${estimate.discount.code})`,
+          `−${formatPrice(estimate.discount.amount)}`,
+          'est-discount',
+        );
+      }
+
+      totalRow.hidden = !hasPricedWork && estimate.quoteOnly.length > 0;
+      // A job with anything unpriced in it can only ever be a floor, so the
+      // number is shown as "from" rather than as a figure to hold him to.
+      totalEl.textContent = estimate.quoteOnly.length
+        ? `from ${formatPrice(estimate.total)}`
+        : formatPrice(estimate.total);
+      minimumNote.hidden = !estimate.minimumApplied;
+
+      quoteOnlyEl.hidden = estimate.quoteOnly.length === 0;
+      quoteOnlyHead.textContent = hasPricedWork
+        ? "Plus these, priced once I see them:"
+        : "I'll price this once I've seen it:";
+      quoteOnlyList.replaceChildren();
+      for (const item of estimate.quoteOnly) {
+        const li = document.createElement('li');
+        li.textContent = item;
+        quoteOnlyList.appendChild(li);
+      }
+    }
+
+    form.addEventListener('change', () => {
+      syncServiceDetails();
+      render();
+    });
+    form.addEventListener('input', render);
+
+    syncServiceDetails();
+    render();
+  }
+</script>
+
 <script is:inline src="https://challenges.cloudflare.com/turnstile/v0/api.js?onload=onloadTurnstileCallback" async defer></script>
 
 <script is:inline define:vars={{ phone: site.phone, turnstileSitekey: site.turnstileSitekey }}>
@@ -152,29 +290,6 @@ import { estimateFields, estimateFieldName } from '../lib/estimate-fields';
   const turnstileContainer = document.getElementById('turnstile-container');
 
   let turnstileWidgetId = null;
-
-  // Static pages don't rebuild on their own after the sale ends, so gate the
-  // promo field/note on the visitor's own clock rather than trusting the
-  // markup — a stale deploy shouldn't keep applying an expired code.
-  const promoField = document.getElementById('promo-code-field');
-  const promoEnd = promoField?.dataset.promoEnd;
-  if (promoField && promoEnd && new Date() > new Date(`${promoEnd}T23:59:59`)) {
-    promoField.remove();
-    document.getElementById('promo-note')?.remove();
-  }
-
-  const serviceCheckboxes = form ? form.querySelectorAll('input[name="services"]') : [];
-
-  function syncServiceDetails() {
-    serviceCheckboxes.forEach((checkbox) => {
-      const slug = checkbox.dataset.slug;
-      const detailEl = form.querySelector(`[data-detail-for="${slug}"]`);
-      if (detailEl) detailEl.hidden = !checkbox.checked;
-    });
-  }
-
-  serviceCheckboxes.forEach((checkbox) => checkbox.addEventListener('change', syncServiceDetails));
-  syncServiceDetails();
 
   window.onloadTurnstileCallback = function () {
     if (turnstileContainer && window.turnstile) {
@@ -211,7 +326,7 @@ import { estimateFields, estimateFieldName } from '../lib/estimate-fields';
 
         if (res.ok && json.success) {
           // Mark this as a genuine submission so the thank-you page fires the
-          // Google Ads conversion once — and not on reload or a direct visit.
+          // Google Ads conversion once, and not on reload or a direct visit.
           try { sessionStorage.setItem('ff_quote_conversion', 'pending'); } catch (err) {}
           window.location.href = `/estimate/thank-you?name=${encodeURIComponent(first)}`;
           return;
@@ -230,7 +345,7 @@ import { estimateFields, estimateFieldName } from '../lib/estimate-fields';
           submitBtn.classList.remove('is-loading');
           submitBtn.removeAttribute('aria-busy');
         }
-        // Turnstile tokens are single-use — reset so a retry gets a fresh one.
+        // Turnstile tokens are single-use, so reset so a retry gets a fresh one.
         if (window.turnstile && turnstileWidgetId !== null) {
           window.turnstile.reset(turnstileWidgetId);
         }
@@ -263,18 +378,19 @@ import { estimateFields, estimateFieldName } from '../lib/estimate-fields';
     gap: 18px;
   }
 
-  .field-group {
-    margin-bottom: 8px;
-  }
 
   .promo-note {
     margin: 0;
     padding: 12px 16px;
-    background: var(--ff-band-blue);
-    border: 1px solid rgba(22, 53, 115, 0.14);
-    border-radius: var(--ff-radius-btn);
+    background: var(--ff-bg);
+    border: 1px solid var(--ff-border-line);
+    border-radius: var(--ff-radius-inner);
     font-size: var(--ff-size-caption);
     color: var(--ff-text);
+  }
+
+  .promo-note strong {
+    color: var(--ff-navy);
   }
 
   .label {
@@ -290,10 +406,21 @@ import { estimateFields, estimateFieldName } from '../lib/estimate-fields';
     margin-bottom: 14px;
   }
 
+  /* A grid, not a wrapping flex row: the seven service labels run 12 to 21
+     characters, so variable-width pills wrapped into ragged rows with orphans
+     on the last line and nothing lining up column to column. Equal tracks fix
+     the alignment; min-height keeps a tile that wraps to two lines the same
+     height as its neighbours. */
   .chips {
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
     gap: 10px;
+  }
+
+  @media (max-width: 400px) {
+    .chips {
+      grid-template-columns: 1fr;
+    }
   }
 
   .chip {
@@ -314,21 +441,37 @@ import { estimateFields, estimateFieldName } from '../lib/estimate-fields';
   }
 
   .chip span {
-    display: inline-flex;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 52px;
+    height: 100%;
+    padding: 10px 14px;
+    text-align: center;
+    text-wrap: balance;
     font-size: var(--ff-size-body-sm);
     font-weight: var(--ff-weight-semibold);
-    padding: 10px 18px;
+    line-height: 1.25;
     border: 1.5px solid var(--ff-border-line);
-    border-radius: var(--ff-radius-pill);
+    border-radius: var(--ff-radius-btn);
     background: var(--ff-bg);
     color: var(--ff-text-body);
-    transition: all 0.12s;
+    transition:
+      background var(--ff-transition),
+      border-color var(--ff-transition),
+      color var(--ff-transition);
   }
 
   .chip input:checked + span {
     background: var(--ff-navy-cta);
     border-color: var(--ff-navy-cta);
     color: var(--ff-on-navy);
+  }
+
+  .chip input:not(:checked) + span:hover {
+    border-color: var(--ff-navy-cta);
+    background: var(--ff-surface);
+    color: var(--ff-text);
   }
 
   .chip input:focus-visible + span {
@@ -339,42 +482,76 @@ import { estimateFields, estimateFieldName } from '../lib/estimate-fields';
   .service-details {
     display: flex;
     flex-direction: column;
-    gap: 14px;
+    gap: 18px;
+    margin-top: 18px;
   }
 
   .service-detail {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 14px 18px;
-    margin: 14px 0 0;
-    padding: 0;
-    border: 0;
+    margin: 0;
+    padding: 20px;
+    border: 1px solid var(--ff-border-soft);
+    border-radius: var(--ff-radius-inner);
+    background: var(--ff-bg);
   }
 
   .service-detail[hidden] {
     display: none;
   }
 
-  .service-detail .field-wide {
-    grid-column: 1 / -1;
+  .detail-legend {
+    padding: 0 8px;
+    margin-left: -8px;
+    font-weight: var(--ff-weight-bold);
+    font-size: var(--ff-size-caption);
+    color: var(--ff-navy);
+    letter-spacing: var(--ff-tracking-eyebrow);
+    text-transform: uppercase;
   }
 
-  @media (max-width: 560px) {
-    .service-detail {
-      grid-template-columns: 1fr;
-    }
+  /* minmax(0, 1fr) rather than 1fr: a track sized 1fr still floors at the
+     item's min-content width, and a <select>'s min-content is its longest
+     option, which overflows the card on a narrow viewport. */
+  .detail-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px 18px;
+  }
+
+  .detail-grid .field-wide {
+    grid-column: 1 / -1;
   }
 
   .grid-2 {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 18px;
   }
 
-  @media (max-width: 560px) {
+  /* One breakpoint for the whole form: the card switches to its mobile padding
+     at 640px, so the grids have to collapse there too, not at 560px. */
+  @media (max-width: 640px) {
+    .detail-grid,
     .grid-2 {
       grid-template-columns: 1fr;
     }
+  }
+
+  /* Bottom-align the controls. Only some fields carry a .field-hint, and a long
+     label can wrap in one cell and not the other, either of which left paired
+     inputs sitting out of line. Stretching the cell and pushing the control to
+     the end of it makes every control in a row start at the same y. */
+  .detail-grid > .field,
+  .grid-2 > .field {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+  }
+
+  .detail-grid > .field > input,
+  .detail-grid > .field > select,
+  .grid-2 > .field > input,
+  .grid-2 > .field > select {
+    margin-top: auto;
   }
 
   .field label {
@@ -385,39 +562,247 @@ import { estimateFields, estimateFieldName } from '../lib/estimate-fields';
     margin-bottom: 7px;
   }
 
+  .field-hint {
+    font-size: var(--ff-size-micro);
+    color: var(--ff-text-tan);
+    margin: -3px 0 7px;
+    line-height: 1.45;
+  }
+
   .optional {
     color: var(--ff-text-tan);
     font-weight: var(--ff-weight-regular);
   }
 
-  .field input,
+  /* :not([type='checkbox']) so the surface, border and radius stop landing on
+     the native checkbox. min-height pins an <input> and a <select> in the same
+     row to one height, which their UA line-heights otherwise disagree on. */
+  .field input:not([type='checkbox']),
   .field select,
   .field textarea {
     width: 100%;
+    min-height: 50px;
     padding: 13px 15px;
     font-size: var(--ff-size-body);
+    line-height: 1.25;
     color: var(--ff-text);
-    background: var(--ff-bg);
+    background: var(--ff-surface);
     border: 1px solid var(--ff-border-line);
     border-radius: var(--ff-radius-btn);
   }
 
   .field textarea {
+    min-height: 0;
     resize: vertical;
     line-height: 1.5;
   }
 
-  .field input:focus-visible,
+  /* A <select> clips rather than wraps, so ellipsise instead of cutting a
+     glyph in half if an option ever outgrows its column. */
+  .field select {
+    text-overflow: ellipsis;
+  }
+
+  /* Spin buttons eat into the padding box, so a number field ends up visibly
+     narrower inside than the text input beside it. */
+  .field input[type='number'] {
+    appearance: textfield;
+    -moz-appearance: textfield;
+  }
+
+  .field input[type='number']::-webkit-outer-spin-button,
+  .field input[type='number']::-webkit-inner-spin-button {
+    appearance: none;
+    margin: 0;
+  }
+
+  .field input:not([type='checkbox']):focus-visible,
   .field select:focus-visible,
   .field textarea:focus-visible {
     outline: none;
     box-shadow: var(--ff-focus-ring);
   }
 
+  /* Needs `.field label.checkbox` to outrank `.field label` above, which was
+     winning on specificity and leaving this row stacked instead of inline. */
+  .field label.checkbox {
+    display: flex;
+    align-items: flex-start;
+    gap: 11px;
+    min-height: 44px;
+    cursor: pointer;
+    margin-bottom: 0;
+  }
+
+  .field .checkbox input {
+    width: 19px;
+    height: 19px;
+    flex-shrink: 0;
+    margin-top: 1px;
+    padding: 0;
+    accent-color: var(--ff-navy-cta);
+  }
+
+  .checkbox-label {
+    display: block;
+    font-weight: var(--ff-weight-semibold);
+    font-size: var(--ff-size-caption);
+    color: var(--ff-text);
+  }
+
+  .checkbox-hint {
+    display: block;
+    font-size: var(--ff-size-micro);
+    color: var(--ff-text-tan);
+    margin-top: 2px;
+  }
+
+  /* The focus ring above is ~1.1:1 on this fill and reads as nothing around a
+     19px box, so the checkbox keeps the outline the rest of the site uses. */
+  .field label.checkbox input:focus-visible {
+    outline: 3px solid var(--ff-azure);
+    outline-offset: 2px;
+    box-shadow: none;
+  }
+
+  .estimate-panel {
+    background: var(--ff-bg);
+    border: 1px solid var(--ff-border-line);
+    border-radius: var(--ff-radius-inner);
+    padding: 20px;
+  }
+
+  @media (max-width: 640px) {
+    .service-detail,
+    .estimate-panel {
+      padding: 16px;
+    }
+  }
+
+  .est-head {
+    font-family: var(--ff-font-display);
+    font-weight: var(--ff-weight-semibold);
+    font-size: 20px;
+    color: var(--ff-navy);
+    letter-spacing: var(--ff-tracking-tight);
+    margin-bottom: 14px;
+  }
+
+  .est-lines {
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+  }
+
+  /* :global on every runtime-built element. addLine() and the quote-only loop
+     create these with document.createElement, so they carry no data-astro-cid
+     and Astro's scoped `.est-lines li` never matched them: the label and the
+     price rendered as one run-on inline string, at the wrong size, with no
+     divider above the visit minimum. */
+  .est-lines > :global(li),
+  .est-total-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 16px;
+    font-size: var(--ff-size-body-sm);
+    color: var(--ff-text-body);
+  }
+
+  .est-lines > :global(li) > :global(span:last-child) {
+    white-space: nowrap;
+    font-weight: var(--ff-weight-semibold);
+    color: var(--ff-text);
+  }
+
+  .est-lines > :global(li.est-discount) :global(span) {
+    color: var(--ff-navy);
+    font-weight: var(--ff-weight-semibold);
+  }
+
+  .est-lines > :global(li.est-minimum) {
+    margin-top: 5px;
+    padding-top: 14px;
+    border-top: 1px dashed var(--ff-border-line);
+  }
+
+  .est-total-row {
+    margin-top: 14px;
+    padding-top: 14px;
+    border-top: 1px solid var(--ff-border-line);
+  }
+
+  /* display:flex above beats the UA's [hidden] { display: none }, so without
+     this the row shows an empty "Estimated total" on a quote-only job. */
+  .est-total-row[hidden] {
+    display: none;
+  }
+
+  .est-total-label {
+    font-weight: var(--ff-weight-bold);
+    color: var(--ff-text);
+  }
+
+  .est-total {
+    font-family: var(--ff-font-display);
+    font-weight: var(--ff-weight-semibold);
+    font-size: var(--ff-size-card-title);
+    color: var(--ff-navy);
+    white-space: nowrap;
+  }
+
+  .est-sub {
+    font-size: var(--ff-size-micro);
+    color: var(--ff-text-tan);
+    line-height: 1.5;
+    margin-top: 10px;
+  }
+
+  .est-quote-only {
+    margin-top: 14px;
+    padding-top: 14px;
+    border-top: 1px solid var(--ff-border-line);
+  }
+
+  .est-quote-head {
+    font-size: var(--ff-size-caption);
+    font-weight: var(--ff-weight-semibold);
+    color: var(--ff-text);
+    margin-bottom: 7px;
+  }
+
+  .est-quote-list {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+
+  .est-quote-list > :global(li) {
+    position: relative;
+    padding-left: 15px;
+    font-size: var(--ff-size-caption);
+    color: var(--ff-text-body);
+    line-height: 1.5;
+  }
+
+  .est-quote-list > :global(li)::before {
+    content: '•';
+    position: absolute;
+    left: 0;
+    color: var(--ff-navy);
+  }
+
+  .est-disclaimer {
+    font-size: var(--ff-size-micro);
+    color: var(--ff-text-tan);
+    line-height: 1.55;
+    margin: 14px 0 0;
+  }
+
   .submit-btn {
     position: relative;
     padding: 17px;
-    font-size: 19px;
+    font-size: var(--ff-size-body-lg);
     border-radius: var(--ff-radius-btn);
     margin-top: 4px;
   }

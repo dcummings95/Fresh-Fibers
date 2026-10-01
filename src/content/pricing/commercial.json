@@ -2,7 +2,7 @@
   "service": "commercial",
   "label": "Commercial Cleaning",
   "rows": [
-    { "label": "Carpet", "detail": "offices, retail, common areas — volume discounts for larger spaces confirmed at walkthrough", "price": 0.30, "unit": "/ sq ft", "approx": true },
+    { "label": "Carpet", "detail": "offices, retail, common areas, with volume discounts for larger spaces confirmed at walkthrough", "price": 0.30, "unit": "/ sq ft", "approx": true },
     { "label": "Office task chairs", "detail": "fabric desk & task chairs, per chair", "price": 15, "unit": "/ chair" },
     { "label": "Commercial tile & grout", "detail": "volume discounts on larger floors, confirmed at walkthrough", "price": 1.25, "unit": "/ sq ft" },
     { "label": "Stain-guard protector", "detail": "high-traffic areas, helps carpet stay clean longer", "price": 0.15, "unit": "/ sq ft", "addOn": true },

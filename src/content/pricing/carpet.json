@@ -8,8 +8,8 @@
     { "label": "4 room special", "detail": null, "price": 185, "unit": null },
     { "label": "5 room special", "detail": "best value", "price": 209, "unit": null },
     { "label": "Each additional room", "detail": "beyond the 5-room package, or added to a visit that already meets the $99 minimum", "price": 40, "unit": null },
-    { "label": "Stairs — half flight", "detail": "up to 8 steps", "price": 35, "unit": null },
-    { "label": "Stairs — full flight", "detail": "up to 16 steps, billed as a half or full flight", "price": 60, "unit": null },
+    { "label": "Stairs (half flight)", "detail": "up to 8 steps", "price": 35, "unit": null },
+    { "label": "Stairs (full flight)", "detail": "up to 16 steps, billed as a half or full flight", "price": 60, "unit": null },
     { "label": "Hallway or walk-in closet", "detail": "each", "price": 20, "unit": null },
     { "label": "Stain-guard protector", "detail": "per room, helps it stay clean longer", "price": 30, "unit": "/ room", "addOn": true }
   ],

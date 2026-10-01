@@ -7,7 +7,7 @@ import site from '../../content/site.json';
 import heroPhoto from '../../assets/images/Various/carpet_midway_clean_4.jpg';
 
 const title = `Service Areas | ${site.name}, Winona, MN & La Crosse, WI`;
-const description = `${site.name} cleans carpets, upholstery, and rugs in ${site.serviceAreas.length} towns across the Driftless Region — Winona and Rochester, MN, La Crosse, WI, and within ${site.serviceRadiusMiles} miles.`;
+const description = `${site.name} cleans carpets, upholstery, and rugs in ${site.serviceAreas.length} towns across the Driftless Region: Winona and Rochester, MN, La Crosse, WI, and within ${site.serviceRadiusMiles} miles.`;
 
 const stateNames = { WI: 'Wisconsin', MN: 'Minnesota' };
 const areasByState = site.serviceAreas.reduce((groups, area) => {
@@ -103,7 +103,7 @@ const areasByState = site.serviceAreas.reduce((groups, area) => {
       weight: 2,
       fillColor: '#183F8C',
       fillOpacity: 1,
-    }).addTo(map).bindPopup('Fresh Fibers home base — Winona, MN');
+    }).addTo(map).bindPopup('Fresh Fibers home base, Winona, MN');
 
     map.fitBounds(coverage.getBounds(), { padding: [12, 12] });
   }

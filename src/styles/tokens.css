@@ -120,7 +120,6 @@
   --ff-shadow-card:   var(--ff-elevation-2); /* resting cards, photos, nav bar, form card, button hover */
   --ff-shadow-hover:  var(--ff-elevation-3); /* card/tile hover, dropdown panels — no button uses this rung */
   --ff-shadow-lg:     var(--ff-elevation-4); /* strongest — reserved for modals/popovers */
-  --ff-shadow-hover-solid: var(--ff-elevation-3-strong); /* brief hover pop for solid/dark-filled buttons only */
 
   --ff-focus-ring:  0 0 0 3px rgba(11,111,184,.18); /* azure-tinted form focus ring */
 

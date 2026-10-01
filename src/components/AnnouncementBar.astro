@@ -1,11 +1,9 @@
 ---
-import site from '../content/site.json';
-
-const promo = site.promo;
+import { promo } from '../lib/promo';
 ---
 
 {promo && (
-  <div class="announcement-bar" id="announcement-bar" data-promo-end={promo.endDate}>
+  <div class="announcement-bar" id="announcement-bar">
     <div class="announcement-inner">
       <p>
         <strong>{promo.percentOff}% off</strong> your entire cleaning through {promo.endDateLabel}.
@@ -16,14 +14,11 @@ const promo = site.promo;
 )}
 
 <script>
-  // Server-rendered pages are static, so the sale doesn't disappear on its
-  // own after a rebuild — check the visitor's own clock and hide the bar
-  // once the promo end date has passed, no redeploy required.
-  const bar = document.getElementById('announcement-bar');
-  const endDate = bar?.dataset.promoEnd;
-  if (bar && endDate && new Date() > new Date(`${endDate}T23:59:59`)) {
-    bar.remove();
-  }
+  // Pages are prerendered, so the sale can't expire on its own between
+  // deploys, so check the visitor's own clock and drop the bar once it's past.
+  import { isPromoActive } from '../lib/promo';
+
+  if (!isPromoActive()) document.getElementById('announcement-bar')?.remove();
 </script>
 
 <style>

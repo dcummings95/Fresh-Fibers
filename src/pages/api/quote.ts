@@ -3,6 +3,8 @@ import { env } from 'cloudflare:workers';
 import site from '../../content/site.json';
 import { services } from '../../lib/services';
 import { estimateFields, estimateFieldName } from '../../lib/estimate-fields';
+import { calculateEstimate, MINIMUM_VISIT } from '../../lib/estimate-pricing';
+import { formatPrice } from '../../lib/format';
 import { createLead, type AdAttribution } from '../../lib/leads';
 
 const AD_ATTRIBUTION_FIELDS: (keyof AdAttribution)[] = [
@@ -58,7 +60,6 @@ export const POST: APIRoute = async ({ request }) => {
     const area = String(data.get('area') ?? '').trim();
     const bestTime = String(data.get('best_time') ?? '').trim();
     const message = String(data.get('message') ?? '').trim();
-    const promoCode = String(data.get('promo_code') ?? '').trim();
     const selectedServiceLabels = data.getAll('services').map(String);
 
     if (!name || !phone || !email || !area) {
@@ -87,6 +88,37 @@ export const POST: APIRoute = async ({ request }) => {
       if (value) adAttribution[field] = value;
     }
 
+    // Priced here rather than trusting the figure the form showed: the browser's
+    // copy is display-only and anything it posts can be edited before it lands.
+    const answers: Record<string, string> = {};
+    for (const [key, value] of data.entries()) {
+      if (typeof value === 'string') answers[key] = value;
+    }
+    const estimate = calculateEstimate(selectedServices.map((service) => service.slug), answers);
+
+    const estimateLines: string[] = [];
+    if (estimate.lines.length || estimate.quoteOnly.length) {
+      estimateLines.push('--- Estimate ---');
+      for (const line of estimate.lines) {
+        estimateLines.push(`${line.label}: ${formatPrice(line.amount)}`);
+      }
+      if (estimate.minimumApplied) {
+        estimateLines.push(`Lifted to the ${formatPrice(MINIMUM_VISIT)} visit minimum`);
+      }
+      if (estimate.discount) {
+        estimateLines.push(
+          `${estimate.discount.percentOff}% off (${estimate.discount.code}): -${formatPrice(estimate.discount.amount)}`,
+        );
+      }
+      if (estimate.lines.length) {
+        const prefix = estimate.quoteOnly.length ? 'from ' : '';
+        estimateLines.push(`ESTIMATED TOTAL: ${prefix}${formatPrice(estimate.total)}`);
+      }
+      for (const item of estimate.quoteOnly) {
+        estimateLines.push(`Needs on-site pricing: ${item}`);
+      }
+    }
+
     if (env.DB) {
       try {
         await createLead(env.DB, {
@@ -112,9 +144,9 @@ export const POST: APIRoute = async ({ request }) => {
       `Email: ${email}`,
       `Area: ${area}`,
       serviceLines.length ? `Services: ${serviceLines.join(', ')}` : null,
-      promoCode ? `Promo code: ${promoCode} (site-wide sale — apply the discount to this quote)` : null,
       bestTime ? `Best time to reach: ${bestTime}` : null,
       message ? `Details: ${message}` : null,
+      ...estimateLines,
     ].filter((line): line is string => line !== null);
 
     if (!env.EMAIL) {
@@ -124,7 +156,9 @@ export const POST: APIRoute = async ({ request }) => {
     const notification = {
       from: { email: FROM_ADDRESS, name: `${site.name} website` },
       replyTo: email,
-      subject: `New quote request: ${name}`,
+      subject: estimate.lines.length
+        ? `New quote request: ${name}, est. ${estimate.quoteOnly.length ? 'from ' : ''}${formatPrice(estimate.total)}`
+        : `New quote request: ${name}`,
       text: lines.join('\n'),
       html: `<p>${lines.map(escapeHtml).join('</p><p>')}</p>`,
     };
