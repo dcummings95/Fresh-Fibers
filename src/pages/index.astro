@@ -14,7 +14,7 @@ import augieVan from '../assets/images/Various/augie_van.jpeg';
 
 const carpetPhotos = servicePhotos.carpet;
 
-const title = `Carpet & Upholstery Cleaning | ${site.name}`;
+const title = `Carpet Cleaning in Winona, MN & La Crosse, WI | ${site.name}`;
 const description = `Owner-operated carpet, rug, and upholstery cleaning for homes around Winona, MN and La Crosse, WI. Published pricing, free estimates, and a ${site.guaranteeDays}-day guarantee.`;
 
 const avatarColors = ['var(--ff-navy-cta)', 'var(--ff-azure)', 'var(--ff-accent-on-navy)'];
@@ -29,23 +29,27 @@ const homeReviews = reviewsData
 <Base title={title} description={description} heroFlush>
   <Fragment slot="hero">
     <div class="hero-copy">
-      <div class="eyebrow accent-on-navy">Carpet &amp; upholstery cleaning</div>
+      <div class="eyebrow accent-on-navy">Carpet &amp; upholstery cleaning in Winona, MN &amp; La Crosse, WI</div>
       <h1>Cleaner carpets, <span class="accent accent-on-navy">done right.</span></h1>
       <p class="lead">
+        {/* A handful of towns, not the whole service-area list: every name in
+            here lands in the page source as one run-on string, and 39 of them
+            in the hero reads to a crawler like keyword stuffing. The full
+            list lives on /areas/, where it's real content. */}
         I'm {site.ownerName}, cleaning homes around{' '}
         <span class="location-carousel">
           <span class="location-sizer" aria-hidden="true">
-            {site.serviceAreas.map((area) => (
+            {site.heroTowns.map((area) => (
               <span class="sizer-item">{area}</span>
             ))}
           </span>
-          {site.serviceAreas.map((area, i) => (
+          {site.heroTowns.map((area, i) => (
             <span class:list={['location-item', { 'is-active': i === 0 }]}>{area}</span>
           ))}
         </span>
       </p>
       <div class="cta-row">
-        <a href="/estimate" class="btn btn-azure">Free estimate</a>
+        <a href="/estimate/" class="btn btn-azure">Free estimate</a>
         <a href={`tel:${site.phoneTel}`} class="btn btn-tertiary">Call Now</a>
       </div>
     </div>
@@ -60,16 +64,16 @@ const homeReviews = reviewsData
         <h2>What I clean</h2>
         <p>Everything gets the same careful, hand-done treatment.</p>
       </div>
-      <a href="/services" class="btn btn-tertiary">See all services <span class="arrow">→</span></a>
+      <a href="/services/" class="btn btn-tertiary">See all services <span class="arrow">→</span></a>
     </div>
     <div class="services-grid">
       {services.map((service) => (
-        <a href={`/services/${service.route}`} class="service-tile">
+        <a href={`/services/${service.route}/`} class="service-tile">
           <ServicePhoto
             slug={service.slug}
             variant="homeTile"
             label={service.photoLabel}
-            alt={`${service.navLabel} in the Driftless Region`}
+            alt={`${service.navLabel} near Winona, MN`}
             dimensions="600 × 400px"
             aspectRatio="3 / 2"
             rounded={false}
@@ -85,7 +89,7 @@ const homeReviews = reviewsData
     <Callout>
       <span class="not-sure-text">Tell me what you need and I'll help you figure it out.</span>
       <div slot="action" class="not-sure-actions">
-        <a href="/estimate" class="btn btn-primary">Free estimate</a>
+        <a href="/estimate/" class="btn btn-primary">Free estimate</a>
         <a href={`tel:${site.phoneTel}`} class="btn btn-tertiary">Call {site.phone}</a>
       </div>
     </Callout>
@@ -127,7 +131,7 @@ const homeReviews = reviewsData
           One person, and I stand behind every job. If something's not right, I'll come back and make
           it right.
         </p>
-        <a href="/about" class="on-navy-link">More about {site.name} <span class="accent-on-navy">→</span></a>
+        <a href="/about/" class="on-navy-link">More about {site.name} <span class="accent-on-navy">→</span></a>
       </div>
     </div>
   </section>
@@ -138,7 +142,7 @@ const homeReviews = reviewsData
         <h2>Before &amp; after</h2>
         <p>Drag the slider to compare. Jobs from Winona to La Crosse.</p>
       </div>
-      <a href="/work" class="btn btn-tertiary">See more work <span class="arrow">→</span></a>
+      <a href="/work/" class="btn btn-tertiary">See more work <span class="arrow">→</span></a>
     </div>
     <BeforeAfterSlider
       beforeImage={carpetPhotos.before}

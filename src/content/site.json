@@ -55,6 +55,15 @@
     "Stewartville, MN",
     "Winona, MN"
   ],
+  "heroTowns": [
+    "Winona, MN",
+    "La Crosse, WI",
+    "Onalaska, WI",
+    "Holmen, WI",
+    "La Crescent, MN",
+    "Rochester, MN",
+    "Sparta, WI"
+  ],
   "serviceAreaNote": "Roughly within 60 miles of Winona. If you're close and not on the list, just ask.",
   "mapCenter": { "lat": 44.05, "lng": -91.6393 },
   "serviceRadiusMiles": 60,

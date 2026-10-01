@@ -33,7 +33,7 @@ if (service.faq.length > 0) schema.push(buildFaqSchema(service.faq));
       theme="onNavy"
       items={[
         { label: 'Home', href: '/' },
-        { label: 'Services', href: '/services' },
+        { label: 'Services', href: '/services/' },
         { label: service.navLabel },
       ]}
     />
@@ -49,7 +49,7 @@ if (service.faq.length > 0) schema.push(buildFaqSchema(service.faq));
       )}
       <p class="lead">{service.lead}</p>
       <div class="cta-row">
-        <a href="/estimate" class="btn btn-azure">Free estimate</a>
+        <a href="/estimate/" class="btn btn-azure">Free estimate</a>
         <a href={`tel:${site.phoneTel}`} class="btn btn-tertiary">Call Now</a>
       </div>
     </div>
@@ -111,7 +111,7 @@ if (service.faq.length > 0) schema.push(buildFaqSchema(service.faq));
           <h2>See the difference</h2>
           <p>Drag the slider to compare. {service.beforeAfterCopy}</p>
         </div>
-        <a href="/work" class="btn btn-tertiary">See all before &amp; afters <span class="arrow">→</span></a>
+        <a href="/work/" class="btn btn-tertiary">See all before &amp; afters <span class="arrow">→</span></a>
       </div>
       <BeforeAfterSlider
         beforeImage={photo.before}

@@ -8,7 +8,7 @@ import { promo } from '../lib/promo';
       <p>
         <strong>{promo.percentOff}% off</strong> your entire cleaning through {promo.endDateLabel}.
       </p>
-      <a href="/estimate" class="announcement-cta">Get your free estimate →</a>
+      <a href="/estimate/" class="announcement-cta">Get your free estimate →</a>
     </div>
   </div>
 )}
@@ -18,13 +18,41 @@ import { promo } from '../lib/promo';
   // deploys, so check the visitor's own clock and drop the bar once it's past.
   import { isPromoActive } from '../lib/promo';
 
-  if (!isPromoActive()) document.getElementById('announcement-bar')?.remove();
+  const bar = document.getElementById('announcement-bar');
+
+  if (!isPromoActive()) {
+    bar?.remove();
+  } else if (bar) {
+    // iOS Safari tints its top chrome from the sticky header's declared
+    // background-color (iOS 26) or from the theme-color meta (earlier
+    // versions). Neither knows this navy bar — not the pale header — is the
+    // element actually at the top edge, so the Dynamic Island area painted
+    // pale blue directly above dark navy: a hard, ugly seam. Point both at
+    // the bar's own color while it is on screen, and hand the pale band back
+    // once it has scrolled away and the header is the top edge again.
+    const sticky = document.querySelector('.header-sticky');
+    const metas = [...document.querySelectorAll<HTMLMetaElement>('meta[name="theme-color"]')].map(
+      (meta) => ({ meta, band: meta.content }),
+    );
+    const promoTint = getComputedStyle(bar).backgroundColor;
+
+    new IntersectionObserver(([entry]) => {
+      const atTop = entry.isIntersecting;
+      sticky?.classList.toggle('header-sticky--promo-tint', atTop);
+      for (const { meta, band } of metas) meta.content = atTop ? promoTint : band;
+    }).observe(bar);
+  }
 </script>
 
 <style>
   .announcement-bar {
     background: var(--ff-navy-cta);
     color: var(--ff-on-navy);
+    /* Topmost element on the page, so it owns the notch / Dynamic Island
+       inset: the header below it can't pad for an edge it doesn't touch,
+       and without this the promo copy sits under the island on any device
+       that reports a real inset. */
+    padding-top: env(safe-area-inset-top);
   }
 
   .announcement-inner {

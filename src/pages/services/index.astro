@@ -21,7 +21,7 @@ const description =
       <h1>One person, one truck, <span class="accent accent-on-navy">done right.</span></h1>
       <p class="lead">No rotating crews, no upsells, just an honest job, priced upfront.</p>
       <div class="cta-row">
-        <a href="/estimate" class="btn btn-azure">Free estimate</a>
+        <a href="/estimate/" class="btn btn-azure">Free estimate</a>
         <a href={`tel:${site.phoneTel}`} class="btn btn-tertiary">Call Now</a>
       </div>
     </div>
@@ -34,7 +34,7 @@ const description =
     <div class="cards-grid">
       {services.map((service) => (
         <ServiceCard
-          href={`/services/${service.route}`}
+          href={`/services/${service.route}/`}
           slug={service.slug}
           title={service.navLabel}
           description={service.cardDescription}

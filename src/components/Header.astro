@@ -19,22 +19,29 @@ interface NavItem {
 
 const navItems: NavItem[] = [
   {
-    href: '/services',
+    href: '/services/',
     label: 'Services',
-    dropdown: services.map((s) => ({ href: `/services/${s.route}`, label: s.navLabel })),
+    dropdown: services.map((s) => ({ href: `/services/${s.route}/`, label: s.navLabel })),
     viewAllLabel: 'All services',
   },
-  { href: '/pricing', label: 'Pricing' },
-  { href: '/areas', label: 'Service Areas' },
-  { href: '/about', label: 'About' },
+  { href: '/pricing/', label: 'Pricing' },
+  { href: '/areas/', label: 'Service Areas' },
+  { href: '/about/', label: 'About' },
   { href: '/reviews', label: 'Reviews' },
 ];
 
+// Internal links carry a trailing slash, since that's the URL the host
+// actually serves for a prerendered page, but the on-demand routes
+// (/reviews) have none — so compare with the slash stripped off both sides.
+const stripSlash = (p: string) => (p.length > 1 ? p.replace(/\/$/, '') : p);
+
 function isActive(href: string, path: string) {
-  if (href === '/services' || href === '/areas') {
-    return path === href || path.startsWith(`${href}/`);
+  const h = stripSlash(href);
+  const p = stripSlash(path);
+  if (h === '/services' || h === '/areas') {
+    return p === h || p.startsWith(`${h}/`);
   }
-  return path === href;
+  return p === h;
 }
 ---
 
@@ -97,7 +104,7 @@ function isActive(href: string, path: string) {
             <div class="dropdown" id={`nav-dropdown-${index}`}>
               <div class="dropdown-inner">
                 {item.dropdown.map((sub) => (
-                  <a href={sub.href} class:list={{ active: currentPath === sub.href }}>
+                  <a href={sub.href} class:list={{ active: stripSlash(currentPath) === stripSlash(sub.href) }}>
                     {sub.label}
                   </a>
                 ))}
@@ -114,7 +121,7 @@ function isActive(href: string, path: string) {
         )
       )}
       <a href={`tel:${site.phoneTel}`} class="phone">{site.phone}</a>
-      <a href="/estimate" class="btn btn-primary btn-pill">Free estimate</a>
+      <a href="/estimate/" class="btn btn-primary btn-pill">Free estimate</a>
     </div>
   </nav>
 </header>

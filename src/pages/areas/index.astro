@@ -7,7 +7,7 @@ import site from '../../content/site.json';
 import heroPhoto from '../../assets/images/Various/carpet_midway_clean_4.jpg';
 
 const title = `Service Areas | ${site.name}, Winona, MN & La Crosse, WI`;
-const description = `${site.name} cleans carpets, upholstery, and rugs in ${site.serviceAreas.length} towns across the Driftless Region: Winona and Rochester, MN, La Crosse, WI, and within ${site.serviceRadiusMiles} miles.`;
+const description = `${site.name} cleans carpets, upholstery, and rugs in ${site.serviceAreas.length} towns across southeast Minnesota and western Wisconsin, including Winona and Rochester, MN and La Crosse and Onalaska, WI, within ${site.serviceRadiusMiles} miles of Winona.`;
 
 const stateNames = { WI: 'Wisconsin', MN: 'Minnesota' };
 const areasByState = site.serviceAreas.reduce((groups, area) => {
@@ -25,7 +25,7 @@ const areasByState = site.serviceAreas.reduce((groups, area) => {
       <h1>Serving the river valley, <span class="accent accent-on-navy">bluff to bluff.</span></h1>
       <p class="lead">{site.serviceAreaNote}</p>
       <div class="cta-row">
-        <a href="/estimate" class="btn btn-azure">Free estimate</a>
+        <a href="/estimate/" class="btn btn-azure">Free estimate</a>
         <a href={`tel:${site.phoneTel}`} class="btn btn-tertiary">Call Now</a>
       </div>
     </div>
@@ -60,7 +60,7 @@ const areasByState = site.serviceAreas.reduce((groups, area) => {
     ))}
     <p class="coverage-note">
       I clean regularly in all of the towns above. If you're nearby and don't see your town listed,{' '}
-      <a href="/estimate">just ask</a>, chances are I already cover it.
+      <a href="/estimate/">just ask</a>, chances are I already cover it.
     </p>
   </section>
 

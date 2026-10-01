@@ -6,9 +6,9 @@ interface Props {
 const { current } = Astro.props;
 
 const hubs = [
-  { key: 'services', href: '/services', label: 'Browse all services' },
-  { key: 'pricing', href: '/pricing', label: 'See published pricing' },
-  { key: 'areas', href: '/areas', label: 'Where I work' },
+  { key: 'services', href: '/services/', label: 'Browse all services' },
+  { key: 'pricing', href: '/pricing/', label: 'See published pricing' },
+  { key: 'areas', href: '/areas/', label: 'Where I work' },
 ] as const;
 
 const links = hubs.filter((h) => h.key !== current);

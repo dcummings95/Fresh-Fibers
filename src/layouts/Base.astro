@@ -12,11 +12,23 @@ interface Props {
   structuredData?: Record<string, unknown> | Record<string, unknown>[];
   heroFlush?: boolean;
   noindex?: boolean;
+  /** Path under /public for this page's share image. Defaults to the van shot. */
+  ogImage?: string;
+  ogImageAlt?: string;
 }
 
-const { title, description, structuredData, heroFlush = false, noindex = false } = Astro.props;
+const {
+  title,
+  description,
+  structuredData,
+  heroFlush = false,
+  noindex = false,
+  ogImage = '/og-image.jpg',
+  ogImageAlt = `The ${site.name} van`,
+} = Astro.props;
 
 const canonicalURL = new URL(Astro.url.pathname, site.url).toString();
+const ogImageURL = new URL(ogImage, site.url).toString();
 const localBusinessSchema = buildLocalBusinessSchema();
 const extraSchemas = structuredData ? (Array.isArray(structuredData) ? structuredData : [structuredData]) : [];
 ---
@@ -45,11 +57,12 @@ const extraSchemas = structuredData ? (Array.isArray(structuredData) ? structure
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonicalURL} />
     <meta property="og:site_name" content={site.name} />
-    <meta property="og:image" content={new URL('/web-app-manifest-512x512.png', site.url).toString()} />
-    <meta property="og:image:width" content="512" />
-    <meta property="og:image:height" content="512" />
-    <meta property="og:image:alt" content={`${site.name} logo`} />
-    <meta name="twitter:card" content="summary" />
+    <meta property="og:image" content={ogImageURL} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={ogImageAlt} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:image" content={ogImageURL} />
 
     <script is:inline type="application/ld+json" set:html={JSON.stringify(localBusinessSchema)} />
     {extraSchemas.map((schema) => (
@@ -152,6 +165,22 @@ const extraSchemas = structuredData ? (Array.isArray(structuredData) ? structure
     z-index: 15;
     background: var(--ff-band-blue);
     padding-top: env(safe-area-inset-top);
+  }
+
+  /* With a promo bar above it this element no longer touches the top of the
+     screen, so the inset belongs to the bar instead (see AnnouncementBar).
+     :has() re-evaluates when the bar's own script removes it after the sale
+     ends, handing the inset straight back. */
+  body:has(#announcement-bar) .header-sticky {
+    padding-top: 0;
+  }
+
+  /* Sampling hook only: .site-header paints its own --ff-surface over this
+     element edge to edge, so nothing here is ever visible on screen. The bar's
+     script switches it on while the navy promo bar is the real top edge, so
+     Safari tints its toolbar navy to match instead of pale blue. */
+  .header-sticky--promo-tint {
+    background: var(--ff-navy-cta);
   }
 
   /* Grows to absorb leftover space so the footer lands on the real
