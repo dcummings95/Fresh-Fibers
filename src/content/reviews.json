@@ -1,9 +1,23 @@
 {
   "placeholder": false,
-  "note": "Hardcoded from real Google reviews (captured 2026-09-29 from the Business Profile). 'date' is the review's actual post date (ISO), derived from Google's relative timestamps — the 'when' label is formatted from it at render time as an absolute date (e.g. 'Sep 23, 2026'). Where 'date' is unknown, 'when' is a literal string. Both the homepage top-3 teaser and /reviews sort newest-first by 'date'; every review is eligible for both. Switch to the live Featurable feed by setting featurableWidgetId in site.json; this file then serves only as the offline fallback when Featurable is unreachable.",
+  "note": "Hardcoded from real Google reviews (captured from the Business Profile 2026-09-29, last updated 2026-10-30). 'date' is the review's actual post date (ISO), derived from Google's relative timestamps — the 'when' label is formatted from it at render time as an absolute date (e.g. 'Sep 23, 2026'). Where 'date' is unknown, 'when' is a literal string. Both the homepage top-3 teaser and /reviews sort newest-first by 'date'; every review is eligible for both. Switch to the live Featurable feed by setting featurableWidgetId in site.json; this file then serves only as the offline fallback when Featurable is unreachable.",
   "aggregateRating": 5.0,
-  "totalCount": 8,
+  "totalCount": 10,
   "reviews": [
+    {
+      "name": "Johanna Pralle",
+      "date": "2026-10-30",
+      "when": "recently",
+      "rating": 5,
+      "text": "Augie was a delight to work with. He understood our concerns with certain areas and really made them look nice, including the upholstery he cleaned for us. Thank you, Augie!"
+    },
+    {
+      "name": "Lori Kramer",
+      "date": "2026-10-23",
+      "when": "recently",
+      "rating": 5,
+      "text": "Augie was timely and did a very good job. Very professional."
+    },
     {
       "name": "Melanie Voelker",
       "date": "2026-08-30",
