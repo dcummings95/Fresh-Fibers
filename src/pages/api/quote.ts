@@ -26,7 +26,7 @@ const NOTIFICATION_TO_ADDRESSES = ['freshfibersllc@gmail.com', 'freshfibersdev@g
 const TURNSTILE_ACTION = 'quote_request';
 const ALLOWED_HOSTNAMES = new Set(['getfreshfibers.com', 'dev.getfreshfibers.com', 'localhost', '127.0.0.1']);
 
-export const POST: APIRoute = async ({ request }) => {
+export const POST: APIRoute = async ({ request, locals }) => {
   try {
     const data = await request.formData();
 
@@ -119,26 +119,6 @@ export const POST: APIRoute = async ({ request }) => {
       }
     }
 
-    if (env.DB) {
-      try {
-        await createLead(env.DB, {
-          name,
-          phone,
-          email,
-          area,
-          servicesRequested: selectedServices.map((service) => service.navLabel),
-          serviceDetails,
-          bestTime,
-          message,
-          adAttribution,
-          ipAddress: ip,
-          estimate: toLeadEstimate(estimate),
-        });
-      } catch (err) {
-        console.error('failed to persist lead', err);
-      }
-    }
-
     const lines = [
       `Name: ${name}`,
       `Phone: ${phone}`,
@@ -164,19 +144,45 @@ export const POST: APIRoute = async ({ request }) => {
       html: `<p>${lines.map(escapeHtml).join('</p><p>')}</p>`,
     };
 
-    // Send to each recipient independently so a delivery failure to one
-    // inbox (e.g. an address that isn't a verified destination yet) doesn't
-    // stop the notification reaching the others.
-    const sends = await Promise.allSettled(
+    // The two sends are the slowest part of this request and nothing in the
+    // response depends on them, so they run to completion after the response
+    // goes out instead of making the visitor watch the spinner for them. Each
+    // recipient is sent to independently so a delivery failure to one inbox
+    // (e.g. an address that isn't a verified destination yet) doesn't stop the
+    // notification reaching the others; failures land in the Worker logs.
+    const sends = Promise.allSettled(
       NOTIFICATION_TO_ADDRESSES.map((to) => env.EMAIL.send({ to, ...notification })),
-    );
-    for (const result of sends) {
-      if (result.status === 'rejected') {
-        console.error('quote notification send failed', result.reason);
+    ).then((results) => {
+      for (const result of results) {
+        if (result.status === 'rejected') {
+          console.error('quote notification send failed', result.reason);
+        }
       }
-    }
-    if (sends.every((result) => result.status === 'rejected')) {
-      return jsonResponse({ success: false, message: 'Something went wrong. Please call or text instead.' }, 500);
+    });
+    await runAfterResponse(locals.cfContext, sends);
+
+    // Still awaited: the lead row is this submission's durable record, so
+    // "success" shouldn't be reported before it has been written. It's one
+    // same-platform query and it overlaps the notifications above. A failure
+    // is logged rather than returned, since the email still gets through.
+    if (env.DB) {
+      try {
+        await createLead(env.DB, {
+          name,
+          phone,
+          email,
+          area,
+          servicesRequested: selectedServices.map((service) => service.navLabel),
+          serviceDetails,
+          bestTime,
+          message,
+          adAttribution,
+          ipAddress: ip,
+          estimate: toLeadEstimate(estimate),
+        });
+      } catch (err) {
+        console.error('failed to persist lead', err);
+      }
     }
 
     return jsonResponse({ success: true });
@@ -185,6 +191,20 @@ export const POST: APIRoute = async ({ request }) => {
     return jsonResponse({ success: false, message: 'Something went wrong. Please call or text instead.' }, 500);
   }
 };
+
+/**
+ * Lets slow side work finish after the response instead of inside the
+ * visitor's wait. Falls back to awaiting the task when there's no execution
+ * context to hand it to, since a dropped promise would lose the email
+ * silently, and a slow form beats a quote request nobody is told about.
+ */
+async function runAfterResponse(ctx: ExecutionContext | undefined, task: Promise<unknown>): Promise<void> {
+  if (typeof ctx?.waitUntil === 'function') {
+    ctx.waitUntil(task);
+    return;
+  }
+  await task;
+}
 
 /** Pricing works in dollars; the CRM stores integer cents. Convert once, here. */
 function toLeadEstimate(estimate: EstimateResult): LeadEstimate | null {

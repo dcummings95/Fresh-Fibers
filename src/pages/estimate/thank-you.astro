@@ -3,13 +3,8 @@ import Base from '../../layouts/Base.astro';
 import Breadcrumb from '../../components/Breadcrumb.astro';
 import site from '../../content/site.json';
 
-export const prerender = false;
-
 const title = `Request received | ${site.name}, Winona, MN`;
 const description = `Your free estimate request has been sent to ${site.name}.`;
-
-const rawName = Astro.url.searchParams.get('name')?.trim() ?? '';
-const firstName = rawName.slice(0, 40);
 ---
 
 <Base title={title} description={description} heroFlush noindex>
@@ -20,7 +15,18 @@ const firstName = rawName.slice(0, 40);
     />
     <div class="hero-copy">
       <div class="eyebrow accent-on-navy">Request received</div>
-      <h1>Got it, thanks<span class="accent accent-on-navy">{firstName ? `, ${firstName}!` : '!'}</span></h1>
+      <h1>Got it, thanks<span class="accent accent-on-navy" data-greeting-name>!</span></h1>
+      <script is:inline>
+        // Inline, right after the heading, so the name is in place before
+        // first paint. textContent, never HTML: this is a query param.
+        (function () {
+          try {
+            var name = (new URLSearchParams(window.location.search).get('name') || '').trim().slice(0, 40);
+            var slot = document.querySelector('[data-greeting-name]');
+            if (name && slot) slot.textContent = ', ' + name + '!';
+          } catch (err) {}
+        })();
+      </script>
       <p class="lead">
         Your request came through. I'll look it over and text or call you back with an honest estimate,
         usually within a few hours during business hours.
