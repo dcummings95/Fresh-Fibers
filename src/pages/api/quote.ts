@@ -3,9 +3,9 @@ import { env } from 'cloudflare:workers';
 import site from '../../content/site.json';
 import { services } from '../../lib/services';
 import { estimateFields, estimateFieldName } from '../../lib/estimate-fields';
-import { calculateEstimate, MINIMUM_VISIT } from '../../lib/estimate-pricing';
+import { calculateEstimate, MINIMUM_VISIT, type EstimateResult } from '../../lib/estimate-pricing';
 import { formatPrice } from '../../lib/format';
-import { createLead, type AdAttribution } from '../../lib/leads';
+import { createLead, type AdAttribution, type LeadEstimate } from '../../lib/leads';
 
 const AD_ATTRIBUTION_FIELDS: (keyof AdAttribution)[] = [
   'gclid',
@@ -132,6 +132,7 @@ export const POST: APIRoute = async ({ request }) => {
           message,
           adAttribution,
           ipAddress: ip,
+          estimate: toLeadEstimate(estimate),
         });
       } catch (err) {
         console.error('failed to persist lead', err);
@@ -184,6 +185,26 @@ export const POST: APIRoute = async ({ request }) => {
     return jsonResponse({ success: false, message: 'Something went wrong. Please call or text instead.' }, 500);
   }
 };
+
+/** Pricing works in dollars; the CRM stores integer cents. Convert once, here. */
+function toLeadEstimate(estimate: EstimateResult): LeadEstimate | null {
+  if (!estimate.lines.length && !estimate.quoteOnly.length) return null;
+  const cents = (dollars: number) => Math.round(dollars * 100);
+  return {
+    lines: estimate.lines.map((line) => ({ label: line.label, amount_cents: cents(line.amount) })),
+    quote_only: estimate.quoteOnly,
+    subtotal_cents: cents(estimate.subtotal),
+    minimum_applied: estimate.minimumApplied,
+    discount: estimate.discount
+      ? {
+          code: estimate.discount.code,
+          percent_off: estimate.discount.percentOff,
+          amount_cents: cents(estimate.discount.amount),
+        }
+      : null,
+    total_cents: cents(estimate.total),
+  };
+}
 
 function jsonResponse(body: unknown, status = 200): Response {
   return new Response(JSON.stringify(body), {
